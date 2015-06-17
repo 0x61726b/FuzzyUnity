@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ButtonLane : MonoBehaviour {
+public class LaneSprite : MonoBehaviour {
 
     public int Left;
     public int Right;

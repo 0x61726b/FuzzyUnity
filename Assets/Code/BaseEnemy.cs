@@ -5,15 +5,28 @@ public class BaseEnemy : MonoBehaviour
 {
     public float XSpeed = -0.3f;
 	// Use this for initialization
+    private Logic.GameState m_eState;
 	void Start ()
     {
-	
+	    
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //Base Movement
-        transform.Translate(new Vector3(XSpeed, 0, 0));
+       
+        if (m_eState == Logic.GameState.OnGoing)
+        {
+            //Base Movement
+            transform.Translate(new Vector3(XSpeed, 0, 0));
+
+            //Dead Zone
+            if (transform.position.x < -25)
+                DestroyObject(gameObject);
+        }
 	}
+    public void UpdateGameState(Logic.GameState state)
+    {
+        m_eState = state;
+    }
 }

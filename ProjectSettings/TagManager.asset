@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fuzzy
   - Enemy
+  - FormationButton
   layers:
   - Default
   - TransparentFX

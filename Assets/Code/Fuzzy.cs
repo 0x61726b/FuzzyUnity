@@ -8,19 +8,23 @@ public class Fuzzy : MonoBehaviour
     public int CurrentLane;
     private int m_iOtherFuzzyLane;
     private Vector2 m_vSpring;
+
+    private Logic.GameState m_eState;
     // Use this for initialization
     void Start()
     {
         m_vSpring = new Vector2(transform.position.z, 0);
 
-
     }
-
+    public void UpdateGameState(Logic.GameState state)
+    {
+        m_eState = state;
+    }
     // Update is called once per frame
     void Update()
     {
-
-        LaneSwitch();
+        if(m_eState == Logic.GameState.OnGoing)
+            LaneSwitch(); 
     }
     public void FindOtherFuzzy()
     {
@@ -66,6 +70,7 @@ public class Fuzzy : MonoBehaviour
     }
     public void OnCollisionEnter(Collision c)
     {
-        Debug.Log("Game Over");
+        m_eState = Logic.GameState.Over;
+        GameObject.Find("Logic").SendMessage("SetGameState", m_eState);
     }
 }
