@@ -24,6 +24,10 @@ public class BaseEnemy : MonoBehaviour
             if (transform.position.x < -25)
                 DestroyObject(gameObject);
         }
+        if( m_eState == Logic.GameState.Over )
+        {
+            this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
 	}
     public void UpdateGameState(Logic.GameState state)
     {

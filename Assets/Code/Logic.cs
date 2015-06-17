@@ -3,17 +3,9 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-
-
 public class Logic : MonoBehaviour
 {
-    public LaneSprite LeftSprite;
-    public LaneSprite CenterSprite;
-    public LaneSprite RightSprite;
 
-    public Material LeftMaterial;
-    public Material CenterMaterial;
-    public Material RightMaterial;
 
     public Fuzzy LeftFuzzy;
     public Fuzzy RightFuzzy;
@@ -21,9 +13,13 @@ public class Logic : MonoBehaviour
     public BaseEnemy cBaseEnemy;
 
     public GameObject SpawnPoint;
-
+    private Vector3 InitialSpawnPoint;
     private float totalTime;
 
+    private int CURRENT_BUTTON_COUNT = 3;
+
+    private List<GameObject> m_vCurrentEnemyList;
+    private List<int> m_iCurrentLaneList;
     public enum GameState
     {
         NotStarted,
@@ -34,11 +30,17 @@ public class Logic : MonoBehaviour
     private GameState m_eState;
 
     // Use this for initialization
-    void Start()
+    public void Start()
     {
-        SpawnEnemyLogic();
+
 
         m_eState = GameState.OnGoing;
+
+        m_vCurrentEnemyList = new List<GameObject>();
+        m_iCurrentLaneList = new List<int>();
+
+        SpawnEnemyLogic();
+        DetermineRightFormation(m_iCurrentLaneList);
 
     }
     public void InputListener()
@@ -90,54 +92,51 @@ public class Logic : MonoBehaviour
                 SpawnEnemyLogic();
             }
             InputListener();
+
+            m_vCurrentEnemyList.Clear();
+            GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
+
+            for (int i = 0; i < list.Length; i++)
+            {
+                m_vCurrentEnemyList.Add(list[i]);
+            }
+        }
+    }
+    void EnemyDeadZone()
+    {
+        
+        if (m_vCurrentEnemyList[0].transform.position.x < -20)
+        {
+            DetermineRightFormation(m_iCurrentLaneList);
         }
     }
     void SpawnEnemyLogic()
     {
         int LaneCntDecider = Random.Range(2, 4);
 
-        int prevLane = -1;
-        List<int> laneList = new List<int>();
+        List<int> Lanes = GenerateRandomLanes(LaneCntDecider);
 
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < Lanes.Count; i++)
         {
-            laneList.Add(0);
-        }
-        for (int i = 0; i < LaneCntDecider; i++)
-        {
-            //Enemy to spawn
-            Vector3 BasePosition = SpawnPoint.transform.position;
-
-            int LaneCount = 0;
-
-            int Lane = Random.Range(1, 6);
-
-            while (Lane == prevLane)
+            if (Lanes[i] == 1)
             {
-                Lane = Random.Range(1, 6);
+                Vector3 BasePosition = SpawnPoint.transform.position;
+                BasePosition.z = (i) * (-1.5f);
+                Object g = Instantiate(cBaseEnemy, BasePosition, new Quaternion());
+                g.name = "Enemy at " + i.ToString();
             }
-            laneList[Lane - 1] = 1;
-
-            BasePosition.z = (Lane - 1) * (-1.5f);
-            GameObject g = Instantiate(cBaseEnemy, BasePosition, new Quaternion()) as GameObject;
-
-
-
-            LaneCount++;
-
-            prevLane = Lane;
         }
+
+        m_iCurrentLaneList = Lanes;
+
         GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
 
         for (int i = 0; i < list.Length; i++)
         {
-            Physics.IgnoreCollision(list[i].GetComponent<BoxCollider>(), LeftSprite.GetComponent<Collider>());
-            Physics.IgnoreCollision(list[i].GetComponent<BoxCollider>(), CenterSprite.GetComponent<Collider>());
-            Physics.IgnoreCollision(list[i].GetComponent<BoxCollider>(), RightSprite.GetComponent<Collider>());
+            m_vCurrentEnemyList.Add(list[i]);
         }
 
-        DetermineRightFormation(laneList);
     }
     public void DetermineRightFormation(List<int> laneList)
     {
@@ -154,7 +153,7 @@ public class Logic : MonoBehaviour
             int c = 0;
             for (int i = 0; i < laneList.Count; i++)
             {
-                
+
                 if (laneList[i] == 1)
                 {
                     possibleFormation[i] = 0;
@@ -192,29 +191,92 @@ public class Logic : MonoBehaviour
             }
         }
 
-        int ChooseCorrectButton = Random.Range(1, 3);
-        Debug.Log(ChooseCorrectButton);
-        if (ChooseCorrectButton == 1)
+        int ChooseCorrectButton = Random.Range(1, CURRENT_BUTTON_COUNT + 1);
+
+        Texture TextureToSet;
+        GameObject CorrectButton;
+
+        Texture t = Resources.Load(Formation.ToString()) as Texture;
+        TextureToSet = t;
+        CorrectButton = GameObject.Find("Formation" + ChooseCorrectButton) as GameObject;
+
+        CorrectButton.GetComponent<Renderer>().material.mainTexture = t;
+        CorrectButton.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
+        CorrectButton.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]);
+
+
+        //NOTE TO SELF : DEBUG THIS SHIT
+        //List<int> buttonIndices = new List<int>();
+        //for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
+        //    buttonIndices.Add(0);
+        //buttonIndices[ChooseCorrectButton] = 1;
+
+        //List<GameObject> OtherButtons = new List<GameObject>();
+        //for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
+        //{
+        //    if (buttonIndices[i] == 0)
+        //        OtherButtons.Add(GameObject.Find("Formation" + i) as GameObject);
+        //}
+        
+        ////Change other buttons iamges
+        //for (int i = 0; i < OtherButtons.Count; i++)
+        //{
+        //    //Decide random lane
+        //    List<int> lanes = GenerateRandomLanes(2);
+        //    bool ffirst = false;
+
+        //    System.Text.StringBuilder NewFormation = new System.Text.StringBuilder();
+        //    for (int j = 0; j < lanes.Count; j++)
+        //    {
+        //        if (lanes[j] == 1 && ffirst)
+        //        {
+        //            NewFormation.Append("-");
+        //        }
+        //        if (lanes[i] == 1)
+        //        {
+        //            ffirst = true;
+        //            NewFormation.Append(i + 1);
+        //        }
+        //    }
+        //    Debug.Log(NewFormation.ToString());
+        //}
+    }
+
+    public List<int> GenerateRandomLanes(int laneCount)
+    {
+        List<int> Lanes = new List<int>();
+        List<int> LaneList = new List<int>();
+
+        for (int i = 0; i < 5; i++)
+            LaneList.Add(0);
+
+        for (int i = 0; i < laneCount; i++)
         {
-            Texture t = Resources.Load(Formation.ToString()) as Texture;
-            LeftMaterial.mainTexture = t;
-            LeftSprite.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
-            LeftSprite.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]); 
+            int Lane = Random.Range(1, 6);
+
+
+            bool contains = false;
+
+            for (int j = 0; j < Lanes.Count; j++)
+            {
+                if (Lanes[j] == Lane)
+                    contains = true;
+            }
+            while (contains)
+            {
+                Lane = Random.Range(1, 6);
+
+                contains = false;
+                for (int j = 0; j < Lanes.Count; j++)
+                {
+                    if (Lanes[j] == Lane)
+                        contains = true;
+                }
+            }
+            LaneList[Lane - 1] = 1;
         }
-        if (ChooseCorrectButton == 2)
-        {
-            Texture t = Resources.Load(Formation.ToString()) as Texture;
-            CenterMaterial.mainTexture = t;
-            CenterSprite.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
-            CenterSprite.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]); 
-        }
-        if (ChooseCorrectButton == 3)
-        {
-            Texture t = Resources.Load(Formation.ToString()) as Texture;
-            RightMaterial.mainTexture = t;
-            RightSprite.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
-            RightSprite.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]); 
-        }
+
+        return LaneList;
     }
     public List<int> GetLanes(List<int> l)
     {
@@ -246,6 +308,5 @@ public class Logic : MonoBehaviour
                 list[i].SendMessage("UpdateGameState", m_eState);
             }
         }
-
     }
 }

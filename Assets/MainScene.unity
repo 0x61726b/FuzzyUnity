@@ -114,9 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f994c24c10bc3749b42dfe4b3fa2ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LeftSprite: {fileID: 1818707770}
-  CenterSprite: {fileID: 1405485283}
-  RightSprite: {fileID: 622346077}
   LeftFuzzy: {fileID: 344098310}
   RightFuzzy: {fileID: 894327560}
   cBaseEnemy: {fileID: 11429400, guid: 09908c97db09557468f7d3649311cd0a, type: 2}
@@ -189,12 +186,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &622346077 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11442946, guid: d09a5fdd6c2ba8048844b8848cb41d2c,
-    type: 2}
-  m_PrefabInternal: {fileID: 2095491596}
-  m_Script: {fileID: 11500000, guid: 05dc69fecec29354b975621a02b04537, type: 3}
 --- !u!114 &894327560 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b,
@@ -331,12 +322,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 6565196, guid: d09a5fdd6c2ba8048844b8848cb41d2c, type: 2}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2376594, guid: d09a5fdd6c2ba8048844b8848cb41d2c, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a268e26b50eef9841a17907d5e3766c3, type: 2}
+      objectReference: {fileID: 2100000, guid: 7b2e25d052644ce448608446b1418be7, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d09a5fdd6c2ba8048844b8848cb41d2c, type: 2}
   m_IsPrefabParent: 0
@@ -541,16 +532,14 @@ Prefab:
     - target: {fileID: 2376594, guid: d09a5fdd6c2ba8048844b8848cb41d2c, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0632fbe2fb4344447b11a083a957ca94, type: 2}
+      objectReference: {fileID: 2100000, guid: 7b2e25d052644ce448608446b1418be7, type: 2}
+    - target: {fileID: 6565196, guid: d09a5fdd6c2ba8048844b8848cb41d2c, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d09a5fdd6c2ba8048844b8848cb41d2c, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1405485283 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11442946, guid: d09a5fdd6c2ba8048844b8848cb41d2c,
-    type: 2}
-  m_PrefabInternal: {fileID: 1009961871}
-  m_Script: {fileID: 11500000, guid: 05dc69fecec29354b975621a02b04537, type: 3}
 --- !u!1 &1632194701
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,7 +589,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1632194701}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -684,12 +673,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
---- !u!114 &1818707770 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11442946, guid: d09a5fdd6c2ba8048844b8848cb41d2c,
-    type: 2}
-  m_PrefabInternal: {fileID: 1241439251}
-  m_Script: {fileID: 11500000, guid: 05dc69fecec29354b975621a02b04537, type: 3}
 --- !u!1 &1850655480
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +701,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 462996cad8530924d94a84d92c30a0ef, type: 2}
+  - {fileID: 2100000, guid: 83b4bfa776decbf4cb1ed6bb4fc1a8a1, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -801,18 +784,6 @@ Prefab:
     - target: {fileID: 456292, guid: d09a5fdd6c2ba8048844b8848cb41d2c, type: 2}
       propertyPath: m_RootOrder
       value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 11442946, guid: d09a5fdd6c2ba8048844b8848cb41d2c, type: 2}
-      propertyPath: Left
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11442946, guid: d09a5fdd6c2ba8048844b8848cb41d2c, type: 2}
-      propertyPath: Right
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6565196, guid: d09a5fdd6c2ba8048844b8848cb41d2c, type: 2}
-      propertyPath: m_IsTrigger
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d09a5fdd6c2ba8048844b8848cb41d2c, type: 2}
