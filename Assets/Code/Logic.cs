@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 
+
 public class Logic : MonoBehaviour
 {
     public LaneSprite LeftSprite;
@@ -195,18 +196,24 @@ public class Logic : MonoBehaviour
         Debug.Log(ChooseCorrectButton);
         if (ChooseCorrectButton == 1)
         {
-            Texture t = Resources.Load("1-4") as Texture;
+            Texture t = Resources.Load(Formation.ToString()) as Texture;
             LeftMaterial.mainTexture = t;
+            LeftSprite.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
+            LeftSprite.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]); 
         }
         if (ChooseCorrectButton == 2)
         {
-            Texture t = Resources.Load("1-4") as Texture;
-            LeftMaterial.mainTexture = t;
+            Texture t = Resources.Load(Formation.ToString()) as Texture;
+            CenterMaterial.mainTexture = t;
+            CenterSprite.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
+            CenterSprite.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]); 
         }
         if (ChooseCorrectButton == 3)
         {
-            Texture t = Resources.Load("1-4") as Texture;
-            LeftMaterial.mainTexture = t;
+            Texture t = Resources.Load(Formation.ToString()) as Texture;
+            RightMaterial.mainTexture = t;
+            RightSprite.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
+            RightSprite.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]); 
         }
     }
     public List<int> GetLanes(List<int> l)
