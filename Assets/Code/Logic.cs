@@ -11,6 +11,10 @@ public class Logic : MonoBehaviour {
     public Fuzzy LeftFuzzy;
     public Fuzzy RightFuzzy;
 
+    public BaseEnemy cBaseEnemy;
+
+    public GameObject SpawnPoint;
+
     private float totalTime;
 
 	// Use this for initialization
@@ -19,6 +23,8 @@ public class Logic : MonoBehaviour {
         LeftButton.onClick.AddListener(() => OnClick(1,5));
         CenterButton.onClick.AddListener(() => OnClick(3,4));
         RightButton.onClick.AddListener(() => OnClick(2,4));
+
+        SpawnEnemyLogic();
 	}
     void OnClick(int left,int right)
     {
@@ -37,19 +43,45 @@ public class Logic : MonoBehaviour {
         btn.image.sprite = Sprite.Create(sprites, btn.image.sprite.rect, btn.image.sprite.pivot);
         
     }
+
+
 	// Update is called once per frame
 	void Update ()
     {
         totalTime += Time.deltaTime;
 
-        if (totalTime >= 5)
+        if (totalTime >= 3)
         {
             totalTime = 0;
 
-            ChangeButton(LeftButton, 3, 5);
-            ChangeButton(RightButton, 2,4);
-            ChangeButton(CenterButton, 1,3);
+            SpawnEnemyLogic();
         }
-	
 	}
+    void SpawnEnemyLogic()
+    {
+        int LaneCntDecider = Random.Range(2, 4);
+
+        int prevLane = -1;
+        
+        for (int i = 0; i < LaneCntDecider; i++)
+        {
+            //Enemy to spawn
+            Vector3 BasePosition = SpawnPoint.transform.position;
+
+            int LaneCount = 0;
+
+            int Lane = Random.Range(1, 6);
+            
+            while (Lane == prevLane)
+            {
+                Lane = Random.Range(1, 6);
+            }
+            BasePosition.z = (Lane - 1) * (-1.5f);
+            Instantiate(cBaseEnemy, BasePosition, new Quaternion());
+            LaneCount++;
+            Debug.Log("Spawning enemy at " + BasePosition);
+            prevLane = Lane;
+        }
+
+    }
 }

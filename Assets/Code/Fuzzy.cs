@@ -64,4 +64,8 @@ public class Fuzzy : MonoBehaviour
         v = detV * detInv;
         return new Vector2(x, v);
     }
+    public void OnCollisionEnter(Collision c)
+    {
+        Debug.Log("Game Over");
+    }
 }
