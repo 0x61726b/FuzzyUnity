@@ -10,6 +10,10 @@ public class Logic : MonoBehaviour
     public LaneSprite CenterSprite;
     public LaneSprite RightSprite;
 
+    public Material LeftMaterial;
+    public Material CenterMaterial;
+    public Material RightMaterial;
+
     public Fuzzy LeftFuzzy;
     public Fuzzy RightFuzzy;
 
@@ -185,6 +189,24 @@ public class Logic : MonoBehaviour
                 first = true;
                 Formation.Append(i + 1);
             }
+        }
+
+        int ChooseCorrectButton = Random.Range(1, 3);
+        Debug.Log(ChooseCorrectButton);
+        if (ChooseCorrectButton == 1)
+        {
+            Texture t = Resources.Load("1-4") as Texture;
+            LeftMaterial.mainTexture = t;
+        }
+        if (ChooseCorrectButton == 2)
+        {
+            Texture t = Resources.Load("1-4") as Texture;
+            LeftMaterial.mainTexture = t;
+        }
+        if (ChooseCorrectButton == 3)
+        {
+            Texture t = Resources.Load("1-4") as Texture;
+            LeftMaterial.mainTexture = t;
         }
     }
     public List<int> GetLanes(List<int> l)
