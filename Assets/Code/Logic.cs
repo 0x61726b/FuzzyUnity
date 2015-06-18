@@ -67,7 +67,7 @@ public class Logic : MonoBehaviour
     //////////////////////////////////////////////////////
     public void Start()
     {
-        m_eState = GameState.OnGoing;
+        m_eState = GameState.NotStarted;
 
         m_vCurrentEnemyList = new List<GameObject>();
         m_iCurrentLaneList = new List<int>();
@@ -97,7 +97,18 @@ public class Logic : MonoBehaviour
                 }
             }
         }
+
+        if (m_eState == GameState.NotStarted)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameObject.FindGameObjectWithTag("TapToStart").SetActive(false);
+                m_eState = GameState.OnGoing;
+            }
+        }
 #else
+      
+
         if (Input.GetTouch(0).phase == TouchPhase.Began)
         {
             if (Physics.Raycast(ray, out hit))
@@ -120,9 +131,14 @@ public class Logic : MonoBehaviour
     //////////////////////////////////////////////////////
     void Update()
     {
-        totalTime += Time.deltaTime;
+        if (m_eState == GameState.OnGoing)
+        {
+            totalTime += Time.deltaTime;
+        }
+      
         UpdateGameState();
-        if (m_eState != GameState.Over)
+        InputListener();
+        if (m_eState == GameState.OnGoing)
         {
             if (totalTime >= 3)
             {
@@ -130,7 +146,7 @@ public class Logic : MonoBehaviour
 
                 SpawnEnemyLogic();
             }
-            InputListener();
+           
 
             m_vCurrentEnemyList.Clear();
             GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
