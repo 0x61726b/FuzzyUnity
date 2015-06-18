@@ -1,39 +1,72 @@
-﻿using UnityEngine;
+﻿//.     .       .  .   . .   .   . .    +  .
+//  .     .  :     .    .. :. .___---------___.
+//       .  .   .    .  :.:. _".^ .^ ^.  '.. :"-_. .
+//    .  :       .  .  .:../:            . .^  :.:\.
+//        .   . :: +. :.:/: .   .    .        . . .:\
+// .  :    .     . _ :::/:               .  ^ .  . .:\
+//  .. . .   . - : :.:./.                        .  .:\
+//  .      .     . :..|:                    .  .  ^. .:|
+//    .       . : : ..||        .                . . !:|
+//  .     . . . ::. ::\(                           . :)/
+// .   .     : . : .:.|. ######              .#######::|
+//  :.. .  :-  : .:  ::|.#######           ..########:|
+// .  .  .  ..  .  .. :\ ########          :######## :/
+//  .        .+ :: : -.:\ ########       . ########.:/
+//    .  .+   . . . . :.:\. #######       #######..:/
+//     :: . . . . ::.:..:.\           .   .   ..:/
+//  .   .   .  .. :  -::::.\.       | |     . .:/
+//     .  :  .  .  .-:.":.::.\             ..:/
+// .      -.   . . . .: .:::.:.\.           .:/
+//.   .   .  :      : ....::_:..:\   ___.  :/
+//   .   .  .   .:. .. .  .: :.:.:\       :/
+//     +   .   .   : . ::. :.:. .:.|\  .:/|
+//     .         +   .  .  ...:: ..|  --.:|
+//.      . . .   .  .  . ... :..:.."(  ..)"
+// .   .       .      :  .   .: ::/  .  .::\
+
+
+//      __       ___  ___  ___  ___      ___       ___      ___       __        ______    
+//     /""\     |"  \/"  ||"  \/"  |    |"  |     |"  \    /"  |     /""\      /    " \   
+//    /    \     \   \  /  \   \  /     ||  |      \   \  //   |    /    \    // ____  \  
+//   /' /\  \     \\  \/    \\  \/      |:  |      /\\  \/.    |   /' /\  \  /  /    ) :) 
+//  //  __'  \    /   /     /   /        \  |___  |: \.        |  //  __'  \(: (____/ //  
+// /   /  \\  \  /   /     /   /        ( \_|:  \ |.  \    /:  | /   /  \\  \\        /   
+//(___/    \___)|___/     |___/          \_______)|___|\__/|___|(___/    \___)\"_____/    
+//////////////////////////////////////////////////////
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
-
+//////////////////////////////////////////////////////
 public class Logic : MonoBehaviour
 {
-
-
+    public Material DefaultMat;
+    //////////////////////////////////////////////////////
     public Fuzzy LeftFuzzy;
     public Fuzzy RightFuzzy;
-
+    //////////////////////////////////////////////////////
     public BaseEnemy cBaseEnemy;
-
+    //////////////////////////////////////////////////////
     public GameObject SpawnPoint;
     private Vector3 InitialSpawnPoint;
     private float totalTime;
-
+    //////////////////////////////////////////////////////
     private int CURRENT_BUTTON_COUNT = 3;
-
+    //////////////////////////////////////////////////////
     private List<GameObject> m_vCurrentEnemyList;
     private List<int> m_iCurrentLaneList;
+    private bool m_bUpdateButtons = false;
     public enum GameState
     {
         NotStarted,
         OnGoing,
         Over
     }
-
+    //////////////////////////////////////////////////////
     private GameState m_eState;
-
-    // Use this for initialization
+    //////////////////////////////////////////////////////
     public void Start()
     {
-
-
         m_eState = GameState.OnGoing;
 
         m_vCurrentEnemyList = new List<GameObject>();
@@ -41,8 +74,8 @@ public class Logic : MonoBehaviour
 
         SpawnEnemyLogic();
         DetermineRightFormation(m_iCurrentLaneList);
-
     }
+    //////////////////////////////////////////////////////
     public void InputListener()
     {
         RaycastHit hit;
@@ -53,7 +86,6 @@ public class Logic : MonoBehaviour
         ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 #endif
 #if UNITY_EDITOR
-
         if (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(ray, out hit))
@@ -65,24 +97,19 @@ public class Logic : MonoBehaviour
                 }
             }
         }
-
 #endif
     }
+    //////////////////////////////////////////////////////
     void OnClick(int left, int right)
     {
         LeftFuzzy.CurrentLane = left;
         RightFuzzy.CurrentLane = right;
     }
-
-
-    // Update is called once per frame
+    //////////////////////////////////////////////////////
     void Update()
     {
         totalTime += Time.deltaTime;
         UpdateGameState();
-
-
-
         if (m_eState != GameState.Over)
         {
             if (totalTime >= 3)
@@ -100,16 +127,18 @@ public class Logic : MonoBehaviour
             {
                 m_vCurrentEnemyList.Add(list[i]);
             }
+
+
         }
     }
+    //////////////////////////////////////////////////////
     void EnemyDeadZone()
     {
-        
-        if (m_vCurrentEnemyList[0].transform.position.x < -20)
-        {
-            DetermineRightFormation(m_iCurrentLaneList);
-        }
+    
+        DetermineRightFormation(m_iCurrentLaneList);
+
     }
+    //////////////////////////////////////////////////////
     void SpawnEnemyLogic()
     {
         int LaneCntDecider = Random.Range(2, 4);
@@ -138,6 +167,7 @@ public class Logic : MonoBehaviour
         }
 
     }
+    //////////////////////////////////////////////////////
     public void DetermineRightFormation(List<int> laneList)
     {
         List<List<int>> listOfList = new List<List<int>>();
@@ -200,48 +230,55 @@ public class Logic : MonoBehaviour
         TextureToSet = t;
         CorrectButton = GameObject.Find("Formation" + ChooseCorrectButton) as GameObject;
 
+
         CorrectButton.GetComponent<Renderer>().material.mainTexture = t;
         CorrectButton.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
         CorrectButton.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]);
 
-
         //NOTE TO SELF : DEBUG THIS SHIT
-        //List<int> buttonIndices = new List<int>();
-        //for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
-        //    buttonIndices.Add(0);
-        //buttonIndices[ChooseCorrectButton] = 1;
+        List<int> buttonIndices = new List<int>();
+        for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
+            buttonIndices.Add(0);
+        buttonIndices[ChooseCorrectButton - 1] = 1;
 
-        //List<GameObject> OtherButtons = new List<GameObject>();
-        //for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
-        //{
-        //    if (buttonIndices[i] == 0)
-        //        OtherButtons.Add(GameObject.Find("Formation" + i) as GameObject);
-        //}
-        
-        ////Change other buttons iamges
-        //for (int i = 0; i < OtherButtons.Count; i++)
-        //{
-        //    //Decide random lane
-        //    List<int> lanes = GenerateRandomLanes(2);
-        //    bool ffirst = false;
+        List<GameObject> OtherButtons = new List<GameObject>();
+        for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
+        {
+            if (buttonIndices[i] == 0)
+                OtherButtons.Add(GameObject.Find("Formation" + (i + 1)) as GameObject);
+        }
 
-        //    System.Text.StringBuilder NewFormation = new System.Text.StringBuilder();
-        //    for (int j = 0; j < lanes.Count; j++)
-        //    {
-        //        if (lanes[j] == 1 && ffirst)
-        //        {
-        //            NewFormation.Append("-");
-        //        }
-        //        if (lanes[i] == 1)
-        //        {
-        //            ffirst = true;
-        //            NewFormation.Append(i + 1);
-        //        }
-        //    }
-        //    Debug.Log(NewFormation.ToString());
-        //}
+        //Change other buttons iamges
+        for (int i = 0; i < OtherButtons.Count; i++)
+        {
+            //Decide random lane
+            List<int> lanes = GenerateRandomLanes(2);
+            bool ffirst = false;
+
+            System.Text.StringBuilder NewFormation = new System.Text.StringBuilder();
+            for (int j = 0; j < lanes.Count; j++)
+            {
+                if (lanes[j] == 1 && ffirst)
+                {
+                    NewFormation.Append("-");
+                }
+                if (lanes[j] == 1)
+                {
+                    ffirst = true;
+                    NewFormation.Append(j + 1);
+                }
+            }
+
+            t = Resources.Load(NewFormation.ToString()) as Texture;
+            TextureToSet = t;
+
+
+            OtherButtons[i].GetComponent<Renderer>().material.mainTexture = t;
+            OtherButtons[i].GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(NewFormation[0]);
+            OtherButtons[i].GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(NewFormation[2]);
+        }
     }
-
+    //////////////////////////////////////////////////////
     public List<int> GenerateRandomLanes(int laneCount)
     {
         List<int> Lanes = new List<int>();
@@ -274,10 +311,12 @@ public class Logic : MonoBehaviour
                 }
             }
             LaneList[Lane - 1] = 1;
+            Lanes.Add(Lane);
         }
 
         return LaneList;
     }
+    //////////////////////////////////////////////////////
     public List<int> GetLanes(List<int> l)
     {
         List<int> list = new List<int>();
@@ -288,12 +327,14 @@ public class Logic : MonoBehaviour
         }
         return list;
     }
+    //////////////////////////////////////////////////////
     public void SetGameState(GameState s)
     {
         m_eState = s;
 
         UpdateGameState();
     }
+    //////////////////////////////////////////////////////
     public void UpdateGameState()
     {
         RightFuzzy.SendMessage("UpdateGameState", m_eState);
@@ -309,4 +350,6 @@ public class Logic : MonoBehaviour
             }
         }
     }
+    //////////////////////////////////////////////////////
 }
+//////////////////////////////////////////////////////
