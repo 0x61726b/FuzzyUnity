@@ -97,6 +97,18 @@ public class Logic : MonoBehaviour
                 }
             }
         }
+#else
+        if (Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            if (Physics.Raycast(ray, out hit))
+            {
+                {
+                    if (hit.collider.tag == "FormationButton")
+                        OnClick(hit.collider.GetComponent<LaneSprite>().Left,
+                            hit.collider.GetComponent<LaneSprite>().Right);
+                }
+            }
+        }
 #endif
     }
     //////////////////////////////////////////////////////
@@ -127,14 +139,12 @@ public class Logic : MonoBehaviour
             {
                 m_vCurrentEnemyList.Add(list[i]);
             }
-
-
         }
     }
     //////////////////////////////////////////////////////
     void EnemyDeadZone()
     {
-    
+
         DetermineRightFormation(m_iCurrentLaneList);
 
     }
