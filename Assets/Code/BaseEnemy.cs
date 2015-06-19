@@ -18,20 +18,10 @@ public class BaseEnemy : MonoBehaviour
        if( m_eState == Logic.GameState.OnGoing)
            transform.Translate(new Vector3(XSpeed, 0, 0)); ;
 
-        if (m_eState == Logic.GameState.OnGoing && bShouldUpdate)
-        {
-            //Base Movement
-            
-            //Dead Zone
-            if (transform.position.x < -11)
-            {
-                GameObject.Find("Logic").SendMessage("EnemyDeadZone");
-                bShouldUpdate = false;
-            }
-        }
+      
         if (transform.position.x < -25)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
         if( m_eState == Logic.GameState.Over )
         {

@@ -40,12 +40,28 @@ using System.Collections.Generic;
 //////////////////////////////////////////////////////
 public class Logic : MonoBehaviour
 {
+    public struct Wave
+    {
+        public List<int> LaneBinary;
+        public List<GameObject> LaneBlocks { get; set; }
+        public int BlockCount;
+        public bool Status { get; set; }
+        public string Id { get; set; }
+        public Wave(List<int> l, int i, bool b)
+        {
+            LaneBinary = l;
+            BlockCount = i;
+            Status = b;
+            LaneBlocks = new List<GameObject>();
+            Id = "Wave Unknown";
+        }
+    };
     public Material DefaultMat;
     //////////////////////////////////////////////////////
     public Fuzzy LeftFuzzy;
     public Fuzzy RightFuzzy;
     //////////////////////////////////////////////////////
-    public BaseEnemy cBaseEnemy;
+    public GameObject cBaseEnemy;
     //////////////////////////////////////////////////////
     public GameObject SpawnPoint;
     private Vector3 InitialSpawnPoint;
@@ -55,7 +71,12 @@ public class Logic : MonoBehaviour
     //////////////////////////////////////////////////////
     private List<GameObject> m_vCurrentEnemyList;
     private List<int> m_iCurrentLaneList;
-    private bool m_bUpdateButtons = false;
+    private Wave m_hitWave;
+    private List<Wave> m_sLanes;
+    private bool m_bUpdateButtons = true;
+    private bool m_bButtonsUpdated = false;
+    private bool m_bCollision = false;
+    private int m_iUpdateWaveCount = 0;
     public enum GameState
     {
         NotStarted,
@@ -71,9 +92,16 @@ public class Logic : MonoBehaviour
 
         m_vCurrentEnemyList = new List<GameObject>();
         m_iCurrentLaneList = new List<int>();
+        m_sLanes = new List<Wave>();
 
+        
+        
+    }
+    public void TapToStartButton()
+    {
+        m_eState = GameState.OnGoing;
         SpawnEnemyLogic();
-        DetermineRightFormation(m_iCurrentLaneList);
+        DetermineRightFormation(m_sLanes[0].LaneBinary);
     }
     //////////////////////////////////////////////////////
     public void InputListener()
@@ -140,67 +168,82 @@ public class Logic : MonoBehaviour
     //////////////////////////////////////////////////////
     void Update()
     {
+
         if (m_eState == GameState.OnGoing)
         {
             totalTime += Time.deltaTime;
+
+            GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
+
+            for (int i = 0; i < list.Length; i++)
+            {
+                if (list[i] != null)
+                {
+                    BaseEnemy b = list[i].GetComponent<BaseEnemy>();
+                    if (b)
+                        b.UpdateGameState(m_eState);
+                }
+            }
         }
-      
+
         UpdateGameState();
         InputListener();
         if (m_eState == GameState.OnGoing)
         {
             if (totalTime >= 3)
             {
-                totalTime = 0;
-
                 SpawnEnemyLogic();
+                totalTime = 0;
             }
-           
 
-            m_vCurrentEnemyList.Clear();
-            GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
 
-            for (int i = 0; i < list.Length; i++)
+
+            if (m_bCollision)
             {
-                m_vCurrentEnemyList.Add(list[i]);
+                if (m_bUpdateButtons)
+                {
+                    DetermineRightFormation(m_sLanes[++m_iUpdateWaveCount].LaneBinary);
+                    Debug.Log(m_iUpdateWaveCount.ToString() + " Update" + m_hitWave.Id);
+                    
+                    m_bUpdateButtons = false;
+                    m_bCollision = false;   
+                }
             }
+            if (!m_bCollision)
+                m_bUpdateButtons = true;
+
         }
-    }
-    //////////////////////////////////////////////////////
-    void EnemyDeadZone()
-    {
-
-        DetermineRightFormation(m_iCurrentLaneList);
-
     }
     //////////////////////////////////////////////////////
     void SpawnEnemyLogic()
     {
-        int LaneCntDecider = Random.Range(2, 4);
 
-        List<int> Lanes = GenerateRandomLanes(LaneCntDecider);
-
-
-        for (int i = 0; i < Lanes.Count; i++)
+        if (m_eState == GameState.OnGoing)
         {
-            if (Lanes[i] == 1)
+            int LaneCntDecider = Random.Range(2, 4);
+
+            List<int> Lanes = GenerateRandomLanes(LaneCntDecider);
+            List<GameObject> thisBlocks = new List<GameObject>();
+
+            for (int i = 0; i < Lanes.Count; i++)
             {
-                Vector3 BasePosition = SpawnPoint.transform.position;
-                BasePosition.z = (i) * (-1.5f);
-                Object g = Instantiate(cBaseEnemy, BasePosition, new Quaternion());
-                g.name = "Enemy at " + i.ToString();
+                if (Lanes[i] == 1)
+                {
+                    Vector3 BasePosition = SpawnPoint.transform.position;
+                    BasePosition.z = (i) * (-1.5f);
+                    GameObject g = (GameObject)Instantiate(cBaseEnemy, BasePosition, new Quaternion());
+                    g.name = "Enemy at " + i.ToString();
+                    thisBlocks.Add(g);
+                }
             }
+            Wave laneS = new Wave(Lanes, Lanes.Count, false);
+            laneS.Id = "Wave " + m_sLanes.Count.ToString();
+            laneS.LaneBlocks = thisBlocks;
+            m_iCurrentLaneList = Lanes;
+
+            m_sLanes.Add(laneS);
+
         }
-
-        m_iCurrentLaneList = Lanes;
-
-        GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
-
-        for (int i = 0; i < list.Length; i++)
-        {
-            m_vCurrentEnemyList.Add(list[i]);
-        }
-
     }
     //////////////////////////////////////////////////////
     public void DetermineRightFormation(List<int> laneList)
@@ -312,6 +355,7 @@ public class Logic : MonoBehaviour
             OtherButtons[i].GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(NewFormation[0]);
             OtherButtons[i].GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(NewFormation[2]);
         }
+        m_bButtonsUpdated = true;
     }
     //////////////////////////////////////////////////////
     public List<int> GenerateRandomLanes(int laneCount)
@@ -375,16 +419,62 @@ public class Logic : MonoBehaviour
         RightFuzzy.SendMessage("UpdateGameState", m_eState);
         LeftFuzzy.SendMessage("UpdateGameState", m_eState);
 
-        GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
 
-        for (int i = 0; i < list.Length; i++)
-        {
-            if (list[i] != null)
-            {
-                list[i].SendMessage("UpdateGameState", m_eState);
-            }
-        }
     }
     //////////////////////////////////////////////////////
+    void SetCollision(Collision c)
+    {
+        m_bCollision = true;
+        m_hitWave = FindEnemyOnLane(c.collider.gameObject);
+    }
+    public bool RaycastEnemy()
+    {
+        float lineLen = 10;
+        Ray rToLeft = new Ray(new Vector3(-9, 2, -lineLen), new Vector3(0, 0, lineLen * 1.5f));
+
+
+        Debug.DrawRay(new Vector3(RightFuzzy.transform.position.x, RightFuzzy.transform.position.y, -lineLen), new Vector3(0,0, lineLen * 1.5f), Color.red);
+
+
+        RaycastHit rLeftHit;
+
+        bool AnyHit = false;
+
+        if (Physics.Raycast(rToLeft, out rLeftHit))
+        {
+            if (rLeftHit.collider.gameObject.tag == "Enemy")
+            {
+                m_hitWave = FindEnemyOnLane(rLeftHit.collider.gameObject);
+                //Debug.Log("Hit from " + m_hitWave.Id);
+                AnyHit = true;
+            }
+        }
+
+      
+        return AnyHit;
+    }
+    public Wave FindEnemyOnLane(GameObject g)
+    {
+        Wave dummy = new Wave();
+        dummy.BlockCount = 0;
+        for (int i = 0; i < m_sLanes.Count; i++)
+        {
+            Wave lane = m_sLanes[i];
+
+            for (int j = 0; j < lane.LaneBlocks.Count; j++)
+            {
+                GameObject block = lane.LaneBlocks[j];
+
+                if (block != null)
+                {
+                    if (block == g)
+                    {
+                        return m_sLanes[i+1];
+                    }
+                }
+            }
+        }
+        return dummy;
+    }
 }
 //////////////////////////////////////////////////////
