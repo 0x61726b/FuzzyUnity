@@ -120,6 +120,15 @@ public class Logic : MonoBehaviour
                 }
             }
         }
+
+        if (m_eState == GameState.NotStarted)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                GameObject.FindGameObjectWithTag("TapToStart").SetActive(false);
+                m_eState = GameState.OnGoing;
+            }
+        }
 #endif
     }
     //////////////////////////////////////////////////////

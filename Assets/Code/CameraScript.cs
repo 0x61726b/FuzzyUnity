@@ -28,8 +28,10 @@ public class CameraScript : MonoBehaviour {
         }
 
 #endif
-        score += Time.deltaTime/2;
-        scoreText.text = System.Math.Floor(score).ToString();
+        //score += Time.deltaTime/2;
+        //scoreText.text = System.Math.Floor(score).ToString();
+
+
 
     }
 
