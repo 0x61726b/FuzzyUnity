@@ -56,6 +56,10 @@ public class Logic : MonoBehaviour
             Id = "Wave Unknown";
         }
     };
+    public Button LeftButton;
+    public Button CenterButton;
+    public Button RightButton;
+
     public Material DefaultMat;
     //////////////////////////////////////////////////////
     public Fuzzy LeftFuzzy;
@@ -94,70 +98,18 @@ public class Logic : MonoBehaviour
         m_iCurrentLaneList = new List<int>();
         m_sLanes = new List<Wave>();
 
-        
-        
     }
     public void TapToStartButton()
     {
         m_eState = GameState.OnGoing;
         SpawnEnemyLogic();
         DetermineRightFormation(m_sLanes[0].LaneBinary);
+        GameObject.FindGameObjectWithTag("TapToStart").SetActive(false);
     }
     //////////////////////////////////////////////////////
     public void InputListener()
     {
-        RaycastHit hit;
-        Ray ray;
-#if UNITY_EDITOR
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-#else
-        ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-#endif
-#if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (Physics.Raycast(ray, out hit))
-            {
-                {
-                    if (hit.collider.tag == "FormationButton")
-                        OnClick(hit.collider.GetComponent<LaneSprite>().Left,
-                            hit.collider.GetComponent<LaneSprite>().Right);
-                }
-            }
-        }
-
-        if (m_eState == GameState.NotStarted)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                GameObject.FindGameObjectWithTag("TapToStart").SetActive(false);
-                m_eState = GameState.OnGoing;
-            }
-        }
-#else
-      
-
-        if (Input.GetTouch(0).phase == TouchPhase.Began)
-        {
-            if (Physics.Raycast(ray, out hit))
-            {
-                {
-                    if (hit.collider.tag == "FormationButton")
-                        OnClick(hit.collider.GetComponent<LaneSprite>().Left,
-                            hit.collider.GetComponent<LaneSprite>().Right);
-                }
-            }
-        }
-
-        if (m_eState == GameState.NotStarted)
-        {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                GameObject.FindGameObjectWithTag("TapToStart").SetActive(false);
-                m_eState = GameState.OnGoing;
-            }
-        }
-#endif
+       
     }
     //////////////////////////////////////////////////////
     void OnClick(int left, int right)
@@ -204,9 +156,9 @@ public class Logic : MonoBehaviour
                 {
                     DetermineRightFormation(m_sLanes[++m_iUpdateWaveCount].LaneBinary);
                     Debug.Log(m_iUpdateWaveCount.ToString() + " Update" + m_hitWave.Id);
-                    
+
                     m_bUpdateButtons = false;
-                    m_bCollision = false;   
+                    m_bCollision = false;
                 }
             }
             if (!m_bCollision)
@@ -301,60 +253,77 @@ public class Logic : MonoBehaviour
 
         int ChooseCorrectButton = Random.Range(1, CURRENT_BUTTON_COUNT + 1);
 
-        //Texture TextureToSet;
-        //GameObject CorrectButton;
+        Texture2D TextureToSet;
+        Button CorrectButton = null;
 
-        //Texture t = Resources.Load(Formation.ToString()) as Texture;
-        //TextureToSet = t;
-        //CorrectButton = GameObject.Find("Formation" + ChooseCorrectButton) as GameObject;
+        Texture2D t = Resources.Load(Formation.ToString()) as Texture2D;
+        TextureToSet = t;
 
+        List<Button> OtherButtons = new List<Button>();
 
-        //CorrectButton.GetComponent<Renderer>().material.mainTexture = t;
-        //CorrectButton.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
-        //CorrectButton.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]);
-
-        ////NOTE TO SELF : DEBUG THIS SHIT
-        //List<int> buttonIndices = new List<int>();
-        //for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
-        //    buttonIndices.Add(0);
-        //buttonIndices[ChooseCorrectButton - 1] = 1;
-
-        //List<GameObject> OtherButtons = new List<GameObject>();
-        //for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
-        //{
-        //    if (buttonIndices[i] == 0)
-        //        OtherButtons.Add(GameObject.Find("Formation" + (i + 1)) as GameObject);
-        //}
-
-        ////Change other buttons iamges
-        //for (int i = 0; i < OtherButtons.Count; i++)
-        //{
-        //    //Decide random lane
-        //    List<int> lanes = GenerateRandomLanes(2);
-        //    bool ffirst = false;
-
-        //    System.Text.StringBuilder NewFormation = new System.Text.StringBuilder();
-        //    for (int j = 0; j < lanes.Count; j++)
-        //    {
-        //        if (lanes[j] == 1 && ffirst)
-        //        {
-        //            NewFormation.Append("-");
-        //        }
-        //        if (lanes[j] == 1)
-        //        {
-        //            ffirst = true;
-        //            NewFormation.Append(j + 1);
-        //        }
-        //    }
-
-        //    t = Resources.Load(NewFormation.ToString()) as Texture;
-        //    TextureToSet = t;
+        if (ChooseCorrectButton == 1)
+        {
+            CorrectButton = LeftButton;
+            OtherButtons.Add(RightButton);
+            OtherButtons.Add(CenterButton);
+        }
+        if (ChooseCorrectButton == 2)
+        {
+            CorrectButton = CenterButton;
+            OtherButtons.Add(RightButton);
+            OtherButtons.Add(LeftButton);
+        }
+        if (ChooseCorrectButton == 3)
+        {
+            CorrectButton = RightButton;
+            OtherButtons.Add(CenterButton);
+            OtherButtons.Add(LeftButton);
+        }
 
 
-        //    OtherButtons[i].GetComponent<Renderer>().material.mainTexture = t;
-        //    OtherButtons[i].GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(NewFormation[0]);
-        //    OtherButtons[i].GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(NewFormation[2]);
-        //}
+        Sprite sp = CorrectButton.GetComponent<Image>().sprite;
+        CorrectButton.GetComponent<Image>().sprite = Sprite.Create(t, sp.rect, sp.pivot);
+        CorrectButton.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
+        CorrectButton.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]);
+        CorrectButton.onClick.AddListener(() => OnClick((int)System.Char.GetNumericValue(Formation[0]),
+   (int)System.Char.GetNumericValue(Formation[2])));
+
+       
+
+
+        //Change other buttons iamges
+        for (int i = 0; i < OtherButtons.Count; i++)
+        {
+            //Decide random lane
+            List<int> lanes = GenerateRandomLanes(2);
+            bool ffirst = false;
+
+            System.Text.StringBuilder NewFormation = new System.Text.StringBuilder();
+            for (int j = 0; j < lanes.Count; j++)
+            {
+                if (lanes[j] == 1 && ffirst)
+                {
+                    NewFormation.Append("-");
+                }
+                if (lanes[j] == 1)
+                {
+                    ffirst = true;
+                    NewFormation.Append(j + 1);
+                }
+            }
+
+            t = Resources.Load(NewFormation.ToString()) as Texture2D;
+            TextureToSet = t;
+
+
+            sp = OtherButtons[i].GetComponent<Image>().sprite;
+            OtherButtons[i].GetComponent<Image>().sprite = Sprite.Create(t, sp.rect, sp.pivot);
+            OtherButtons[i].GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(NewFormation[0]);
+            OtherButtons[i].GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(NewFormation[2]);
+             
+             OtherButtons[i].onClick.AddListener(() => OnClick((int)System.Char.GetNumericValue(NewFormation[0]), 
+                (int)System.Char.GetNumericValue(NewFormation[2])));
+        }
         m_bButtonsUpdated = true;
     }
     //////////////////////////////////////////////////////
@@ -433,7 +402,7 @@ public class Logic : MonoBehaviour
         Ray rToLeft = new Ray(new Vector3(-9, 2, -lineLen), new Vector3(0, 0, lineLen * 1.5f));
 
 
-        Debug.DrawRay(new Vector3(RightFuzzy.transform.position.x, RightFuzzy.transform.position.y, -lineLen), new Vector3(0,0, lineLen * 1.5f), Color.red);
+        Debug.DrawRay(new Vector3(RightFuzzy.transform.position.x, RightFuzzy.transform.position.y, -lineLen), new Vector3(0, 0, lineLen * 1.5f), Color.red);
 
 
         RaycastHit rLeftHit;
@@ -450,7 +419,7 @@ public class Logic : MonoBehaviour
             }
         }
 
-      
+
         return AnyHit;
     }
     public Wave FindEnemyOnLane(GameObject g)
@@ -469,7 +438,7 @@ public class Logic : MonoBehaviour
                 {
                     if (block == g)
                     {
-                        return m_sLanes[i+1];
+                        return m_sLanes[i + 1];
                     }
                 }
             }
