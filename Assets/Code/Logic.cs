@@ -301,60 +301,60 @@ public class Logic : MonoBehaviour
 
         int ChooseCorrectButton = Random.Range(1, CURRENT_BUTTON_COUNT + 1);
 
-        Texture TextureToSet;
-        GameObject CorrectButton;
+        //Texture TextureToSet;
+        //GameObject CorrectButton;
 
-        Texture t = Resources.Load(Formation.ToString()) as Texture;
-        TextureToSet = t;
-        CorrectButton = GameObject.Find("Formation" + ChooseCorrectButton) as GameObject;
-
-
-        CorrectButton.GetComponent<Renderer>().material.mainTexture = t;
-        CorrectButton.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
-        CorrectButton.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]);
-
-        //NOTE TO SELF : DEBUG THIS SHIT
-        List<int> buttonIndices = new List<int>();
-        for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
-            buttonIndices.Add(0);
-        buttonIndices[ChooseCorrectButton - 1] = 1;
-
-        List<GameObject> OtherButtons = new List<GameObject>();
-        for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
-        {
-            if (buttonIndices[i] == 0)
-                OtherButtons.Add(GameObject.Find("Formation" + (i + 1)) as GameObject);
-        }
-
-        //Change other buttons iamges
-        for (int i = 0; i < OtherButtons.Count; i++)
-        {
-            //Decide random lane
-            List<int> lanes = GenerateRandomLanes(2);
-            bool ffirst = false;
-
-            System.Text.StringBuilder NewFormation = new System.Text.StringBuilder();
-            for (int j = 0; j < lanes.Count; j++)
-            {
-                if (lanes[j] == 1 && ffirst)
-                {
-                    NewFormation.Append("-");
-                }
-                if (lanes[j] == 1)
-                {
-                    ffirst = true;
-                    NewFormation.Append(j + 1);
-                }
-            }
-
-            t = Resources.Load(NewFormation.ToString()) as Texture;
-            TextureToSet = t;
+        //Texture t = Resources.Load(Formation.ToString()) as Texture;
+        //TextureToSet = t;
+        //CorrectButton = GameObject.Find("Formation" + ChooseCorrectButton) as GameObject;
 
 
-            OtherButtons[i].GetComponent<Renderer>().material.mainTexture = t;
-            OtherButtons[i].GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(NewFormation[0]);
-            OtherButtons[i].GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(NewFormation[2]);
-        }
+        //CorrectButton.GetComponent<Renderer>().material.mainTexture = t;
+        //CorrectButton.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(Formation[0]);
+        //CorrectButton.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(Formation[2]);
+
+        ////NOTE TO SELF : DEBUG THIS SHIT
+        //List<int> buttonIndices = new List<int>();
+        //for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
+        //    buttonIndices.Add(0);
+        //buttonIndices[ChooseCorrectButton - 1] = 1;
+
+        //List<GameObject> OtherButtons = new List<GameObject>();
+        //for (int i = 0; i < CURRENT_BUTTON_COUNT; i++)
+        //{
+        //    if (buttonIndices[i] == 0)
+        //        OtherButtons.Add(GameObject.Find("Formation" + (i + 1)) as GameObject);
+        //}
+
+        ////Change other buttons iamges
+        //for (int i = 0; i < OtherButtons.Count; i++)
+        //{
+        //    //Decide random lane
+        //    List<int> lanes = GenerateRandomLanes(2);
+        //    bool ffirst = false;
+
+        //    System.Text.StringBuilder NewFormation = new System.Text.StringBuilder();
+        //    for (int j = 0; j < lanes.Count; j++)
+        //    {
+        //        if (lanes[j] == 1 && ffirst)
+        //        {
+        //            NewFormation.Append("-");
+        //        }
+        //        if (lanes[j] == 1)
+        //        {
+        //            ffirst = true;
+        //            NewFormation.Append(j + 1);
+        //        }
+        //    }
+
+        //    t = Resources.Load(NewFormation.ToString()) as Texture;
+        //    TextureToSet = t;
+
+
+        //    OtherButtons[i].GetComponent<Renderer>().material.mainTexture = t;
+        //    OtherButtons[i].GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(NewFormation[0]);
+        //    OtherButtons[i].GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(NewFormation[2]);
+        //}
         m_bButtonsUpdated = true;
     }
     //////////////////////////////////////////////////////
