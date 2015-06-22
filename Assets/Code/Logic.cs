@@ -391,8 +391,6 @@ public class Logic : MonoBehaviour
     {
         RightFuzzy.SendMessage("UpdateGameState", m_eState);
         LeftFuzzy.SendMessage("UpdateGameState", m_eState);
-
-
     }
     //////////////////////////////////////////////////////
     void SetCollision(Collision c)
