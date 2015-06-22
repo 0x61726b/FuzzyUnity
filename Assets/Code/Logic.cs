@@ -40,14 +40,14 @@ using System.Collections.Generic;
 //////////////////////////////////////////////////////
 public class Logic : MonoBehaviour
 {
-    public struct Wave
+    public struct SWave
     {
         public List<int> LaneBinary;
-        public List<GameObject> LaneBlocks { get; set; }
+        public List<GameObject> LaneBlocks;
         public int BlockCount;
-        public bool Status { get; set; }
-        public string Id { get; set; }
-        public Wave(List<int> l, int i, bool b)
+        public bool Status;
+        public string Id;
+        public SWave(List<int> l, int i, bool b)
         {
             LaneBinary = l;
             BlockCount = i;
@@ -75,8 +75,8 @@ public class Logic : MonoBehaviour
     //////////////////////////////////////////////////////
     private List<GameObject> m_vCurrentEnemyList;
     private List<int> m_iCurrentLaneList;
-    private Wave m_hitWave;
-    private List<Wave> m_sLanes;
+    private SWave m_hitWave;
+    private List<SWave> m_sLanes;
     private bool m_bUpdateButtons = true;
     private bool m_bButtonsUpdated = false;
     private bool m_bCollision = false;
@@ -96,7 +96,7 @@ public class Logic : MonoBehaviour
 
         m_vCurrentEnemyList = new List<GameObject>();
         m_iCurrentLaneList = new List<int>();
-        m_sLanes = new List<Wave>();
+        m_sLanes = new List<SWave>();
 
     }
     public void TapToStartButton()
@@ -167,6 +167,7 @@ public class Logic : MonoBehaviour
         }
     }
     //////////////////////////////////////////////////////
+
     void SpawnEnemyLogic()
     {
 
@@ -188,12 +189,15 @@ public class Logic : MonoBehaviour
                     thisBlocks.Add(g);
                 }
             }
-            Wave laneS = new Wave(Lanes, Lanes.Count, false);
+            SWave laneS = new SWave(Lanes, Lanes.Count, false);
             laneS.Id = "Wave " + m_sLanes.Count.ToString();
             laneS.LaneBlocks = thisBlocks;
             m_iCurrentLaneList = Lanes;
 
             m_sLanes.Add(laneS);
+
+
+
 
         }
     }
@@ -422,13 +426,13 @@ public class Logic : MonoBehaviour
 
         return AnyHit;
     }
-    public Wave FindEnemyOnLane(GameObject g)
+    public SWave FindEnemyOnLane(GameObject g)
     {
-        Wave dummy = new Wave();
+        SWave dummy = new SWave();
         dummy.BlockCount = 0;
         for (int i = 0; i < m_sLanes.Count; i++)
         {
-            Wave lane = m_sLanes[i];
+            SWave lane = m_sLanes[i];
 
             for (int j = 0; j < lane.LaneBlocks.Count; j++)
             {
