@@ -1,10 +1,18 @@
 fileFormatVersion: 2
 guid: 5f994c24c10bc3749b42dfe4b3fa2ec8
-timeCreated: 1434457138
+timeCreated: 1434963265
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - LeftButton: {instanceID: 0}
+  - CenterButton: {instanceID: 0}
+  - RightButton: {instanceID: 0}
+  - DefaultMat: {instanceID: 0}
+  - LeftFuzzy: {instanceID: 0}
+  - RightFuzzy: {instanceID: 0}
+  - cBaseEnemy: {fileID: 112940, guid: 704f6214e33fc9c4689f4371cf8932e7, type: 2}
+  - SpawnPoint: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

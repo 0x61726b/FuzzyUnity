@@ -388,7 +388,17 @@ public class Logic : MonoBehaviour
         RightFuzzy.SendMessage("UpdateGameState", m_eState);
         LeftFuzzy.SendMessage("UpdateGameState", m_eState);
 
+        GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
 
+        for (int i = 0; i < list.Length; i++)
+        {
+            if (list[i] != null)
+            {
+                BaseEnemy b = list[i].GetComponent<BaseEnemy>();
+                if (b)
+                    b.UpdateGameState(m_eState);
+            }
+        }
     }
     //////////////////////////////////////////////////////
     void SetCollision(Collision c)

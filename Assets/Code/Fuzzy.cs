@@ -68,5 +68,7 @@ public class Fuzzy : MonoBehaviour
     {
         m_eState = Logic.GameState.Over;
         GameObject.Find("Logic").SendMessage("SetGameState", m_eState);
+        
+
     }
 }

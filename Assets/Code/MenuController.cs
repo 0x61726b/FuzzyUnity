@@ -18,7 +18,9 @@ public class MenuController : MonoBehaviour {
 
     public void RestartLevel()
     {
+        Time.timeScale = 1;
         Application.LoadLevel("MainScene");
+
     }
 
     public void Pause()

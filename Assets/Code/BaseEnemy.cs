@@ -21,7 +21,7 @@ public class BaseEnemy : MonoBehaviour
       
         if (transform.position.x < -25)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
         if( m_eState == Logic.GameState.Over )
         {
