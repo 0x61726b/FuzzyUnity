@@ -33,6 +33,15 @@ public class LaneElement
         set { m_iIndex = value; }
     }
 
+    private Transform m_Transform;
+
+    public Transform Transform
+    {
+        get { return m_Transform; }
+        set { m_Transform = value; }
+    }
+
+
     public LaneElement(ElementType type)
     {
         m_Type = type;

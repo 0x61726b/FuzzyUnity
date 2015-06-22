@@ -6,64 +6,80 @@ public class Lane
 {
     public List<int> Binary { get; set; }
 
-    public List<LaneElement> Blocks { get; set; }
-    public List<Powerup> Powerups { get; set; }
+    public List<Block> Blocks { get; set; }
+
+    public Block DefaultBlock { get; set; }
+
+    //Wave reference for science
+    public WaveBase Wave { get; set; }
 
     public Lane()
     {
         Binary = new List<int>();
-        Blocks = new List<LaneElement>();
-        Powerups = new List<Powerup>();
+        Blocks = new List<Block>();
 
         //Add default elements
-        LaneElement elem = new LaneElement(LaneElement.ElementType.Block);
+        Block elem = new Block();
         elem.Index = -1;
         elem.Prefab = Resources.Load("Prefabs/Enemy") as GameObject;
-        Blocks.Add(elem);
+        DefaultBlock = elem;
+    }
+    public void SetDefaultBlock(Block le)
+    {
+        le.Index = -1;
+        DefaultBlock = le;
 
-        Powerup lPowerup = new Powerup();
-        lPowerup.Prefab = Resources.Load("Prefabs/Powerup") as GameObject;
-        lPowerup.Index = -1;
-        Powerups.Add(lPowerup);
     }
-    public void SetDefaultElement(LaneElement le)
+    public LaneElement GetLaneElement(int index, LaneElement.ElementType type)
     {
-        Blocks[0] = le;
-    }
-    public void SetDefaultPowerup(Powerup le)
-    {
-        Powerups[0] = le;
-    }
-    public LaneElement GetLaneElement(int index)
-    {
-        for (int i = 0; i < Blocks.Count; i++)
+
+        switch (type)
         {
-            LaneElement elem = Blocks[i];
+            case LaneElement.ElementType.Block:
+                for (int i = 0; i < Blocks.Count; i++)
+                {
+                    LaneElement elem = Blocks[i];
 
-            if (elem.Index == index && elem.Type == LaneElement.ElementType.Powerup)
-                return elem;
+                    if (elem.Index == index)
+                        return elem;
+                }
+                break;
         }
-        return Blocks[0];
-    }
-    public LaneElement GetPowerup(int index)
-    {
-        for (int i = 0; i < Powerups.Count; i++)
-        {
-            LaneElement elem = Powerups[i];
-
-            if (elem.Index == index && elem.Type == LaneElement.ElementType.Powerup)
-                return elem;
-        }
-        return Powerups[0];
+        return DefaultBlock;
     }
     public virtual void Initialize()
     {
+        for (int i = 0; i < WaveBase.LANE_COUNT; i++)
+        {
+            if (Binary[i] == 1)
+            {
+                Block b = new Block();
+                b.Index = i;
+                b.Name = "Block at #" + i.ToString();
+                b.XSpeed = Wave.Speed;
+                GameObject prefab = null;
+                //Check if there's assigned elem for this
+                LaneElement elem = this.GetLaneElement(i, LaneElement.ElementType.Block);
+                if (elem.Index == i)
+                {
+                    prefab = elem.Prefab;
+                }
+                else if (elem.Index == -1)
+                {
+                    prefab = this.DefaultBlock.Prefab;
+                }
+                b.Prefab = prefab;
 
-
+                Blocks.Add(b);
+            }
+        }
     }
-    public virtual void Update()
+    public void Update()
     {
-
+        for (int i = 0; i < Blocks.Count; i++)
+        {
+            Blocks[i].Update();
+        }
     }
     public static List<int> GenerateRandomLane(int laneCount)
     {

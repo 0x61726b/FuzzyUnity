@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class WaveBase
 {
-    private const int LANE_COUNT = 5;
+    public const int LANE_COUNT = 5;
     public enum WaveType
     {
         Normal,
@@ -68,8 +68,6 @@ public class WaveBase
         get { return m_sName; }
         set { m_sName = value; }
     }
-
-
     public WaveBase()
     {
         m_vSpawnPos = Vector3.zero;
@@ -95,12 +93,10 @@ public class WaveBase
     }
     public virtual void Initialize()
     {
-        for (int i = 0; i < m_cLanes.Count; i++)
-            m_cLanes[i].Initialize();
+
     }
     public virtual void Update()
     {
 
     }
-
 }

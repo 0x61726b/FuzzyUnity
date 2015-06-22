@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NormalWave : WaveBase 
+public class NormalWave : WaveBase
 {
     public NormalWave(int laneObjCount)
     {
@@ -9,30 +9,32 @@ public class NormalWave : WaveBase
         Lane l = new Lane();
         l.Binary = Lane.GenerateRandomLane(laneObjCount);
 
-        LaneElement lElement = new LaneElement(LaneElement.ElementType.Block);
-        lElement.Prefab = Resources.Load("Prefabs/EnemyModel") as GameObject;
-        l.SetDefaultElement(lElement);
+        Block lElement = new Block();
+        lElement.Prefab = Resources.Load("Prefabs/Enemy") as GameObject;
+        l.SetDefaultBlock(lElement);
 
-        Powerup lPowerup = new Powerup();
-        lPowerup.Prefab = Resources.Load("Prefabs/Powerup") as GameObject;
-        l.Powerups.Add(lPowerup);
-        
+        Speed = new Vector3(-0.1f, 0.0f, 0.0f);
+        SpawnPosition = new Vector3(15.16f, 2, -2);
+        l.Wave = this;
+
         Name = "Normal Wave";
-        
+
         Lanes.Add(l);
+
+        
     }
-    public virtual void Initialize()
+    public override void Initialize()
     {
-        Speed = new Vector3(-0.1f, 0, 0);
+        for (int i = 0; i < Lanes.Count; i++)
+            Lanes[i].Initialize();
     }
-    public virtual void Update()
+    public override void Update()
     {
-        for( int j=0; j < Lanes.Count; j++ )
+        for (int j = 0; j < Lanes.Count; j++)
         {
             Lane l = Lanes[j];
 
-          
+            l.Update();
         }
     }
-	
 }
