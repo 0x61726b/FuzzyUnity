@@ -13,7 +13,7 @@ public class NormalWave : WaveBase
         lElement.Prefab = Resources.Load("Prefabs/Enemy") as GameObject;
         l.SetDefaultBlock(lElement);
 
-        Speed = new Vector3(-0.1f, 0.0f, 0.0f);
+        Speed = new Vector3(-7, 0.0f, 0.0f);
         SpawnPosition = new Vector3(15.16f, 2, -2);
         l.Wave = this;
 

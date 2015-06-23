@@ -10,36 +10,40 @@ public class WaveHandler : MonoBehaviour
 
     private float SPAWN_FREQUENCY_COEFFICIENT = 0.5f;
     private float SPAWN_FREQUENCY = 2.0f;
+    private bool bCheckCollision = false;
     void Start()
     {
 
 
         
     }
+    public void SetWaves()
+    {
+        this.GetComponent<FormationHandler>().Waves = m_Waves;
+    }
     void WaveLogic()
     {
-        tWaveSpawn += Time.deltaTime;
-        if (tWaveSpawn > SPAWN_FREQUENCY)
+        if (GameLogic.State == GameLogic.GameState.OnGoing)
         {
-            SPAWN_FREQUENCY_COEFFICIENT = Random.Range(0.2F, 0.9f);
-
-            if (tWaveSpawn >= SPAWN_FREQUENCY + SPAWN_FREQUENCY_COEFFICIENT)
+            tWaveSpawn += Time.deltaTime;
+            if (tWaveSpawn > SPAWN_FREQUENCY)
             {
-                int LaneCntDecider = Random.Range(2, 4);
-                NormalWave wave = new NormalWave(LaneCntDecider);
-                wave.Initialize();
-                SpawnWave(wave);
-                tWaveSpawn = 0.0f;
+                SPAWN_FREQUENCY_COEFFICIENT = Random.Range(0.2F, 0.9f);
 
-                
+                if (tWaveSpawn >= SPAWN_FREQUENCY + SPAWN_FREQUENCY_COEFFICIENT)
+                {
+                    int LaneCntDecider = Random.Range(2, 4);
+                    NormalWave wave = new NormalWave(LaneCntDecider);
+                    wave.Initialize();
+                    SpawnWave(wave);
+                    tWaveSpawn = 0.0f;
+                }
             }
         }
-
-        
     }
     void SpawnWave(WaveBase wave)
     {
-        GameObject parent = new GameObject(wave.Name + "# " + m_Waves.Count.ToString());
+        GameObject parent = new GameObject(wave.Name + "#" + m_Waves.Count.ToString());
         Vector3 LanePos = wave.SpawnPosition;
 
         List<Lane> lanes = wave.Lanes;
@@ -72,10 +76,38 @@ public class WaveHandler : MonoBehaviour
     }
     void Update()
     {
+        bCheckCollision = false;
+
         WaveLogic();
         for (int i = 0; i < m_Waves.Count; i++)
         {
-            m_Waves[i].Update();
+            if(m_Waves[i] != null)
+                m_Waves[i].Update();
+        }
+
+        SetWaves();
+
+        
+    }
+    public void SpawnFirstWave()
+    {
+        int LaneCntDecider = Random.Range(2, 4);
+        NormalWave wave = new NormalWave(LaneCntDecider);
+        wave.Initialize();
+        SpawnWave(wave);
+
+        SetWaves();
+    }
+    public void DestroyWave(int ID)
+    {
+        if (!bCheckCollision)
+        {
+            
+            m_Waves[ID] = null;
+
+            bCheckCollision = true;
+
+            
         }
     }
 }

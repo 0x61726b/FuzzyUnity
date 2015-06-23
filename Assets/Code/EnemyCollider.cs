@@ -15,9 +15,8 @@ public class EnemyCollider : MonoBehaviour
     {
 
     }
-    void OnCollisionEnter(Collision c)
+    void OnTriggerEnter(Collider c)
     {
         GameObject.Find("GameLogic").SendMessage("OnWaveCollision",c);
-        
     }
 }

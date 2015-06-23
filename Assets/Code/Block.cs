@@ -28,6 +28,7 @@ public class Block : LaneElement
     }
     public override void Update()
     {
-        Transform.Translate(m_vXSpeed);
+        Transform.Translate(m_vXSpeed*Time.deltaTime);
+
     }
 }

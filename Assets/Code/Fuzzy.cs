@@ -9,39 +9,18 @@ public class Fuzzy : MonoBehaviour
     private int m_iOtherFuzzyLane;
     private Vector2 m_vSpring;
 
-    private Logic.GameState m_eState;
     // Use this for initialization
     void Start()
     {
         m_vSpring = new Vector2(transform.position.z, 0);
 
     }
-    public void UpdateGameState(Logic.GameState state)
-    {
-        m_eState = state;
-    }
+
     // Update is called once per frame
     void Update()
     {
-        if(m_eState == Logic.GameState.OnGoing)
-            LaneSwitch(); 
-    }
-    public void FindOtherFuzzy()
-    {
-        GameObject[] list = GameObject.FindGameObjectsWithTag("Fuzzy");
-
-        if (list.Length > 0)
-        {
-            for (int i = 0; i < list.Length; i++)
-            {
-                if (list[i] != this)
-                {
-                    Fuzzy f = list[i].GetComponent<Fuzzy>();
-
-                    m_iOtherFuzzyLane = f.CurrentLane;
-                }
-            }
-        }
+        if (GameLogic.State == GameLogic.GameState.OnGoing)
+            LaneSwitch();
     }
     public void LaneSwitch()
     {
@@ -66,7 +45,6 @@ public class Fuzzy : MonoBehaviour
     }
     public void OnCollisionEnter(Collision c)
     {
-        m_eState = Logic.GameState.Over;
-        GameObject.Find("Logic").SendMessage("SetGameState", m_eState);
+
     }
 }

@@ -6,7 +6,7 @@ using UnityEditor;
 #endif
 public class MenuController : MonoBehaviour {
 
-    public Logic logic;
+    
 	void Start () {
 	
 	}

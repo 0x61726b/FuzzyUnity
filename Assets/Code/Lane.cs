@@ -118,4 +118,52 @@ public class Lane
 
         return LaneList;
     }
+    public static List<List<int>> GetDistinctiveLanes(int count, List<List<int>> solutions)
+    {
+        List<List<int>> DistinctiveLanes = new List<List<int>>();
+
+        bool contains = false;
+        int k = 0;
+        while (!contains)
+        {
+            List<int> randomLane = Lane.GenerateRandomLane(2);
+
+            if (!ContainsLane(DistinctiveLanes, randomLane) && !ContainsLane(solutions, randomLane))
+            {
+                DistinctiveLanes.Add(randomLane);
+                k++;
+            }
+            if (k >= count)
+            {
+                contains = true;
+            }
+        }
+        return DistinctiveLanes;
+    }
+    public static bool ContainsLane(List<List<int>> lanes, List<int> randomLane)
+    {
+        bool result = false;
+        bool has2elems = false;
+        for (int i = 0; i < lanes.Count; i++)
+        {
+            List<int> t = lanes[i];
+
+            for (int k = 0; k < t.Count; k++)
+            {
+                int ti = t[k];
+
+                if (ti == 1)
+                {
+                    int index = k;
+
+                    if (randomLane[index] == 1 && has2elems)
+                        result = true;
+
+                    if (randomLane[index] == 1)
+                        has2elems = true;
+                }
+            }
+        }
+        return result;
+    }
 }
