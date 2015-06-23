@@ -78,15 +78,16 @@ public class WaveHandler : MonoBehaviour
     {
         bCheckCollision = false;
 
-        WaveLogic();
-        for (int i = 0; i < m_Waves.Count; i++)
+        if (GameLogic.State == GameLogic.GameState.OnGoing)
         {
-            if(m_Waves[i] != null)
-                m_Waves[i].Update();
+            WaveLogic();
+            for (int i = 0; i < m_Waves.Count; i++)
+            {
+                if (m_Waves[i] != null)
+                    m_Waves[i].Update();
+            }
+            SetWaves();   
         }
-
-        SetWaves();
-
         
     }
     public void SpawnFirstWave()
@@ -102,12 +103,9 @@ public class WaveHandler : MonoBehaviour
     {
         if (!bCheckCollision)
         {
-            
             m_Waves[ID] = null;
 
             bCheckCollision = true;
-
-            
         }
     }
 }

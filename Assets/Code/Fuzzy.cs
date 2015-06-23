@@ -45,6 +45,6 @@ public class Fuzzy : MonoBehaviour
     }
     public void OnCollisionEnter(Collision c)
     {
-
+        GameLogic.State = GameLogic.GameState.Ended;
     }
 }
