@@ -9,7 +9,7 @@ Material:
   m_Name: TilesPlain0118_5_S
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
-  m_LightmapFlags: 5
+  m_LightmapFlags: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
@@ -54,7 +54,7 @@ Material:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: c10eb6c23f85bfa46a3268d8546369f0, type: 3}
           m_Scale: {x: 4.53999996, y: .800000012}
           m_Offset: {x: 0, y: .0399999991}
       data:

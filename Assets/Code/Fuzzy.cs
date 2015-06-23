@@ -4,15 +4,21 @@ using System.Collections.Generic;
 
 public class Fuzzy : MonoBehaviour
 {
+    public MenuController menu;
 
     public int CurrentLane;
     private int m_iOtherFuzzyLane;
     private Vector2 m_vSpring;
+    
+
+    Animator animator;
 
     private Logic.GameState m_eState;
     // Use this for initialization
     void Start()
     {
+        animator = GameObject.FindGameObjectWithTag("ScorePanel").GetComponent<Animator>();
+
         m_vSpring = new Vector2(transform.position.z, 0);
 
     }
@@ -67,8 +73,10 @@ public class Fuzzy : MonoBehaviour
     public void OnCollisionEnter(Collision c)
     {
         m_eState = Logic.GameState.Over;
+        animator.SetBool("gameEnded", true);
+       
         GameObject.Find("Logic").SendMessage("SetGameState", m_eState);
-        
+        menu.updateScoreboard();
 
     }
 }

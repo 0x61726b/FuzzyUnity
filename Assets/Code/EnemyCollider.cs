@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class EnemyCollider : MonoBehaviour
 {
+
     public Text scoreText;
     int score;
     bool entered;

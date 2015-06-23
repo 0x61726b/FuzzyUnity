@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - FormationButton
   - TapToStart
+  - ScorePanel
   layers:
   - Default
   - TransparentFX
