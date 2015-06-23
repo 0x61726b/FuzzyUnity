@@ -35,7 +35,8 @@ public class MenuController : MonoBehaviour {
         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
     }
 
-    public void updateScoreboard() {
+    public void UpdateScoreboard()
+    {
         score.text = currentScore.text;
         if (System.Convert.ToInt32(score.text) > System.Convert.ToInt32(bestScore.text))
         {

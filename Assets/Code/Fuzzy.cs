@@ -46,5 +46,10 @@ public class Fuzzy : MonoBehaviour
     public void OnCollisionEnter(Collision c)
     {
         GameLogic.State = GameLogic.GameState.Ended;
+
+        Animator animator = GameObject.Find("ScorePanel").GetComponent<Animator>();
+        animator.SetBool("gameEnded", true);
+
+        GameObject.Find("MenuController").GetComponent<MenuController>().UpdateScoreboard();
     }
 }
