@@ -20,12 +20,12 @@ public class EnemyCollider : MonoBehaviour
     }
     void OnTriggerEnter(Collider c)
     {
-        if(!entered){
+        if(!entered)
+        {
             mc.IncrementScore();
             entered = true;
         }
         fh.OnWaveCollision(c);
-        //GameObject.Find("GameLogic").SendMessage("OnWaveCollision",c);
     }
 
     void OnTriggerExit(Collider c)

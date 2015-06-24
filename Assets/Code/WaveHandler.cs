@@ -33,9 +33,19 @@ public class WaveHandler : MonoBehaviour
                 if (tWaveSpawn >= SPAWN_FREQUENCY + SPAWN_FREQUENCY_COEFFICIENT)
                 {
                     int LaneCntDecider = Random.Range(2, 4);
-                    NormalWave wave = new NormalWave(LaneCntDecider);
-                    wave.Initialize();
-                    SpawnWave(wave);
+                    int waveDecider = Random.Range(1, 3);
+                    WaveBase wb = null;
+                    if (waveDecider == 1)
+                    {
+                        wb = new NormalWave(LaneCntDecider);
+                    }
+                    if (waveDecider == 2)
+                    {
+                        wb = new DoubleWave(LaneCntDecider);
+                    }
+
+                    wb.Initialize();
+                    SpawnWave(wb);
                     tWaveSpawn = 0.0f;
                 }
             }
@@ -65,12 +75,13 @@ public class WaveHandler : MonoBehaviour
                 BasePosition.z = lane.Blocks[j].Index * (-1.5f);
 
                 GameObject g = (GameObject)Instantiate(prefab, BasePosition, Quaternion.identity);
+                g.GetComponent<Renderer>().material.color = wave.MaterialColor;
                 g.name = "Block at #" + lane.Blocks[j].Index.ToString();
                 lane.Blocks[j].Transform = g.transform;
                 g.transform.parent = laneObj.transform;
 
             }
-            LaneSpawnPos.x += 10;
+            LaneSpawnPos.x += 6;
         }
         m_Waves.Add(wave);
     }

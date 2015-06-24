@@ -1,29 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NormalWave : WaveBase
+public class DoubleWave : WaveBase
 {
-    public NormalWave(int laneObjCount)
+    public DoubleWave(int laneObjCount)
     {
-        //Normal Wave = 1 lane of blocks
+       
         Lane l = new Lane();
         l.Binary = Lane.GenerateRandomLane(laneObjCount);
 
         Block lElement = new Block();
         lElement.Prefab = Resources.Load("Prefabs/Enemy") as GameObject;
+        MaterialColor = Color.red;
         l.SetDefaultBlock(lElement);
-        MaterialColor = Color.blue;
 
         Speed = new Vector3(-7, 0.0f, 0.0f);
-        SpawnPosition = new Vector3(15.16f, 2, -2);
         l.Wave = this;
 
-        Name = "Normal Wave";
+        Lane d = new Lane();
+        d.Binary = Lane.GenerateRandomLane(laneObjCount);
+        d.SetDefaultBlock(lElement);
+        d.Wave = this;
+
+        Name = "Double Wave";
+        Type = WaveType.Oa2A;
 
         Lanes.Add(l);
-
-        Type = WaveType.Normal;
-        
+        Lanes.Add(d);
     }
     public override void Initialize()
     {

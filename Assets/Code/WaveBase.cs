@@ -38,6 +38,14 @@ public class WaveBase
         set { m_Prefabs = value; }
     }
 
+    private Color m_cBlockColor;
+
+    public Color MaterialColor
+    {
+        get { return m_cBlockColor; }
+        set { m_cBlockColor = value; }
+    }
+
     private List<int> m_DesiredPrefabIndices;
 
     public List<int> DesiredPrefabIndices
@@ -77,6 +85,7 @@ public class WaveBase
         m_Type = WaveType.Normal;
         m_Prefabs = new List<GameObject>();
         m_sName = "Wave Unknown";
+        SpawnPosition = new Vector3(15.16f, 2, -2);
 
         for (int i = 0; i < LANE_COUNT; i++)
             m_Prefabs.Add(null);

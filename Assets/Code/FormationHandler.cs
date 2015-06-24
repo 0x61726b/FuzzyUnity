@@ -40,6 +40,7 @@ using System.Collections.Generic;
 public class FormationHandler : MonoBehaviour
 {
     private bool bCheckCollision = false;
+    private int iLanePassed = 0;
     private List<WaveBase> m_Waves;
     public List<WaveBase> Waves
     {
@@ -71,7 +72,21 @@ public class FormationHandler : MonoBehaviour
         int waveIndex = name.IndexOf('#');
         string id = name.Substring(waveIndex+1);
         int waveID = System.Int32.Parse(id);
-        Solve(waveID+1);
+
+        WaveBase wave = m_Waves[waveID];
+        if (wave.Type == WaveBase.WaveType.Oa2A && iLanePassed < 2)
+        {
+            iLanePassed++;
+        }
+        if (iLanePassed == 2)
+        {
+            Solve(waveID + 1);
+            iLanePassed = 0;
+        }
+        if (wave.Type == WaveBase.WaveType.Normal)
+        {
+            Solve(waveID + 1);
+        }
         
         bCheckCollision = true;
     }
