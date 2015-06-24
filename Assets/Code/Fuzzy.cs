@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Fuzzy : MonoBehaviour
 {
@@ -9,11 +10,12 @@ public class Fuzzy : MonoBehaviour
     private int m_iOtherFuzzyLane;
     private Vector2 m_vSpring;
 
+ 
     // Use this for initialization
     void Start()
     {
         m_vSpring = new Vector2(transform.position.z, 0);
-
+        
     }
 
     // Update is called once per frame
@@ -47,7 +49,8 @@ public class Fuzzy : MonoBehaviour
     {
         GameLogic.State = GameLogic.GameState.Ended;
 
-        Animator animator = GameObject.Find("ScorePanel").GetComponent<Animator>();
+        Animator animator = GameObject.FindWithTag("ScorePanel").GetComponent<Animator>();
+        
         animator.SetBool("gameEnded", true);
 
         GameObject.Find("MenuController").GetComponent<MenuController>().UpdateScoreboard();

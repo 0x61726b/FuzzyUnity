@@ -10,8 +10,10 @@ public class MenuController : MonoBehaviour {
     public Text bestScoreText;
     public Text currentScoreText;
 
+
     
 	void Start () {
+   
         score = 0;
         if(PlayerPrefs.GetInt("BestScore").ToString() != null){
             bestScoreText.text = "0";

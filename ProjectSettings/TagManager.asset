@@ -9,6 +9,7 @@ TagManager:
   - FormationButton
   - TapToStart
   - ScorePanel
+  - TapToRestart
   layers:
   - Default
   - TransparentFX
