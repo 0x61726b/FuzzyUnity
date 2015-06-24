@@ -26,7 +26,7 @@ public class MenuController : MonoBehaviour {
 
     public void RestartLevel()
     {
-        Time.timeScale = 1;
+        GameLogic.State = GameLogic.GameState.NotStarted;
         Application.LoadLevel("MainScene");
 
     }
