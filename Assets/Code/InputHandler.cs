@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class InputHandler : MonoBehaviour 
+public class InputHandler : MonoBehaviour
 {
     public const int BUTTON_COUNT = 3;
     public Button LeftButton;
@@ -14,18 +14,18 @@ public class InputHandler : MonoBehaviour
     public Fuzzy RightFuzzy;
 
     private List<Button> NotPickedButtons;
-	
-	void Start () 
+
+    void Start()
     {
         NotPickedButtons = new List<Button>();
 
-	}
-	
-	
-	void Update () 
+    }
+
+
+    void Update()
     {
-	
-	}
+
+    }
     public void UpdateButtons(List<List<int>> Solutions)
     {
         int correctSolutionCount = Solutions.Count;
@@ -38,7 +38,7 @@ public class InputHandler : MonoBehaviour
         for (int i = 0; i < correctSolutionCount; i++)
         {
             Button correctButton = GetNotAssignedButton();
-            UpdateButton(correctButton,Solutions[i]);
+            UpdateButton(correctButton, Solutions[i]);
         }
         List<List<int>> FalseLanes = Lane.GetDistinctiveLanes(falseSolutionCount, Solutions);
 
@@ -72,7 +72,7 @@ public class InputHandler : MonoBehaviour
             b = PickButton();
             for (int i = 0; i < NotPickedButtons.Count; i++)
             {
-                
+
                 if (b == NotPickedButtons[i])
                 {
                     isPicked = true;
@@ -84,7 +84,7 @@ public class InputHandler : MonoBehaviour
     }
     public Button PickButton()
     {
-        int Rnd = Random.Range(1, BUTTON_COUNT+1);
+        int Rnd = Random.Range(1, BUTTON_COUNT + 1);
         Button pickedButton = null;
 
         if (Rnd == 1)
@@ -99,7 +99,7 @@ public class InputHandler : MonoBehaviour
         {
             pickedButton = CenterButton;
         }
-       
+
         return pickedButton;
     }
     public Texture2D LoadButtonTexture(List<int> Formation)
@@ -136,10 +136,14 @@ public class InputHandler : MonoBehaviour
     public void TapToStart(GameObject b)
     {
         GameLogic.State = GameLogic.GameState.OnGoing;
-        b.SetActive(false);
+
 
         GetComponent<WaveHandler>().SpawnFirstWave();
         GetComponent<FormationHandler>().UpdateFirstSpawn();
+
+        b.SetActive(false);
+
+
     }
 
 }

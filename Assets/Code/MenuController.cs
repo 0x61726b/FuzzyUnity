@@ -5,17 +5,18 @@ using UnityEngine.UI;
 using UnityEditor;
 #endif
 public class MenuController : MonoBehaviour {
-    
-    public Text score;
-    public Text bestScore;
-    public Text currentScore;
+    public int score;
+    public Text scoreText;
+    public Text bestScoreText;
+    public Text currentScoreText;
 
     
 	void Start () {
+        score = 0;
         if(PlayerPrefs.GetInt("BestScore").ToString() != null){
-            bestScore.text = "0";
+            bestScoreText.text = "0";
         }
-        bestScore.text = PlayerPrefs.GetInt("BestScore").ToString();
+        bestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
 	}
 	
 	// Update is called once per frame
@@ -37,13 +38,19 @@ public class MenuController : MonoBehaviour {
 
     public void UpdateScoreboard()
     {
-        score.text = currentScore.text;
-        if (System.Convert.ToInt32(score.text) > System.Convert.ToInt32(bestScore.text))
+        currentScoreText.text = score.ToString();
+        scoreText.text = currentScoreText.text;
+        if (score > System.Convert.ToInt32(bestScoreText.text))
         {
-            PlayerPrefs.SetInt("BestScore", System.Convert.ToInt32(score.text));
-            bestScore.text = PlayerPrefs.GetInt("BestScore").ToString();
+            PlayerPrefs.SetInt("BestScore", score);
+            bestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
         }
             
+    }
+    public void IncrementScore()
+    {
+        score += 1;
+        UpdateScoreboard();
     }
 
 }

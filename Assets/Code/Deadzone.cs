@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Deadzone : MonoBehaviour {
-
+   
 
 	// Use this for initialization
 	void Start () 
@@ -27,7 +27,7 @@ public class Deadzone : MonoBehaviour {
         int waveID = System.Int32.Parse(id);
 
         GameObject.Find("GameLogic").SendMessage("DestroyWave", waveID);
-
+        
         Destroy(g);
     }
 }
