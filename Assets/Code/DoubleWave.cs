@@ -10,11 +10,12 @@ public class DoubleWave : WaveBase
         l.Binary = Lane.GenerateRandomLane(laneObjCount);
 
         Block lElement = new Block();
-        lElement.Prefab = Resources.Load("Prefabs/Enemy") as GameObject;
+        lElement.Prefab = "oneMesh";
         MaterialColor = Color.red;
         l.SetDefaultBlock(lElement);
 
         Speed = new Vector3(-7, 0.0f, 0.0f);
+        SpawnPosition = new Vector3(15.16f, 1.4f, -2);
         l.Wave = this;
 
         Lane d = new Lane();

@@ -17,9 +17,9 @@ public class LaneElement
         set { m_Type = value; }
     }
 
-    private GameObject m_Prefab;
+    private string m_Prefab;
 
-    public GameObject Prefab
+    public string Prefab
     {
         get { return m_Prefab; }
         set { m_Prefab = value; }

@@ -21,7 +21,7 @@ public class Lane
         //Add default elements
         Block elem = new Block();
         elem.Index = -1;
-        elem.Prefab = Resources.Load("Prefabs/Enemy") as GameObject;
+        elem.Prefab = "oneMesh";
         DefaultBlock = elem;
     }
     public void SetDefaultBlock(Block le)
@@ -57,7 +57,7 @@ public class Lane
                 b.Index = i;
                 b.Name = "Block at #" + i.ToString();
                 b.XSpeed = Wave.Speed;
-                GameObject prefab = null;
+                string prefab = "";
                 //Check if there's assigned elem for this
                 LaneElement elem = this.GetLaneElement(i, LaneElement.ElementType.Block);
                 if (elem.Index == i)

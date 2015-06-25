@@ -11,11 +11,13 @@ public class WaveHandler : MonoBehaviour
     private float SPAWN_FREQUENCY_COEFFICIENT = 0.5f;
     private float SPAWN_FREQUENCY = 2.0f;
     private bool bCheckCollision = false;
+
+    private List<GameObject> m_PreloadedAssets;
     void Start()
     {
-
-
-        
+        m_PreloadedAssets = new List<GameObject>();
+        GameObject[] gos = Resources.LoadAll<GameObject>("Prefabs");
+        m_PreloadedAssets.AddRange(gos);
     }
     public void SetWaves()
     {
@@ -71,7 +73,7 @@ public class WaveHandler : MonoBehaviour
 
             for (int j = 0; j < lane.Blocks.Count; j++)
             {
-                GameObject prefab = lane.Blocks[j].Prefab;
+                GameObject prefab = m_PreloadedAssets.Find(x => x.name == lane.Blocks[j].Prefab);
                 Vector3 BasePosition = LaneSpawnPos;
                 BasePosition.z = lane.Blocks[j].Index * (-1.5f);
 

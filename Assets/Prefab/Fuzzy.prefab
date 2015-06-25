@@ -9,9 +9,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 496678}
   - 33: {fileID: 3340716}
-  - 135: {fileID: 13555234}
   - 23: {fileID: 2326576}
   - 114: {fileID: 11497374}
+  - 54: {fileID: 5427816}
+  - 65: {fileID: 6548550}
   m_Layer: 0
   m_Name: Fuzzy
   m_TagString: Fuzzy
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 178886}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: 2, z: -6}
+  m_LocalPosition: {x: -9.68999958, y: 2, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -62,6 +63,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 178886}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &5427816
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178886}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &6548550
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178886}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11497374
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,19 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de607b19567e4f342822e41c4258a034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentLane: 1
---- !u!135 &13555234
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 178886}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .5
-  m_Center: {x: 0, y: 0, z: 0}
+  CurrentLane: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

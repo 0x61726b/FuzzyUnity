@@ -10,7 +10,7 @@ public class NormalWave : WaveBase
         l.Binary = Lane.GenerateRandomLane(laneObjCount);
 
         Block lElement = new Block();
-        lElement.Prefab = Resources.Load("Prefabs/oneMesh") as GameObject;
+        lElement.Prefab = "oneMesh";
         l.SetDefaultBlock(lElement);
         //MaterialColor = new Color(0.06f, 0.06f, 0.35f);
 

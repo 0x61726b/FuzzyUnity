@@ -4,7 +4,7 @@ using System.Collections;
 public class FloorScript : MonoBehaviour
 {
     
-    public float scrollSpeed = 0.5F;
+    public float scrollSpeed = 0.78F;
     public Renderer rend;
     void Start()
     {
