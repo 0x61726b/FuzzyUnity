@@ -313,7 +313,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 575a3ba784b130a42b0ee85e936db4e7, type: 3}
+    m_Font: {fileID: 12800000, guid: 1579ac2d2a5145f4b91e7945709dcd54, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 575a3ba784b130a42b0ee85e936db4e7, type: 3}
+    m_Font: {fileID: 12800000, guid: 1579ac2d2a5145f4b91e7945709dcd54, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 575a3ba784b130a42b0ee85e936db4e7, type: 3}
+    m_Font: {fileID: 12800000, guid: 1579ac2d2a5145f4b91e7945709dcd54, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -921,7 +921,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 715d5cf29585d594593f725be9705e3a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e3de59b095bae174bbabebf027d55bd2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1255,7 +1255,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 496678, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: CurrentLane
@@ -1472,7 +1472,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 575a3ba784b130a42b0ee85e936db4e7, type: 3}
+    m_Font: {fileID: 12800000, guid: 1579ac2d2a5145f4b91e7945709dcd54, type: 3}
     m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 1
@@ -1580,7 +1580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 93da42772dd57fb43ba7f06db995db03, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3f407bd00cd6c6246ad83e1a3f0d9ed5, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1666,7 +1666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac44808b6552cd44ab647d540b92bc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: .779999971
+  scrollSpeed: .5
   rend: {fileID: 0}
 --- !u!33 &946688951
 MeshFilter:
@@ -1936,7 +1936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 28c644a61ecbab640903301c7720c0c8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dee90fda3c7b3d04185277b9c773f230, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2000,7 +2000,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 496678, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 178886, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: m_Name
@@ -2191,7 +2191,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 575a3ba784b130a42b0ee85e936db4e7, type: 3}
+    m_Font: {fileID: 12800000, guid: 1579ac2d2a5145f4b91e7945709dcd54, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -2525,7 +2525,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 575a3ba784b130a42b0ee85e936db4e7, type: 3}
+    m_Font: {fileID: 12800000, guid: 1579ac2d2a5145f4b91e7945709dcd54, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1

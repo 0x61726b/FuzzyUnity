@@ -10,12 +10,12 @@ public class NormalWave : WaveBase
         l.Binary = Lane.GenerateRandomLane(laneObjCount);
 
         Block lElement = new Block();
-        lElement.Prefab = Resources.Load("Prefabs/Enemy") as GameObject;
+        lElement.Prefab = Resources.Load("Prefabs/oneMesh") as GameObject;
         l.SetDefaultBlock(lElement);
-        MaterialColor = Color.blue;
+        //MaterialColor = new Color(0.06f, 0.06f, 0.35f);
 
         Speed = new Vector3(-7, 0.0f, 0.0f);
-        SpawnPosition = new Vector3(15.16f, 2, -2);
+        SpawnPosition = new Vector3(15.16f, 1.4f, -2);
         l.Wave = this;
 
         Name = "Normal Wave";

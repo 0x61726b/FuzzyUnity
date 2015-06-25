@@ -1,27 +1,15 @@
 fileFormatVersion: 2
-guid: 8fc900d5692f4c849a81e2471073b32e
-timeCreated: 1434716123
+guid: d22b12cf127e63a49a7dadb128223317
+timeCreated: 1435227625
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pCube1
-    100004: pCube2
-    100006: pCube3
     400000: //RootNode
-    400002: pCube1
-    400004: pCube2
-    400006: pCube3
-    2300000: pCube1
-    2300002: pCube2
-    2300004: pCube3
-    3300000: pCube1
-    3300002: pCube2
-    3300004: pCube3
-    4300000: pCube1
-    4300002: pCube2
-    4300004: pCube3
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: bottomCube
   materials:
     importMaterials: 1
     materialName: 0
@@ -45,7 +33,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 6.24138594
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
