@@ -35,14 +35,15 @@ public class WaveHandler : MonoBehaviour
                     int LaneCntDecider = Random.Range(2, 4);
                     int waveDecider = Random.Range(1, 3);
                     WaveBase wb = null;
-                    if (waveDecider == 1)
-                    {
-                        wb = new NormalWave(LaneCntDecider);
-                    }
-                    if (waveDecider == 2)
-                    {
-                        wb = new DoubleWave(LaneCntDecider);
-                    }
+                    //if (waveDecider == 1)
+                    //{
+                    //    wb = new NormalWave(LaneCntDecider);
+                    //}
+                    //if (waveDecider == 2)
+                    //{
+                    //    wb = new DoubleWave(LaneCntDecider);
+                    //}
+                    wb = new DoubleWave(LaneCntDecider);
 
                     wb.Initialize();
                     SpawnWave(wb);
@@ -104,7 +105,7 @@ public class WaveHandler : MonoBehaviour
     public void SpawnFirstWave()
     {
         int LaneCntDecider = Random.Range(2, 4);
-        NormalWave wave = new NormalWave(LaneCntDecider);
+        DoubleWave wave = new DoubleWave(LaneCntDecider);
         wave.Initialize();
         SpawnWave(wave);
 

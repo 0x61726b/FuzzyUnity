@@ -3,26 +3,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class Fuzzy : MonoBehaviour
+public class Fuzzy : MonoBehaviour,ISleepable
 {
 
     public int CurrentLane;
     private int m_iOtherFuzzyLane;
     private Vector2 m_vSpring;
+    private bool m_bSleeping;
+    private float m_fSleepTimer = 0.0f;
+    private float m_fSleepThreshold = 0.4f;
+    public bool Sleeping
+    {
+        get { return m_bSleeping; }
+        set { m_bSleeping = value; }
+    }
 
+    
  
     // Use this for initialization
     void Start()
     {
         m_vSpring = new Vector2(transform.position.z, 0);
-        
+        m_bSleeping = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameLogic.State == GameLogic.GameState.OnGoing)
-            LaneSwitch();
+        if (!m_bSleeping)
+        {
+            if (GameLogic.State == GameLogic.GameState.OnGoing)
+                LaneSwitch();
+        }
+        if (!m_bSleeping)
+        {
+            m_fSleepTimer += Time.deltaTime;
+
+            if (m_fSleepTimer >= m_fSleepThreshold)
+            {
+                m_bSleeping = true;
+                m_fSleepTimer = 0.0f;
+            }
+        }
     }
     public void LaneSwitch()
     {
@@ -54,5 +76,16 @@ public class Fuzzy : MonoBehaviour
         animator.SetBool("gameEnded", true);
 
         GameObject.Find("MenuController").GetComponent<MenuController>().UpdateScoreboard();
+    }
+
+    public bool IsSleeping()
+    {
+        return m_bSleeping;
+    }
+
+
+    public void SetSleepTimer()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -15,10 +15,18 @@ public class InputHandler : MonoBehaviour
 
     private List<Button> NotPickedButtons;
 
+    private List<Sprite> m_Sprites;
+
     void Start()
     {
         NotPickedButtons = new List<Button>();
 
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures");
+        m_Sprites = new List<Sprite>();
+        m_Sprites.AddRange(sprites);
+
+        for (int i = 0; i < sprites.Length; i++)
+            Debug.Log(m_Sprites[i].name);
     }
 
 
@@ -54,9 +62,10 @@ public class InputHandler : MonoBehaviour
         Sprite sp = b.GetComponent<Image>().sprite;
         string LaneNumber = GetResourceName(solution);
 
-        Texture2D t = LoadButtonTexture(solution);
+        Sprite t = LoadButtonTexture(solution);
 
-        b.GetComponent<Image>().sprite = Sprite.Create(t, sp.rect, sp.pivot);
+        b.GetComponent<Image>().sprite = t;
+
         b.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(LaneNumber[0]);
         b.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(LaneNumber[2]);
         b.onClick.AddListener(() => SetFuzzyLanes((int)System.Char.GetNumericValue(LaneNumber[0]),
@@ -102,11 +111,12 @@ public class InputHandler : MonoBehaviour
 
         return pickedButton;
     }
-    public Texture2D LoadButtonTexture(List<int> Formation)
+    public Sprite LoadButtonTexture(List<int> Formation)
     {
         string textureName = GetResourceName(Formation);
 
-        Texture2D t = Resources.Load(textureName) as Texture2D;
+        Sprite t = m_Sprites.Find(x => x.name == textureName);
+        
         return t;
     }
     public string GetResourceName(List<int> Formation)
@@ -131,6 +141,9 @@ public class InputHandler : MonoBehaviour
     {
         LeftFuzzy.CurrentLane = left;
         RightFuzzy.CurrentLane = right;
+
+        LeftFuzzy.Sleeping = false;
+        RightFuzzy.Sleeping = false;
     }
 
     public void TapToStart(GameObject b)
