@@ -13,6 +13,8 @@ public class WaveHandler : MonoBehaviour
     private bool bCheckCollision = false;
 
     private List<GameObject> m_PreloadedAssets;
+
+    public FormationHandler gL;
     void Start()
     {
         m_PreloadedAssets = new List<GameObject>();
@@ -21,7 +23,7 @@ public class WaveHandler : MonoBehaviour
     }
     public void SetWaves()
     {
-        this.GetComponent<FormationHandler>().Waves = m_Waves;
+        gL.Waves = m_Waves;
     }
     void WaveLogic()
     {
@@ -78,7 +80,7 @@ public class WaveHandler : MonoBehaviour
                 BasePosition.z = lane.Blocks[j].Index * (-1.5f);
 
                 GameObject g = (GameObject)Instantiate(prefab, BasePosition, Quaternion.identity);
-                g.GetComponent<Renderer>().material.color = wave.MaterialColor;
+                //g.GetComponent<Renderer>().material.color = wave.MaterialColor;
                 g.name = "Block at #" + lane.Blocks[j].Index.ToString();
                 lane.Blocks[j].Transform = g.transform;
                 g.transform.parent = laneObj.transform;

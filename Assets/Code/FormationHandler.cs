@@ -48,6 +48,8 @@ public class FormationHandler : MonoBehaviour
         set { m_Waves = value; }
     }
     //--------------------------------------------------------------------------------
+    public InputHandler gL;
+    //--------------------------------------------------------------------------------
     public void Start()
     {
         
@@ -100,7 +102,7 @@ public class FormationHandler : MonoBehaviour
             Lane lane = Wave.Lanes[i];
             Solutions.Add(SolveForLane(lane));
         }
-        GetComponent<InputHandler>().UpdateButtons(Solutions);
+        gL.UpdateButtons(Solutions);
     }
     //--------------------------------------------------------------------------------
     public void UpdateFirstSpawn()

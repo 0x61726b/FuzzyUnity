@@ -1255,7 +1255,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 496678, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: CurrentLane
@@ -1265,14 +1265,22 @@ Prefab:
       propertyPath: m_Name
       value: Right Fuzzy
       objectReference: {fileID: 0}
-    - target: {fileID: 13555234, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: menu
       value: 
       objectReference: {fileID: 224794458}
+    - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
+      propertyPath: mC
+      value: 
+      objectReference: {fileID: 224794457}
+    - target: {fileID: 6548550, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
   m_IsPrefabParent: 0
@@ -1306,6 +1314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 881fff8678b2793408e811a82c61c9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gL: {fileID: 1842720170}
 --- !u!23 &515977987
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1666,7 +1675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac44808b6552cd44ab647d540b92bc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: .5
+  scrollSpeed: .779999971
   rend: {fileID: 0}
 --- !u!33 &946688951
 MeshFilter:
@@ -1686,7 +1695,7 @@ Transform:
   m_LocalScale: {x: 40.808754, y: 1, z: 8.697649}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!1 &1022151798
 GameObject:
   m_ObjectHideFlags: 0
@@ -2018,14 +2027,22 @@ Prefab:
       propertyPath: m_CastShadows
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 13555234, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: menu
       value: 
       objectReference: {fileID: 224794458}
+    - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
+      propertyPath: mC
+      value: 
+      objectReference: {fileID: 224794457}
+    - target: {fileID: 6548550, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
   m_IsPrefabParent: 0
@@ -2711,6 +2728,8 @@ MonoBehaviour:
   RightButton: {fileID: 773509769}
   LeftFuzzy: {fileID: 344098310}
   RightFuzzy: {fileID: 894327560}
+  fH: {fileID: 1842720168}
+  gL: {fileID: 1842720170}
 --- !u!114 &1842720168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2722,6 +2741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f686e480af785024ab55ff794e946d1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gL: {fileID: 1842720167}
 --- !u!114 &1842720169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2744,6 +2764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47d6b2925d7e9a8429dbd38795382851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gL: {fileID: 1842720168}
 --- !u!4 &1842720171
 Transform:
   m_ObjectHideFlags: 0

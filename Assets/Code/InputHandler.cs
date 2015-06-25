@@ -13,9 +13,20 @@ public class InputHandler : MonoBehaviour
     public Fuzzy LeftFuzzy;
     public Fuzzy RightFuzzy;
 
+    private Image LeftButtonImage;
+    private Image CenterButtonImage;
+    private Image RightButtonImage;
+
+    private LaneSprite LeftButtonSc;
+    private LaneSprite CenterButtonSc;
+    private LaneSprite RightButtonSc;
+
     private List<Button> NotPickedButtons;
 
     private List<Sprite> m_Sprites;
+
+    public FormationHandler fH;
+    public WaveHandler gL;
 
     void Start()
     {
@@ -25,8 +36,13 @@ public class InputHandler : MonoBehaviour
         m_Sprites = new List<Sprite>();
         m_Sprites.AddRange(sprites);
 
-        for (int i = 0; i < sprites.Length; i++)
-            Debug.Log(m_Sprites[i].name);
+        LeftButtonImage = LeftButton.GetComponent<Image>();
+        CenterButtonImage = CenterButton.GetComponent<Image>();
+        RightButtonImage = RightButton.GetComponent<Image>();
+
+        LeftButtonSc = LeftButton.GetComponent<LaneSprite>();
+        CenterButtonSc = CenterButton.GetComponent<LaneSprite>();
+        RightButtonSc = RightButton.GetComponent<LaneSprite>();
     }
 
 
@@ -59,15 +75,32 @@ public class InputHandler : MonoBehaviour
     }
     public void UpdateButton(Button b, List<int> solution)
     {
-        Sprite sp = b.GetComponent<Image>().sprite;
         string LaneNumber = GetResourceName(solution);
 
         Sprite t = LoadButtonTexture(solution);
 
-        b.GetComponent<Image>().sprite = t;
+        Image btnImage = null;
+        LaneSprite btnScript = null;
+        if (b == LeftButton)
+        {
+            btnImage = LeftButtonImage;
+            btnScript = LeftButtonSc;
+        }
+        if (b == CenterButton)
+        {
+            btnImage = CenterButtonImage;
+            btnScript = CenterButtonSc;
+        }
+        if (b == RightButton)
+        {
+            btnImage = RightButtonImage;
+            btnScript = RightButtonSc;
+        }
 
-        b.GetComponent<LaneSprite>().Left = (int)System.Char.GetNumericValue(LaneNumber[0]);
-        b.GetComponent<LaneSprite>().Right = (int)System.Char.GetNumericValue(LaneNumber[2]);
+        btnImage.sprite = t;
+
+        btnScript.Left = (int)System.Char.GetNumericValue(LaneNumber[0]);
+        btnScript.Right = (int)System.Char.GetNumericValue(LaneNumber[2]);
         b.onClick.AddListener(() => SetFuzzyLanes((int)System.Char.GetNumericValue(LaneNumber[0]),
    (int)System.Char.GetNumericValue(LaneNumber[2])));
 
@@ -151,8 +184,8 @@ public class InputHandler : MonoBehaviour
         GameLogic.State = GameLogic.GameState.OnGoing;
 
 
-        GetComponent<WaveHandler>().SpawnFirstWave();
-        GetComponent<FormationHandler>().UpdateFirstSpawn();
+        gL.SpawnFirstWave();
+        fH.UpdateFirstSpawn();
 
         b.SetActive(false);
 

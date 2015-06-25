@@ -12,6 +12,9 @@ public class Fuzzy : MonoBehaviour,ISleepable
     private bool m_bSleeping;
     private float m_fSleepTimer = 0.0f;
     private float m_fSleepThreshold = 0.4f;
+
+    public GameObject mC;
+    private Animator animator;
     public bool Sleeping
     {
         get { return m_bSleeping; }
@@ -25,6 +28,8 @@ public class Fuzzy : MonoBehaviour,ISleepable
     {
         m_vSpring = new Vector2(transform.position.z, 0);
         m_bSleeping = true;
+
+        animator = GameObject.FindWithTag("ScorePanel").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -71,11 +76,10 @@ public class Fuzzy : MonoBehaviour,ISleepable
     {
         GameLogic.State = GameLogic.GameState.Ended;
 
-        Animator animator = GameObject.FindWithTag("ScorePanel").GetComponent<Animator>();
         
         animator.SetBool("gameEnded", true);
 
-        GameObject.Find("MenuController").GetComponent<MenuController>().UpdateScoreboard();
+        mC.GetComponent<MenuController>().UpdateScoreboard();
     }
 
     public bool IsSleeping()
