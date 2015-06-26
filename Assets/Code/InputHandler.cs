@@ -6,6 +6,10 @@ using System.Collections.Generic;
 public class InputHandler : MonoBehaviour
 {
     public const int BUTTON_COUNT = 3;
+    
+    
+    public Animator PanelAnimator;
+    
     public Button LeftButton;
     public Button CenterButton;
     public Button RightButton;
@@ -30,6 +34,8 @@ public class InputHandler : MonoBehaviour
 
     void Start()
     {
+        
+
         NotPickedButtons = new List<Button>();
 
         Sprite[] sprites = Resources.LoadAll<Sprite>("Textures");
@@ -48,10 +54,11 @@ public class InputHandler : MonoBehaviour
 
     void Update()
     {
-
+     
     }
     public void UpdateButtons(List<List<int>> Solutions)
     {
+
         int correctSolutionCount = Solutions.Count;
         int falseSolutionCount = BUTTON_COUNT - correctSolutionCount;
 
@@ -72,6 +79,10 @@ public class InputHandler : MonoBehaviour
             Button falseButton = GetNotAssignedButton();
             UpdateButton(falseButton, lane);
         }
+
+        PanelAnimator.Play("ButtonChangeAnim");
+       
+   
     }
     public void UpdateButton(Button b, List<int> solution)
     {

@@ -58,6 +58,7 @@ public class GameLogic : MonoBehaviour
     public void Start()
     {
         m_eState = GameState.NotStarted;
+        Application.targetFrameRate = 30;
     }
     //-------------------------------------------------------------------------------
     public void Update()

@@ -9,7 +9,7 @@ public class WaveHandler : MonoBehaviour
     private float tWaveSpawn = 0.0f;
 
     private float SPAWN_FREQUENCY_COEFFICIENT = 0.5f;
-    private float SPAWN_FREQUENCY = 2.0f;
+    private float SPAWN_FREQUENCY = 2.5f;
     private bool bCheckCollision = false;
 
     private List<GameObject> m_PreloadedAssets;
@@ -39,15 +39,15 @@ public class WaveHandler : MonoBehaviour
                     int LaneCntDecider = Random.Range(2, 4);
                     int waveDecider = Random.Range(1, 3);
                     WaveBase wb = null;
-                    //if (waveDecider == 1)
-                    //{
-                    //    wb = new NormalWave(LaneCntDecider);
-                    //}
-                    //if (waveDecider == 2)
-                    //{
-                    //    wb = new DoubleWave(LaneCntDecider);
-                    //}
-                    wb = new DoubleWave(LaneCntDecider);
+                    if (waveDecider == 1)
+                    {
+                        wb = new NormalWave(LaneCntDecider);
+                    }
+                    if (waveDecider == 2)
+                    {
+                        wb = new DoubleWave(LaneCntDecider);
+                    }
+                    //wb = new NormalWave(LaneCntDecider);
 
                     wb.Initialize();
                     SpawnWave(wb);
@@ -109,7 +109,7 @@ public class WaveHandler : MonoBehaviour
     public void SpawnFirstWave()
     {
         int LaneCntDecider = Random.Range(2, 4);
-        DoubleWave wave = new DoubleWave(LaneCntDecider);
+        NormalWave wave = new NormalWave(LaneCntDecider);
         wave.Initialize();
         SpawnWave(wave);
 

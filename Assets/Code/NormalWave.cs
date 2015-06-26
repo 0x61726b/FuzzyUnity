@@ -15,7 +15,7 @@ public class NormalWave : WaveBase
         //MaterialColor = new Color(0.06f, 0.06f, 0.35f);
 
         Speed = new Vector3(-7, 0.0f, 0.0f);
-        SpawnPosition = new Vector3(15.16f, 1.4f, -2);
+        SpawnPosition = new Vector3(15.16f, 2.86f, -2);
         l.Wave = this;
 
         Name = "Normal Wave";
