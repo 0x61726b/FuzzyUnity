@@ -3,8 +3,9 @@ using System.Collections;
 
 public class NormalWave : WaveBase
 {
-    public NormalWave(int laneObjCount)
+    public NormalWave()
     {
+        int laneObjCount = Random.Range(2, 4);
         //Normal Wave = 1 lane of blocks
         Lane l = new Lane();
         l.Binary = Lane.GenerateRandomLane(laneObjCount);
@@ -19,6 +20,8 @@ public class NormalWave : WaveBase
         l.Wave = this;
 
         Name = "Normal Wave";
+        SpawnRate = 100;
+        ForcedSpawnTime = 0;
 
         Lanes.Add(l);
 

@@ -121,21 +121,23 @@ public class Lane
     public static List<List<int>> GetDistinctiveLanes(int count, List<List<int>> solutions)
     {
         List<List<int>> DistinctiveLanes = new List<List<int>>();
-
-        bool contains = false;
-        int k = 0;
-        while (!contains)
+        if (count > 0)
         {
-            List<int> randomLane = Lane.GenerateRandomLane(2);
+            bool contains = false;
+            int k = 0;
+            while (!contains)
+            {
+                List<int> randomLane = Lane.GenerateRandomLane(2);
 
-            if (!ContainsLane(DistinctiveLanes, randomLane) && !ContainsLane(solutions, randomLane))
-            {
-                DistinctiveLanes.Add(randomLane);
-                k++;
-            }
-            if (k >= count)
-            {
-                contains = true;
+                if (!ContainsLane(DistinctiveLanes, randomLane))
+                {
+                    DistinctiveLanes.Add(randomLane);
+                    k++;
+                }
+                if (k >= count)
+                {
+                    contains = true;
+                }
             }
         }
         return DistinctiveLanes;

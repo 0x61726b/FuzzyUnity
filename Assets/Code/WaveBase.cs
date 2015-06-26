@@ -76,6 +76,22 @@ public class WaveBase
         get { return m_sName; }
         set { m_sName = value; }
     }
+    private int m_iSpawnRate;
+
+    public int SpawnRate
+    {
+        get { return m_iSpawnRate; }
+        set { m_iSpawnRate = value; }
+    }
+
+    private int m_iForcedSpawnTime;
+
+    public int ForcedSpawnTime
+    {
+        get { return m_iForcedSpawnTime; }
+        set { m_iForcedSpawnTime = value; }
+    }
+
     public WaveBase()
     {
         m_vSpawnPos = Vector3.zero;

@@ -41,6 +41,7 @@ public class FormationHandler : MonoBehaviour
 {
     private bool bCheckCollision = false;
     private int iLanePassed = 0;
+    private int iLanePassed3 = 0;
     private List<WaveBase> m_Waves;
     public List<WaveBase> Waves
     {
@@ -76,7 +77,7 @@ public class FormationHandler : MonoBehaviour
         int waveID = System.Int32.Parse(id);
 
         WaveBase wave = m_Waves[waveID];
-        if (wave.Type == WaveBase.WaveType.Oa2A && iLanePassed < 2)
+        if (wave.Type == WaveBase.WaveType.OaA && iLanePassed < 2)
         {
             iLanePassed++;
         }
@@ -84,6 +85,16 @@ public class FormationHandler : MonoBehaviour
         {
             Solve(waveID + 1);
             iLanePassed = 0;
+        }
+
+        if (wave.Type == WaveBase.WaveType.Oa2A && iLanePassed3 < 3)
+        {
+            iLanePassed3++;
+        }
+        if (iLanePassed3 == 3)
+        {
+            Solve(waveID + 1);
+            iLanePassed3 = 0;
         }
         if (wave.Type == WaveBase.WaveType.Normal)
         {

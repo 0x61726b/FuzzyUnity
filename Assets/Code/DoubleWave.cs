@@ -3,9 +3,9 @@ using System.Collections;
 
 public class DoubleWave : WaveBase
 {
-    public DoubleWave(int laneObjCount)
+    public DoubleWave()
     {
-       
+        int laneObjCount = Random.Range(2, 4);
         Lane l = new Lane();
         l.Binary = Lane.GenerateRandomLane(laneObjCount);
 
@@ -18,13 +18,16 @@ public class DoubleWave : WaveBase
         SpawnPosition = new Vector3(15.16f, 2.86f, -2);
         l.Wave = this;
 
+        laneObjCount = Random.Range(2, 4);
         Lane d = new Lane();
         d.Binary = Lane.GenerateRandomLane(laneObjCount);
         d.SetDefaultBlock(lElement);
         d.Wave = this;
 
         Name = "Double Wave";
-        Type = WaveType.Oa2A;
+        Type = WaveType.OaA;
+        SpawnRate = 25;
+        ForcedSpawnTime = 20;
 
         Lanes.Add(l);
         Lanes.Add(d);
