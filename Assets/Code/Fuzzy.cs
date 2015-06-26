@@ -13,7 +13,7 @@ public class Fuzzy : MonoBehaviour,ISleepable
     private float m_fSleepTimer = 0.0f;
     private float m_fSleepThreshold = 0.4f;
 
-    public GameObject mC;
+    public MenuController menuController;
     private Animator animator;
     public bool Sleeping
     {
@@ -78,8 +78,8 @@ public class Fuzzy : MonoBehaviour,ISleepable
 
         
         animator.SetBool("gameEnded", true);
-
-        mC.GetComponent<MenuController>().UpdateScoreboard();
+        
+        menuController.UpdateScoreboard();
     }
 
     public bool IsSleeping()
