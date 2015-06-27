@@ -67,6 +67,8 @@ public class InputHandler : MonoBehaviour
     public FormationHandler fH;
     public WaveHandler gL;
     //--------------------------------------------------------------------------------
+    public GameObject TapToStartButton;
+    //--------------------------------------------------------------------------------
     public void Start()
     {
         NotPickedButtons = new List<Button>();
@@ -234,6 +236,11 @@ public class InputHandler : MonoBehaviour
         fH.UpdateFirstSpawn();
 
         b.SetActive(false);
+    }
+    //--------------------------------------------------------------------------------
+    public void Restart()
+    {
+        TapToStartButton.SetActive(true);
     }
     //--------------------------------------------------------------------------------
 }

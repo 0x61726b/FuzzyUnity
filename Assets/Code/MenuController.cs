@@ -47,24 +47,24 @@ using UnityEditor;
 public class MenuController : MonoBehaviour
 {
     //--------------------------------------------------------------------------------
-    public int score;
-    public Text scoreText;
-    public Text bestScoreText;
-    public Text currentScoreText;
+    public int m_iScore;
+    public Text ScoreText;
+    public Text BestScoreText;
+    public Text CurrentScoreText;
     //--------------------------------------------------------------------------------
-    bool dataSent;
+    public GameLogic m_GameLogic;
+    //--------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------
     public void Start()
     {
-        Advertisement.Initialize("49224");
-        
-        dataSent = false;
-        score = 0;
+
+
+        m_iScore = 0;
         if (PlayerPrefs.GetInt("BestScore").ToString() != null)
         {
-            bestScoreText.text = "0";
+            BestScoreText.text = "0";
         }
-        bestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
+        BestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
     }
     //--------------------------------------------------------------------------------
     void Update()
@@ -74,24 +74,18 @@ public class MenuController : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void RestartLevel()
     {
-        GameLogic.State = GameLogic.GameState.NotStarted;
-        
-        Application.LoadLevel("MainScene");
+        m_GameLogic.Restart();
     }
     //--------------------------------------------------------------------------------
-    public void Pause()
+    public void UpdateScoreboard(int iScore)
     {
-        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-    }
-    //--------------------------------------------------------------------------------
-    public void UpdateScoreboard()
-    {
-        currentScoreText.text = score.ToString();
-        scoreText.text = currentScoreText.text;
-        if (score > System.Convert.ToInt32(bestScoreText.text))
+        m_iScore = iScore;
+        CurrentScoreText.text = m_iScore.ToString();
+        ScoreText.text = CurrentScoreText.text;
+        if (m_iScore > System.Convert.ToInt32(BestScoreText.text))
         {
-            PlayerPrefs.SetInt("BestScore", score);
-            bestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
+            PlayerPrefs.SetInt("BestScore", m_iScore);
+            BestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
         }
         //if (!dataSent && GameLogic.State == GameLogic.GameState.Ended)
         //{
@@ -106,12 +100,6 @@ public class MenuController : MonoBehaviour
 
         //}
 
-    }
-    //--------------------------------------------------------------------------------
-    public void IncrementScore(int s)
-    {
-        score += s;
-        UpdateScoreboard();
     }
     //--------------------------------------------------------------------------------
 }

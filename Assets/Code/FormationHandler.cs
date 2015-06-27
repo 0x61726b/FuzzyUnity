@@ -40,8 +40,6 @@ using System.Collections.Generic;
 public class FormationHandler : MonoBehaviour
 {
     //--------------------------------------------------------------------------------
-    public MenuController mc;
-    //--------------------------------------------------------------------------------
     private bool bCheckCollision = false;
     //--------------------------------------------------------------------------------
     private int iLanePassed = 0;
@@ -55,6 +53,8 @@ public class FormationHandler : MonoBehaviour
     }
     //--------------------------------------------------------------------------------
     public InputHandler gL;
+    //--------------------------------------------------------------------------------
+    public GameLogic m_GameLogic;
     //--------------------------------------------------------------------------------
     public void Start()
     {
@@ -90,7 +90,7 @@ public class FormationHandler : MonoBehaviour
         {
             Solve(waveID + 1);
             iLanePassed = 0;
-            mc.IncrementScore(4);
+            m_GameLogic.IncrementScore(4);
         }
 
         if (wave.Type == WaveBase.WaveType.Oa2A && iLanePassed3 < 3)
@@ -101,15 +101,16 @@ public class FormationHandler : MonoBehaviour
         {
             Solve(waveID + 1);
             iLanePassed3 = 0;
-            mc.IncrementScore(12);
+            m_GameLogic.IncrementScore(12);
         }
         if (wave.Type == WaveBase.WaveType.Normal)
         {
             Solve(waveID + 1);
-            mc.IncrementScore(1);
+            m_GameLogic.IncrementScore(1);
         }
         
         bCheckCollision = true;
+        
     }
     //--------------------------------------------------------------------------------
     public void Solve(int waveID)
@@ -166,6 +167,11 @@ public class FormationHandler : MonoBehaviour
 
         List<int> CorrectSolution = CorectSolutions[ChooseSolution];
         return CorrectSolution;
+    }
+    //--------------------------------------------------------------------------------
+    public void Restart()
+    {
+        m_Waves.Clear(); iLanePassed = 0; iLanePassed3 = 0; bCheckCollision = false;
     }
     //--------------------------------------------------------------------------------
 }

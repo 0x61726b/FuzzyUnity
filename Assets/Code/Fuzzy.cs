@@ -43,8 +43,6 @@ public class Fuzzy : MonoBehaviour,ISleepable
     //--------------------------------------------------------------------------------
     public int CurrentLane;
     //--------------------------------------------------------------------------------
-    private int m_iOtherFuzzyLane;
-    //--------------------------------------------------------------------------------
     private Vector2 m_vSpring;
     //--------------------------------------------------------------------------------
     private bool m_bSleeping;
@@ -55,7 +53,8 @@ public class Fuzzy : MonoBehaviour,ISleepable
     //--------------------------------------------------------------------------------
     public MenuController menuController;
     //--------------------------------------------------------------------------------
-    private Animator animator;
+    public GameObject ScorePanel;
+    private Animator m_SPAnimator;
     //--------------------------------------------------------------------------------
     public bool Sleeping
     {
@@ -68,7 +67,7 @@ public class Fuzzy : MonoBehaviour,ISleepable
         m_vSpring = new Vector2(transform.position.z, 0);
         m_bSleeping = true;
 
-        animator = GameObject.FindWithTag("ScorePanel").GetComponent<Animator>();
+        m_SPAnimator = ScorePanel.GetComponent<Animator>();
     }
     //--------------------------------------------------------------------------------
     public void Update()
@@ -118,9 +117,8 @@ public class Fuzzy : MonoBehaviour,ISleepable
         GameLogic.State = GameLogic.GameState.Ended;
 
         
-        animator.SetBool("gameEnded", true);
-        
-        menuController.UpdateScoreboard();
+        m_SPAnimator.SetBool("gameEnded", true);
+
     }
     //--------------------------------------------------------------------------------
     public bool IsSleeping()
