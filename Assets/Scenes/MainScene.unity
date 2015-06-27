@@ -1259,7 +1259,7 @@ Prefab:
       objectReference: {fileID: 224794457}
     - target: {fileID: 6548550, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: menuController
@@ -1349,7 +1349,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 515977985}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.8199997, y: 2.1099999, z: -3.38000011}
+  m_LocalPosition: {x: -33.5900002, y: 2.1099999, z: -3.38000011}
   m_LocalScale: {x: 6.42637682, y: 1, z: 6.69442558}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2159,7 +2159,7 @@ Prefab:
       objectReference: {fileID: 224794457}
     - target: {fileID: 6548550, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: menuController

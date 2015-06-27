@@ -39,9 +39,14 @@ using System.Collections.Generic;
 //--------------------------------------------------------------------------------
 public class FormationHandler : MonoBehaviour
 {
+    //--------------------------------------------------------------------------------
+    public MenuController mc;
+    //--------------------------------------------------------------------------------
     private bool bCheckCollision = false;
+    //--------------------------------------------------------------------------------
     private int iLanePassed = 0;
     private int iLanePassed3 = 0;
+    //--------------------------------------------------------------------------------
     private List<WaveBase> m_Waves;
     public List<WaveBase> Waves
     {
@@ -76,7 +81,7 @@ public class FormationHandler : MonoBehaviour
         string id = name.Substring(waveIndex+1);
         int waveID = System.Int32.Parse(id);
 
-        WaveBase wave = m_Waves[waveID];
+        WaveBase wave = m_Waves.Find(x => x.WaveID == waveID);
         if (wave.Type == WaveBase.WaveType.OaA && iLanePassed < 2)
         {
             iLanePassed++;
@@ -85,6 +90,7 @@ public class FormationHandler : MonoBehaviour
         {
             Solve(waveID + 1);
             iLanePassed = 0;
+            mc.IncrementScore(4);
         }
 
         if (wave.Type == WaveBase.WaveType.Oa2A && iLanePassed3 < 3)
@@ -95,10 +101,12 @@ public class FormationHandler : MonoBehaviour
         {
             Solve(waveID + 1);
             iLanePassed3 = 0;
+            mc.IncrementScore(12);
         }
         if (wave.Type == WaveBase.WaveType.Normal)
         {
             Solve(waveID + 1);
+            mc.IncrementScore(1);
         }
         
         bCheckCollision = true;
@@ -106,7 +114,7 @@ public class FormationHandler : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void Solve(int waveID)
     {
-        WaveBase Wave = m_Waves[waveID];
+        WaveBase Wave = m_Waves.Find(x => x.WaveID == waveID);
         List<List<int>> Solutions = new List<List<int>>();
         for (int i = 0; i < Wave.Lanes.Count; i++)
         {

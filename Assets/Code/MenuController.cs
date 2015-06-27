@@ -1,22 +1,60 @@
-﻿using UnityEngine;
+﻿//.     .       .  .   . .   .   . .    +  .
+//  .     .  :     .    .. :. .___---------___.
+//       .  .   .    .  :.:. _".^ .^ ^.  '.. :"-_. .
+//    .  :       .  .  .:../:            . .^  :.:\.
+//        .   . :: +. :.:/: .   .    .        . . .:\
+// .  :    .     . _ :::/:               .  ^ .  . .:\
+//  .. . .   . - : :.:./.                        .  .:\
+//  .      .     . :..|:                    .  .  ^. .:|
+//    .       . : : ..||        .                . . !:|
+//  .     . . . ::. ::\(                           . :)/
+// .   .     : . : .:.|. ######              .#######::|
+//  :.. .  :-  : .:  ::|.#######           ..########:|
+// .  .  .  ..  .  .. :\ ########          :######## :/
+//  .        .+ :: : -.:\ ########       . ########.:/
+//    .  .+   . . . . :.:\. #######       #######..:/
+//     :: . . . . ::.:..:.\           .   .   ..:/
+//  .   .   .  .. :  -::::.\.       | |     . .:/
+//     .  :  .  .  .-:.":.::.\             ..:/
+// .      -.   . . . .: .:::.:.\.           .:/
+//.   .   .  :      : ....::_:..:\   ___.  :/
+//   .   .  .   .:. .. .  .: :.:.:\       :/
+//     +   .   .   : . ::. :.:. .:.|\  .:/|
+//     .         +   .  .  ...:: ..|  --.:|
+//.      . . .   .  .  . ... :..:.."(  ..)"
+// .   .       .      :  .   .: ::/  .  .::\
+
+
+//      __       ___  ___  ___  ___      ___       ___      ___       __        ______    
+//     /""\     |"  \/"  ||"  \/"  |    |"  |     |"  \    /"  |     /""\      /    " \   
+//    /    \     \   \  /  \   \  /     ||  |      \   \  //   |    /    \    // ____  \  
+//   /' /\  \     \\  \/    \\  \/      |:  |      /\\  \/.    |   /' /\  \  /  /    ) :) 
+//  //  __'  \    /   /     /   /        \  |___  |: \.        |  //  __'  \(: (____/ //  
+// /   /  \\  \  /   /     /   /        ( \_|:  \ |.  \    /:  | /   /  \\  \\        /   
+//(___/    \___)|___/     |___/          \_______)|___|\__/|___|(___/    \___)\"_____/    
+//--------------------------------------------------------------------------------
+using UnityEngine.Advertisements;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
 using System.Collections.Generic;
-using UnityEngine.Advertisements;
+//--------------------------------------------------------------------------------
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+//--------------------------------------------------------------------------------
 public class MenuController : MonoBehaviour
 {
+    //--------------------------------------------------------------------------------
     public int score;
     public Text scoreText;
     public Text bestScoreText;
     public Text currentScoreText;
-
+    //--------------------------------------------------------------------------------
     bool dataSent;
-
-    void Start()
+    //--------------------------------------------------------------------------------
+    public void Start()
     {
         Advertisement.Initialize("49224");
         
@@ -28,29 +66,26 @@ public class MenuController : MonoBehaviour
         }
         bestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
     }
-
-    // Update is called once per frame
+    //--------------------------------------------------------------------------------
     void Update()
     {
 
     }
-
+    //--------------------------------------------------------------------------------
     public void RestartLevel()
     {
         GameLogic.State = GameLogic.GameState.NotStarted;
         
         Application.LoadLevel("MainScene");
-      
     }
-
+    //--------------------------------------------------------------------------------
     public void Pause()
     {
         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
     }
-
+    //--------------------------------------------------------------------------------
     public void UpdateScoreboard()
     {
-        
         currentScoreText.text = score.ToString();
         scoreText.text = currentScoreText.text;
         if (score > System.Convert.ToInt32(bestScoreText.text))
@@ -72,10 +107,11 @@ public class MenuController : MonoBehaviour
         //}
 
     }
-    public void IncrementScore()
+    //--------------------------------------------------------------------------------
+    public void IncrementScore(int s)
     {
-        score += 1;
+        score += s;
         UpdateScoreboard();
     }
-
+    //--------------------------------------------------------------------------------
 }

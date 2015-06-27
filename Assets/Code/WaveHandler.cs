@@ -1,30 +1,64 @@
-﻿using UnityEngine;
+﻿//.     .       .  .   . .   .   . .    +  .
+//  .     .  :     .    .. :. .___---------___.
+//       .  .   .    .  :.:. _".^ .^ ^.  '.. :"-_. .
+//    .  :       .  .  .:../:            . .^  :.:\.
+//        .   . :: +. :.:/: .   .    .        . . .:\
+// .  :    .     . _ :::/:               .  ^ .  . .:\
+//  .. . .   . - : :.:./.                        .  .:\
+//  .      .     . :..|:                    .  .  ^. .:|
+//    .       . : : ..||        .                . . !:|
+//  .     . . . ::. ::\(                           . :)/
+// .   .     : . : .:.|. ######              .#######::|
+//  :.. .  :-  : .:  ::|.#######           ..########:|
+// .  .  .  ..  .  .. :\ ########          :######## :/
+//  .        .+ :: : -.:\ ########       . ########.:/
+//    .  .+   . . . . :.:\. #######       #######..:/
+//     :: . . . . ::.:..:.\           .   .   ..:/
+//  .   .   .  .. :  -::::.\.       | |     . .:/
+//     .  :  .  .  .-:.":.::.\             ..:/
+// .      -.   . . . .: .:::.:.\.           .:/
+//.   .   .  :      : ....::_:..:\   ___.  :/
+//   .   .  .   .:. .. .  .: :.:.:\       :/
+//     +   .   .   : . ::. :.:. .:.|\  .:/|
+//     .         +   .  .  ...:: ..|  --.:|
+//.      . . .   .  .  . ... :..:.."(  ..)"
+// .   .       .      :  .   .: ::/  .  .::\
+
+
+//      __       ___  ___  ___  ___      ___       ___      ___       __        ______    
+//     /""\     |"  \/"  ||"  \/"  |    |"  |     |"  \    /"  |     /""\      /    " \   
+//    /    \     \   \  /  \   \  /     ||  |      \   \  //   |    /    \    // ____  \  
+//   /' /\  \     \\  \/    \\  \/      |:  |      /\\  \/.    |   /' /\  \  /  /    ) :) 
+//  //  __'  \    /   /     /   /        \  |___  |: \.        |  //  __'  \(: (____/ //  
+// /   /  \\  \  /   /     /   /        ( \_|:  \ |.  \    /:  | /   /  \\  \\        /   
+//(___/    \___)|___/     |___/          \_______)|___|\__/|___|(___/    \___)\"_____/    
+//--------------------------------------------------------------------------------
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+//--------------------------------------------------------------------------------
 public class WaveHandler : MonoBehaviour
 {
-
+    //--------------------------------------------------------------------------------
     private List<WaveBase> m_Waves = new List<WaveBase>();
     private float tWaveSpawn = 0.0f;
     private float tTotalTime = 0.0f;
-
+    //--------------------------------------------------------------------------------
     private float SPAWN_FREQUENCY_COEFFICIENT = 0.5f;
     private float SPAWN_FREQUENCY = 2.5f;
     private bool bCheckCollision = false;
-
-    private int m_iTotalWeight = 0;
-    private int m_iInitialTW = 0;
-
     private List<GameObject> m_PreloadedAssets;
-
+    //--------------------------------------------------------------------------------
     public FormationHandler gL;
-
+    //--------------------------------------------------------------------------------
+    private int m_iWaveCount = 0;
+    //--------------------------------------------------------------------------------
     private List<WaveBase> m_BakedWaves;
     private bool bWait = false;
     private Dictionary<int, WaveBase.WaveType> m_SpawnTable;
     private Vector3 m_vWaveOffset = Vector3.zero;
     private WaveBase.WaveType spawningWaveType;
+    //--------------------------------------------------------------------------------
     public enum GameStages
     {
         Easiest,
@@ -39,7 +73,9 @@ public class WaveHandler : MonoBehaviour
         Hardest,
         GiveUpAlready
     }
+    //--------------------------------------------------------------------------------
     private GameStages m_CurrentGameStage;
+    //--------------------------------------------------------------------------------
     void Start()
     {
         m_PreloadedAssets = new List<GameObject>();
@@ -52,20 +88,16 @@ public class WaveHandler : MonoBehaviour
         m_BakedWaves.Add(GetWave(WaveBase.WaveType.OaA));
         m_BakedWaves.Add(GetWave(WaveBase.WaveType.Oa2A));
 
-        for (int i = 0; i < m_BakedWaves.Count; i++)
-        {
-            WaveBase wb = m_BakedWaves[i];
-            int SpawnRate = wb.SpawnRate;
-            m_iInitialTW += SpawnRate;
-        }
         m_CurrentGameStage = GameStages.Easiest;
         m_SpawnTable = new Dictionary<int, WaveBase.WaveType>();
         spawningWaveType = WaveBase.WaveType.Normal;
     }
+    //--------------------------------------------------------------------------------
     public void SetWaves()
     {
         gL.Waves = m_Waves;
     }
+    //--------------------------------------------------------------------------------
     void WaveLogic()
     {
         if (GameLogic.State == GameLogic.GameState.OnGoing)
@@ -86,7 +118,7 @@ public class WaveHandler : MonoBehaviour
                     {
                         bWait = true;
                     }
-                   
+
                     if (!bWait)
                     {
 
@@ -98,7 +130,7 @@ public class WaveHandler : MonoBehaviour
 
                     if (bWait)
                     {
-                        if (tWaveSpawn >= SPAWN_FREQUENCY + SPAWN_FREQUENCY_COEFFICIENT *8)
+                        if (tWaveSpawn >= SPAWN_FREQUENCY + SPAWN_FREQUENCY_COEFFICIENT * 8)
                         {
                             SpawnWave(GetWave(spawningWaveType));
                             tWaveSpawn = 0.0f;
@@ -110,7 +142,7 @@ public class WaveHandler : MonoBehaviour
             }
         }
     }
-
+    //--------------------------------------------------------------------------------
     private void CalculateGameStages()
     {
         int Split = 8;
@@ -221,6 +253,7 @@ public class WaveHandler : MonoBehaviour
                 break;
         }
     }
+    //--------------------------------------------------------------------------------
     private WaveBase.WaveType RandomWave()
     {
         List<WaveBase.WaveType> Indices = new List<WaveBase.WaveType>();
@@ -238,6 +271,7 @@ public class WaveHandler : MonoBehaviour
         }
         return Indices[Rnd];
     }
+    //--------------------------------------------------------------------------------
     WaveBase GetWave(WaveBase.WaveType type)
     {
         WaveBase wb = null;
@@ -256,11 +290,12 @@ public class WaveHandler : MonoBehaviour
         wb.Initialize();
         return wb;
     }
-    void SpawnWave(WaveBase wave)
+    //--------------------------------------------------------------------------------
+    public void SpawnWave(WaveBase wave)
     {
-        GameObject parent = new GameObject(wave.Name + "#" + m_Waves.Count.ToString());
+        GameObject parent = new GameObject(wave.Name + "#" + m_iWaveCount.ToString());
         Vector3 LanePos = wave.SpawnPosition;
-
+        wave.WaveID = m_iWaveCount;
         List<Lane> lanes = wave.Lanes;
 
 
@@ -281,7 +316,6 @@ public class WaveHandler : MonoBehaviour
                 BasePosition.z = lane.Blocks[j].Index * (-1.5f);
 
                 GameObject g = (GameObject)Instantiate(prefab, BasePosition, Quaternion.identity);
-                //g.GetComponent<Renderer>().material.color = wave.MaterialColor;
                 g.name = "Block at #" + lane.Blocks[j].Index.ToString();
                 lane.Blocks[j].Transform = g.transform;
                 g.transform.parent = laneObj.transform;
@@ -290,8 +324,10 @@ public class WaveHandler : MonoBehaviour
             LaneSpawnPos.x += 6;
         }
         m_Waves.Add(wave);
+        m_iWaveCount++;
     }
-    void Update()
+    //--------------------------------------------------------------------------------
+    public void Update()
     {
         bCheckCollision = false;
 
@@ -300,13 +336,13 @@ public class WaveHandler : MonoBehaviour
             WaveLogic();
             for (int i = 0; i < m_Waves.Count; i++)
             {
-                if (m_Waves[i] != null)
-                    m_Waves[i].Update();
+                m_Waves[i].Update();
             }
             SetWaves();
         }
 
     }
+    //--------------------------------------------------------------------------------
     public void SpawnFirstWave()
     {
         NormalWave wave = new NormalWave();
@@ -315,13 +351,17 @@ public class WaveHandler : MonoBehaviour
 
         SetWaves();
     }
+    //--------------------------------------------------------------------------------
     public void DestroyWave(int ID)
     {
         if (!bCheckCollision)
         {
-            m_Waves[ID] = null;
+            WaveBase wb = m_Waves.Find(x => x.WaveID == ID);
+            m_Waves.Remove(wb);
+
 
             bCheckCollision = true;
         }
     }
+    //--------------------------------------------------------------------------------
 }

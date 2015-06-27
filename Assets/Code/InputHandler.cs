@@ -1,41 +1,74 @@
-﻿using UnityEngine;
+﻿//.     .       .  .   . .   .   . .    +  .
+//  .     .  :     .    .. :. .___---------___.
+//       .  .   .    .  :.:. _".^ .^ ^.  '.. :"-_. .
+//    .  :       .  .  .:../:            . .^  :.:\.
+//        .   . :: +. :.:/: .   .    .        . . .:\
+// .  :    .     . _ :::/:               .  ^ .  . .:\
+//  .. . .   . - : :.:./.                        .  .:\
+//  .      .     . :..|:                    .  .  ^. .:|
+//    .       . : : ..||        .                . . !:|
+//  .     . . . ::. ::\(                           . :)/
+// .   .     : . : .:.|. ######              .#######::|
+//  :.. .  :-  : .:  ::|.#######           ..########:|
+// .  .  .  ..  .  .. :\ ########          :######## :/
+//  .        .+ :: : -.:\ ########       . ########.:/
+//    .  .+   . . . . :.:\. #######       #######..:/
+//     :: . . . . ::.:..:.\           .   .   ..:/
+//  .   .   .  .. :  -::::.\.       | |     . .:/
+//     .  :  .  .  .-:.":.::.\             ..:/
+// .      -.   . . . .: .:::.:.\.           .:/
+//.   .   .  :      : ....::_:..:\   ___.  :/
+//   .   .  .   .:. .. .  .: :.:.:\       :/
+//     +   .   .   : . ::. :.:. .:.|\  .:/|
+//     .         +   .  .  ...:: ..|  --.:|
+//.      . . .   .  .  . ... :..:.."(  ..)"
+// .   .       .      :  .   .: ::/  .  .::\
+
+
+//      __       ___  ___  ___  ___      ___       ___      ___       __        ______    
+//     /""\     |"  \/"  ||"  \/"  |    |"  |     |"  \    /"  |     /""\      /    " \   
+//    /    \     \   \  /  \   \  /     ||  |      \   \  //   |    /    \    // ____  \  
+//   /' /\  \     \\  \/    \\  \/      |:  |      /\\  \/.    |   /' /\  \  /  /    ) :) 
+//  //  __'  \    /   /     /   /        \  |___  |: \.        |  //  __'  \(: (____/ //  
+// /   /  \\  \  /   /     /   /        ( \_|:  \ |.  \    /:  | /   /  \\  \\        /   
+//(___/    \___)|___/     |___/          \_______)|___|\__/|___|(___/    \___)\"_____/    
+//--------------------------------------------------------------------------------
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
-
+//--------------------------------------------------------------------------------
 public class InputHandler : MonoBehaviour
 {
+    //--------------------------------------------------------------------------------
     public const int BUTTON_COUNT = 3;
-    
-    
+    //--------------------------------------------------------------------------------
     public Animator PanelAnimator;
-    
+    //--------------------------------------------------------------------------------
     public Button LeftButton;
     public Button CenterButton;
     public Button RightButton;
-
+    //--------------------------------------------------------------------------------
     public Fuzzy LeftFuzzy;
     public Fuzzy RightFuzzy;
-
+    //--------------------------------------------------------------------------------
     private Image LeftButtonImage;
     private Image CenterButtonImage;
     private Image RightButtonImage;
-
+    //--------------------------------------------------------------------------------
     private LaneSprite LeftButtonSc;
     private LaneSprite CenterButtonSc;
     private LaneSprite RightButtonSc;
-
+    //--------------------------------------------------------------------------------
     private List<Button> NotPickedButtons;
-
+    //--------------------------------------------------------------------------------
     private List<Sprite> m_Sprites;
-
+    //--------------------------------------------------------------------------------
     public FormationHandler fH;
     public WaveHandler gL;
-
-    void Start()
+    //--------------------------------------------------------------------------------
+    public void Start()
     {
-        
-
         NotPickedButtons = new List<Button>();
 
         Sprite[] sprites = Resources.LoadAll<Sprite>("Textures");
@@ -50,15 +83,14 @@ public class InputHandler : MonoBehaviour
         CenterButtonSc = CenterButton.GetComponent<LaneSprite>();
         RightButtonSc = RightButton.GetComponent<LaneSprite>();
     }
-
-
+    //--------------------------------------------------------------------------------
     void Update()
     {
      
     }
+    //--------------------------------------------------------------------------------
     public void UpdateButtons(List<List<int>> Solutions)
     {
-
         int correctSolutionCount = Solutions.Count;
         int falseSolutionCount = BUTTON_COUNT - correctSolutionCount;
 
@@ -81,9 +113,8 @@ public class InputHandler : MonoBehaviour
         }
 
         PanelAnimator.Play("ButtonChangeAnim");
-       
-   
     }
+    //--------------------------------------------------------------------------------
     public void UpdateButton(Button b, List<int> solution)
     {
         string LaneNumber = GetResourceName(solution);
@@ -114,8 +145,8 @@ public class InputHandler : MonoBehaviour
         btnScript.Right = (int)System.Char.GetNumericValue(LaneNumber[2]);
         b.onClick.AddListener(() => SetFuzzyLanes((int)System.Char.GetNumericValue(LaneNumber[0]),
    (int)System.Char.GetNumericValue(LaneNumber[2])));
-
     }
+    //--------------------------------------------------------------------------------
     public Button GetNotAssignedButton()
     {
         bool isPicked = false;
@@ -135,6 +166,7 @@ public class InputHandler : MonoBehaviour
         }
         return b;
     }
+    //--------------------------------------------------------------------------------
     public Button PickButton()
     {
         int Rnd = Random.Range(1, BUTTON_COUNT + 1);
@@ -155,6 +187,7 @@ public class InputHandler : MonoBehaviour
 
         return pickedButton;
     }
+    //--------------------------------------------------------------------------------
     public Sprite LoadButtonTexture(List<int> Formation)
     {
         string textureName = GetResourceName(Formation);
@@ -163,6 +196,7 @@ public class InputHandler : MonoBehaviour
         
         return t;
     }
+    //--------------------------------------------------------------------------------
     public string GetResourceName(List<int> Formation)
     {
         System.Text.StringBuilder textureName = new System.Text.StringBuilder();
@@ -181,6 +215,7 @@ public class InputHandler : MonoBehaviour
         }
         return textureName.ToString();
     }
+    //--------------------------------------------------------------------------------
     public void SetFuzzyLanes(int left, int right)
     {
         LeftFuzzy.CurrentLane = left;
@@ -189,7 +224,7 @@ public class InputHandler : MonoBehaviour
         LeftFuzzy.Sleeping = false;
         RightFuzzy.Sleeping = false;
     }
-
+    //--------------------------------------------------------------------------------
     public void TapToStart(GameObject b)
     {
         GameLogic.State = GameLogic.GameState.OnGoing;
@@ -199,10 +234,6 @@ public class InputHandler : MonoBehaviour
         fH.UpdateFirstSpawn();
 
         b.SetActive(false);
-
-
     }
-
-    
-
+    //--------------------------------------------------------------------------------
 }
