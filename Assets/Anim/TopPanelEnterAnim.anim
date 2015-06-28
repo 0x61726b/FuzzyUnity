@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ExitingPanelAnim
+  m_Name: TopPanelEnterAnim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,19 +19,19 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: -29
-        inSlope: 209.079788
-        outSlope: 209.079788
+        value: 29
+        inSlope: -166.65155
+        outSlope: -166.65155
         tangentMode: 10
-      - time: .183333337
-        value: 9.33129406
-        inSlope: 116.581955
-        outSlope: 116.581955
+      - time: .233333334
+        value: -9.88536263
+        inSlope: -95.7918396
+        outSlope: -95.7918396
         tangentMode: 10
       - time: 1
-        value: 29
-        inSlope: 24.0841293
-        outSlope: 24.0841293
+        value: -29
+        inSlope: -24.9321365
+        outSlope: -24.9321365
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -76,19 +76,19 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: -29
-        inSlope: 209.079788
-        outSlope: 209.079788
+        value: 29
+        inSlope: -166.65155
+        outSlope: -166.65155
         tangentMode: 10
-      - time: .183333337
-        value: 9.33129406
-        inSlope: 116.581955
-        outSlope: 116.581955
+      - time: .233333334
+        value: -9.88536263
+        inSlope: -95.7918396
+        outSlope: -95.7918396
         tangentMode: 10
       - time: 1
-        value: 29
-        inSlope: 24.0841293
-        outSlope: 24.0841293
+        value: -29
+        inSlope: -24.9321365
+        outSlope: -24.9321365
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2

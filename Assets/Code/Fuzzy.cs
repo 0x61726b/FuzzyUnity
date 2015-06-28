@@ -116,8 +116,8 @@ public class Fuzzy : MonoBehaviour,ISleepable
     {
         GameLogic.State = GameLogic.GameState.Ended;
 
-        
-        m_SPAnimator.SetBool("gameEnded", true);
+        m_SPAnimator.Play("ScorePanelAnim");
+        //m_SPAnimator.SetBool("gameEnded", true);
 
     }
     //--------------------------------------------------------------------------------

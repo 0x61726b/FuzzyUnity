@@ -118,8 +118,8 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 213.831314, y: -33.5}
-  m_SizeDelta: {x: 22.9878712, y: 67}
+  m_AnchoredPosition: {x: 213.831314, y: -19.6500015}
+  m_SizeDelta: {x: 23, y: 39.2999992}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &7273393
 MonoBehaviour:
@@ -159,7 +159,7 @@ GameObject:
   - 222: {fileID: 64730866}
   - 114: {fileID: 64730865}
   - 95: {fileID: 64730867}
-  - 114: {fileID: 64730869}
+  - 114: {fileID: 64730868}
   m_Layer: 5
   m_Name: ButtonsPanel
   m_TagString: Untagged
@@ -186,8 +186,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: 1}
   m_AnchorMax: {x: .5, y: 1}
-  m_AnchoredPosition: {x: 4.21702862e-06, y: -36.5999985}
-  m_SizeDelta: {x: 320, y: 67}
+  m_AnchoredPosition: {x: 4.21702862e-06, y: -50.2999992}
+  m_SizeDelta: {x: 320, y: 39.2999992}
   m_Pivot: {x: .5, y: 1}
 --- !u!114 &64730865
 MonoBehaviour:
@@ -233,7 +233,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &64730869
+--- !u!114 &64730868
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 64730863}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc25c26f3fa2b6d42bafcd2ee8a52e1c, type: 3}
+  m_Script: {fileID: 11500000, guid: a686dee594f04fa42aa3240f6a5c8119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &65778777
@@ -534,8 +534,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 224794458}
-        m_MethodName: RestartLevel
+      - m_Target: {fileID: 1842720169}
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -774,8 +774,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 106.168686, y: -33.5}
-  m_SizeDelta: {x: 22.9878712, y: 67}
+  m_AnchoredPosition: {x: 106.168686, y: -19.6500015}
+  m_SizeDelta: {x: 23, y: 39.2999992}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &341789257
 MonoBehaviour:
@@ -844,8 +844,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 52.3373756, y: -33.5}
-  m_SizeDelta: {x: 84.6747513, y: 67}
+  m_AnchoredPosition: {x: 52.3373833, y: -19.6500015}
+  m_SizeDelta: {x: 84.6999969, y: 39.2999992}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &364366460
 MonoBehaviour:
@@ -1025,7 +1025,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 64730869}
+      - m_Target: {fileID: 64730868}
         m_MethodName: Tapped
         m_Mode: 1
         m_Arguments:
@@ -1587,8 +1587,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 267.662628, y: -33.5}
-  m_SizeDelta: {x: 84.6747513, y: 67}
+  m_AnchoredPosition: {x: 267.662628, y: -19.6500015}
+  m_SizeDelta: {x: 84.6999969, y: 39.2999992}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &773509769
 MonoBehaviour:
@@ -2010,8 +2010,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -33.5}
-  m_SizeDelta: {x: 84.6747513, y: 67}
+  m_AnchoredPosition: {x: 160, y: -19.6499996}
+  m_SizeDelta: {x: 84.6999969, y: 39.2999992}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1182468749
 MonoBehaviour:
@@ -2954,6 +2954,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MC: {fileID: 224794458}
   ScorePanel: {fileID: 1886750743}
+  ButtonPanel: {fileID: 64730863}
+  m_TPAnimator: {fileID: 1239622649}
 --- !u!114 &1842720170
 MonoBehaviour:
   m_ObjectHideFlags: 0

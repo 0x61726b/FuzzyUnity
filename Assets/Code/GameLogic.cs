@@ -63,6 +63,8 @@ public class GameLogic : MonoBehaviour
     //-------------------------------------------------------------------------------
     public GameObject ScorePanel;
     private Animator m_SPAnimator;
+    public GameObject ButtonPanel;
+    public Animator m_TPAnimator;
     //-------------------------------------------------------------------------------
     private bool m_bShowAds = false;
     private int m_iAdCounter = 0;
@@ -88,11 +90,16 @@ public class GameLogic : MonoBehaviour
     //-------------------------------------------------------------------------------
     public void Restart()
     {
+
+
         if(!(GameLogic.State == GameState.OnGoing))
         {
             
             //ScorePanel.SetActive(false);
-            m_SPAnimator.SetBool("gameEnded", false);
+            //m_SPAnimator.SetBool("gameEnded", false);
+            m_SPAnimator.Play("ScorePanelOutAnim");
+            m_TPAnimator.Play("TopPanelEnterAnim");
+            ButtonPanel.SetActive(false);
         }
         GameLogic.State = GameLogic.GameState.NotStarted;
         m_WaveHandler.Restart();

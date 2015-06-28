@@ -36,7 +36,7 @@
 using UnityEngine;
 using System.Collections;
 //--------------------------------------------------------------------------------
-public class AnimController : MonoBehaviour
+public class ButtonPanel : MonoBehaviour
 {
     private Animator animator;
     //--------------------------------------------------------------------------------
@@ -45,14 +45,15 @@ public class AnimController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
     //--------------------------------------------------------------------------------
-	public void Update ()
+    public void Update()
     {
-	    
-	}
+
+    }
     //--------------------------------------------------------------------------------
     public void Tapped()
     {
-        animator.SetBool("tapped", true);
+        gameObject.SetActive(true);
+        animator.Play("ButtonChangeAnim");
     }
     //--------------------------------------------------------------------------------
 }

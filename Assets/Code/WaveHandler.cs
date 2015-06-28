@@ -199,54 +199,54 @@ public class WaveHandler : MonoBehaviour
                 m_SpawnTable.Add(0, WaveBase.WaveType.Oa2A);
                 break;
             case GameStages.Easier:
+                m_SpawnTable.Add(80, WaveBase.WaveType.Normal);
+                m_SpawnTable.Add(20, WaveBase.WaveType.OaA);
+                m_SpawnTable.Add(0, WaveBase.WaveType.Oa2A);
+                break;
+            case GameStages.Easy:
                 m_SpawnTable.Add(60, WaveBase.WaveType.Normal);
                 m_SpawnTable.Add(40, WaveBase.WaveType.OaA);
                 m_SpawnTable.Add(0, WaveBase.WaveType.Oa2A);
                 break;
-            case GameStages.Easy:
-                m_SpawnTable.Add(51, WaveBase.WaveType.Normal);
-                m_SpawnTable.Add(49, WaveBase.WaveType.OaA);
+            case GameStages.ICanDoThis:
+                m_SpawnTable.Add(49, WaveBase.WaveType.Normal);
+                m_SpawnTable.Add(51, WaveBase.WaveType.OaA);
                 m_SpawnTable.Add(0, WaveBase.WaveType.Oa2A);
                 break;
-            case GameStages.ICanDoThis:
-                m_SpawnTable.Add(50, WaveBase.WaveType.Normal);
-                m_SpawnTable.Add(30, WaveBase.WaveType.OaA);
-                m_SpawnTable.Add(20, WaveBase.WaveType.Oa2A);
-                break;
             case GameStages.Normal:
-                m_SpawnTable.Add(50, WaveBase.WaveType.Normal);
-                m_SpawnTable.Add(26, WaveBase.WaveType.OaA);
-                m_SpawnTable.Add(24, WaveBase.WaveType.Oa2A);
+                m_SpawnTable.Add(45, WaveBase.WaveType.Normal);
+                m_SpawnTable.Add(50, WaveBase.WaveType.OaA);
+                m_SpawnTable.Add(5, WaveBase.WaveType.Oa2A);
                 break;
             case GameStages.ImSweating:
-                m_SpawnTable.Add(70, WaveBase.WaveType.Normal);
-                m_SpawnTable.Add(20, WaveBase.WaveType.OaA);
+                m_SpawnTable.Add(40, WaveBase.WaveType.Normal);
+                m_SpawnTable.Add(50, WaveBase.WaveType.OaA);
                 m_SpawnTable.Add(10, WaveBase.WaveType.Oa2A);
                 break;
             case GameStages.Harder:
-                m_SpawnTable.Add(60, WaveBase.WaveType.Normal);
-                m_SpawnTable.Add(21, WaveBase.WaveType.OaA);
-                m_SpawnTable.Add(19, WaveBase.WaveType.Oa2A);
+                m_SpawnTable.Add(40, WaveBase.WaveType.Normal);
+                m_SpawnTable.Add(45, WaveBase.WaveType.OaA);
+                m_SpawnTable.Add(15, WaveBase.WaveType.Oa2A);
                 break;
             case GameStages.Hard:
                 m_SpawnTable.Add(35, WaveBase.WaveType.Normal);
                 m_SpawnTable.Add(45, WaveBase.WaveType.OaA);
-                m_SpawnTable.Add(30, WaveBase.WaveType.Oa2A);
+                m_SpawnTable.Add(20, WaveBase.WaveType.Oa2A);
                 break;
             case GameStages.ThisIsImpossible:
-                m_SpawnTable.Add(10, WaveBase.WaveType.Normal);
-                m_SpawnTable.Add(44, WaveBase.WaveType.OaA);
-                m_SpawnTable.Add(46, WaveBase.WaveType.Oa2A);
+                m_SpawnTable.Add(30, WaveBase.WaveType.Normal);
+                m_SpawnTable.Add(50, WaveBase.WaveType.OaA);
+                m_SpawnTable.Add(20, WaveBase.WaveType.Oa2A);
                 break;
             case GameStages.Hardest:
-                m_SpawnTable.Add(0, WaveBase.WaveType.Normal);
-                m_SpawnTable.Add(49, WaveBase.WaveType.OaA);
-                m_SpawnTable.Add(51, WaveBase.WaveType.Oa2A);
+                m_SpawnTable.Add(20, WaveBase.WaveType.Normal);
+                m_SpawnTable.Add(50, WaveBase.WaveType.OaA);
+                m_SpawnTable.Add(30, WaveBase.WaveType.Oa2A);
                 break;
             case GameStages.GiveUpAlready:
-                m_SpawnTable.Add(0, WaveBase.WaveType.Normal);
-                m_SpawnTable.Add(25, WaveBase.WaveType.OaA);
-                m_SpawnTable.Add(75, WaveBase.WaveType.Oa2A);
+                m_SpawnTable.Add(10, WaveBase.WaveType.Normal);
+                m_SpawnTable.Add(50, WaveBase.WaveType.OaA);
+                m_SpawnTable.Add(40, WaveBase.WaveType.Oa2A);
                 break;
             default:
                 int x = 0;
