@@ -123,7 +123,7 @@ public class WaveHandler : MonoBehaviour
                     }
                     if (!bWait)
                     {
-                        spawningWaveType = RandomWave();
+                        spawningWaveType = WaveBase.WaveType.Oa2A;
                         SpawnWave(GetWave(spawningWaveType));
                         tWaveSpawn = 0.0f;
                     }
@@ -380,7 +380,8 @@ public class WaveHandler : MonoBehaviour
         m_CurrentGameStage = GameStages.Easiest;
         m_iWaveCount = 0;
         m_vWaveOffset = Vector3.zero;
-        
+        bWait = false;
+        spawningWaveType = WaveBase.WaveType.Normal;
     }
     //--------------------------------------------------------------------------------
 }

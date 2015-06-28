@@ -114,7 +114,6 @@ public class GameLogic : MonoBehaviour
     //-------------------------------------------------------------------------------
     public void Update()
     {
-        Debug.Log(m_iAdCounter.ToString());
         if (State == GameState.OnGoing)
             m_bAdCounter = false;
         

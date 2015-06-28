@@ -1259,7 +1259,7 @@ Prefab:
       objectReference: {fileID: 224794457}
     - target: {fileID: 6548550, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: menuController
@@ -2163,7 +2163,7 @@ Prefab:
       objectReference: {fileID: 224794457}
     - target: {fileID: 6548550, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: menuController
