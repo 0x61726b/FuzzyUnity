@@ -117,27 +117,11 @@ public class WaveHandler : MonoBehaviour
                 if (tWaveSpawn >= SPAWN_FREQUENCY + SPAWN_FREQUENCY_COEFFICIENT)
                 {
                     CalculateGameStages();
-                    if (spawningWaveType == WaveBase.WaveType.Oa2A)
-                    {
-                        bWait = true;
-                    }
-                    if (!bWait)
-                    {
-                        spawningWaveType = WaveBase.WaveType.Oa2A;
-                        SpawnWave(GetWave(spawningWaveType));
-                        tWaveSpawn = 0.0f;
-                    }
 
-                    if (bWait)
-                    {
-                        if (tWaveSpawn >= SPAWN_FREQUENCY + SPAWN_FREQUENCY_COEFFICIENT * 8)
-                        {
-                            SpawnWave(GetWave(spawningWaveType));
-                            tWaveSpawn = 0.0f;
-                            bWait = false;
-                        }
-                    }
+                    spawningWaveType = RandomWave();
 
+                    SpawnWave(GetWave(spawningWaveType));
+                    tWaveSpawn = 0.0f;
                 }
             }
         }
@@ -249,7 +233,6 @@ public class WaveHandler : MonoBehaviour
                 m_SpawnTable.Add(40, WaveBase.WaveType.Oa2A);
                 break;
             default:
-                int x = 0;
                 break;
         }
     }
@@ -319,7 +302,7 @@ public class WaveHandler : MonoBehaviour
                 g.name = "Block at #" + lane.Blocks[j].Index.ToString();
                 lane.Blocks[j].Transform = g.transform;
                 g.transform.parent = laneObj.transform;
-                
+
             }
             LaneSpawnPos.x += 6;
         }
@@ -369,7 +352,7 @@ public class WaveHandler : MonoBehaviour
     {
         m_Waves.Clear();
 
-        for( int i=0; i < m_AssociatedGameObjects.Count;i++)
+        for (int i = 0; i < m_AssociatedGameObjects.Count; i++)
         {
             Destroy(m_AssociatedGameObjects[i]);
         }
