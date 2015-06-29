@@ -12,7 +12,7 @@ GameObject:
   - 65: {fileID: 6529804}
   - 23: {fileID: 2368792}
   - 54: {fileID: 5410418}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: oneMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,6 +103,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -66,6 +66,7 @@ public class WaveHandler : MonoBehaviour
     private WaveBase.WaveType prevWaveType;
     //--------------------------------------------------------------------------------
     private int m_iBackToBackWaveCount = 0;
+    private int m_iCumulativeSleepDur = 0;
     //--------------------------------------------------------------------------------
     public enum GameStages
     {
@@ -126,27 +127,14 @@ public class WaveHandler : MonoBehaviour
                     CalculateGameStages();
 
                     spawningWaveType = RandomWave();
+                    WaveBase wb = GetWave(spawningWaveType);
 
-                    if (prevWaveType == spawningWaveType)
-                    {
-                        m_iBackToBackWaveCount++;
-                    }
-                    else
-                    {
-                        m_iBackToBackWaveCount = 0;
-                    }
-                    if (prevWaveType == WaveBase.WaveType.Oa2A)
-                    {
-                        if (spawningWaveType == WaveBase.WaveType.OaA)
-                        {
-                            m_iBackToBackWaveCount = 2;
-                        }
-                    }
-                    SpawnWave(GetWave(spawningWaveType));
+                    SpawnWave(wb);
                     prevWaveType = spawningWaveType;
 
 
-                    tWaveSpawn = 0.0f;
+                    tWaveSpawn = 0;
+                    
                 }
             }
 
@@ -308,10 +296,7 @@ public class WaveHandler : MonoBehaviour
         wave.WaveID = m_iWaveCount;
         List<Lane> lanes = wave.Lanes;
 
-
-        m_vWaveOffset = new Vector3(m_iBackToBackWaveCount*10, 0, 0);
-
-        Vector3 LaneSpawnPos = wave.SpawnPosition + m_vWaveOffset;
+        Vector3 LaneSpawnPos = wave.SpawnPosition;
         for (int i = 0; i < lanes.Count; i++)
         {
             //Get Lane
@@ -331,6 +316,7 @@ public class WaveHandler : MonoBehaviour
                 g.name = "Block at #" + lane.Blocks[j].Index.ToString();
                 lane.Blocks[j].Transform = g.transform;
                 g.transform.parent = laneObj.transform;
+                Physics.IgnoreLayerCollision(g.layer, g.layer);
 
             }
             LaneSpawnPos.x += 6;

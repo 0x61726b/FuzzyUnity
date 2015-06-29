@@ -38,6 +38,7 @@ using System.Collections;
 //--------------------------------------------------------------------------------
 public class DoubleWave : WaveBase
 {
+    private float m_iSleepCounter = 0;
     //--------------------------------------------------------------------------------
     public DoubleWave()
     {
@@ -47,7 +48,6 @@ public class DoubleWave : WaveBase
 
         Block lElement = new Block();
         lElement.Prefab = "oneMesh";
-        MaterialColor = Color.red;
         l.SetDefaultBlock(lElement);
 
         Speed = new Vector3(-7, 0.0f, 0.0f);
@@ -62,8 +62,8 @@ public class DoubleWave : WaveBase
 
         Name = "Double Wave";
         Type = WaveType.OaA;
-        SpawnRate = 25;
-        ForcedSpawnTime = 20;
+
+        SleepDuration = 1;
 
         Lanes.Add(l);
         Lanes.Add(d);
@@ -77,11 +77,23 @@ public class DoubleWave : WaveBase
     //--------------------------------------------------------------------------------
     public override void Update()
     {
-        for (int j = 0; j < Lanes.Count; j++)
+        if (!Sleeping)
         {
-            Lane l = Lanes[j];
+            for (int j = 0; j < Lanes.Count; j++)
+            {
+                Lane l = Lanes[j];
 
-            l.Update();
+                l.Update();
+            }
+        }
+        else
+        {
+            m_iSleepCounter += Time.deltaTime;
+            if (m_iSleepCounter >= SleepDuration)
+            {
+                Sleeping = false;
+                m_iSleepCounter = 0;
+            }
         }
     }
     //--------------------------------------------------------------------------------

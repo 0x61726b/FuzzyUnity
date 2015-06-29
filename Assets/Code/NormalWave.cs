@@ -38,6 +38,7 @@ using System.Collections;
 //--------------------------------------------------------------------------------
 public class NormalWave : WaveBase
 {
+    private float m_iSleepCounter = 0;
     //--------------------------------------------------------------------------------
     public NormalWave()
     {
@@ -56,9 +57,7 @@ public class NormalWave : WaveBase
         l.Wave = this;
 
         Name = "Normal Wave";
-        SpawnRate = 100;
-        ForcedSpawnTime = 0;
-
+        SleepDuration = 0;
         Lanes.Add(l);
 
         Type = WaveType.Normal;
@@ -73,11 +72,23 @@ public class NormalWave : WaveBase
     //--------------------------------------------------------------------------------
     public override void Update()
     {
-        for (int j = 0; j < Lanes.Count; j++)
+        if (!Sleeping)
         {
-            Lane l = Lanes[j];
+            for (int j = 0; j < Lanes.Count; j++)
+            {
+                Lane l = Lanes[j];
 
-            l.Update();
+                l.Update();
+            }
+        }
+        else
+        {
+            m_iSleepCounter += Time.deltaTime;
+            if (m_iSleepCounter >= SleepDuration)
+            {
+                Sleeping = false;
+                m_iSleepCounter = 0;
+            }
         }
     }
     //--------------------------------------------------------------------------------

@@ -38,12 +38,12 @@ using System.Collections;
 
 public class TripleWave : WaveBase 
 {
+    private float m_iSleepCounter = 0;
     //--------------------------------------------------------------------------------
     public TripleWave()
     {
         Block lElement = new Block();
         lElement.Prefab = "oneMesh";
-        MaterialColor = Color.red;
         
 
         int laneObjCount = Random.Range(2, 4);
@@ -70,8 +70,9 @@ public class TripleWave : WaveBase
 
         Name = "Triple Wave";
         Type = WaveType.Oa2A;
-        SpawnRate = 25;
-        ForcedSpawnTime = 50;
+
+        SleepDuration = 2;
+
         Lanes.Add(l);
         Lanes.Add(l2);
         Lanes.Add(l3);
@@ -85,11 +86,23 @@ public class TripleWave : WaveBase
     //--------------------------------------------------------------------------------
     public override void Update()
     {
-        for (int j = 0; j < Lanes.Count; j++)
+        if (!Sleeping)
         {
-            Lane l = Lanes[j];
+            for (int j = 0; j < Lanes.Count; j++)
+            {
+                Lane l = Lanes[j];
 
-            l.Update();
+                l.Update();
+            }
+        }
+        else
+        {
+            m_iSleepCounter += Time.deltaTime;
+            if (m_iSleepCounter >= SleepDuration)
+            {
+                Sleeping = false;
+                m_iSleepCounter = 0;
+            }
         }
     }
     //--------------------------------------------------------------------------------

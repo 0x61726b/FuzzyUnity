@@ -83,14 +83,6 @@ public class WaveBase
         set { m_Prefabs = value; }
     }
     //--------------------------------------------------------------------------------
-    private Color m_cBlockColor;
-    //--------------------------------------------------------------------------------
-    public Color MaterialColor
-    {
-        get { return m_cBlockColor; }
-        set { m_cBlockColor = value; }
-    }
-    //--------------------------------------------------------------------------------
     private List<int> m_DesiredPrefabIndices;
     //--------------------------------------------------------------------------------
     public List<int> DesiredPrefabIndices
@@ -120,22 +112,22 @@ public class WaveBase
         get { return m_sName; }
         set { m_sName = value; }
     }
-    //--------------------------------------------------------------------------------
-    private int m_iSpawnRate;
-    //--------------------------------------------------------------------------------
-    public int SpawnRate
+    //---------------------------------------------------------------------------------
+    private bool m_bSleeping;
+
+    public bool Sleeping
     {
-        get { return m_iSpawnRate; }
-        set { m_iSpawnRate = value; }
+        get { return m_bSleeping; }
+        set { m_bSleeping = value; }
     }
-    //--------------------------------------------------------------------------------
-    private int m_iForcedSpawnTime;
-    //--------------------------------------------------------------------------------
-    public int ForcedSpawnTime
+    private int m_iSleepLen;
+
+    public int SleepDuration
     {
-        get { return m_iForcedSpawnTime; }
-        set { m_iForcedSpawnTime = value; }
+        get { return m_iSleepLen; }
+        set { m_iSleepLen = value; }
     }
+
     //--------------------------------------------------------------------------------
     public WaveBase()
     {
@@ -153,6 +145,8 @@ public class WaveBase
 
         m_DesiredPrefabIndices = new List<int>();
         m_DesiredPrefabIndices = InitializeListEmpty(m_DesiredPrefabIndices);
+
+        m_bSleeping = false;
 
     }
     //--------------------------------------------------------------------------------

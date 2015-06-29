@@ -1259,7 +1259,7 @@ Prefab:
       objectReference: {fileID: 224794457}
     - target: {fileID: 6548550, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: menuController
@@ -2260,7 +2260,7 @@ Prefab:
       objectReference: {fileID: 224794457}
     - target: {fileID: 6548550, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11497374, guid: f97d6c6411f1e594d827d8de54413c0b, type: 2}
       propertyPath: menuController
@@ -3184,6 +3184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gL: {fileID: 1842720167}
   m_GameLogic: {fileID: 1842720169}
+  m_WaveHandler: {fileID: 0}
 --- !u!114 &1842720169
 MonoBehaviour:
   m_ObjectHideFlags: 0
