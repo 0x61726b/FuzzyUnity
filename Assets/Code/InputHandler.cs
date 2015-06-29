@@ -241,5 +241,26 @@ public class InputHandler : MonoBehaviour
         TapToStartButton.SetActive(true);
     }
     //--------------------------------------------------------------------------------
+
+    public void LeftButtonClicked()
+    {
+        PanelAnimator.SetInteger("ButtonNumber" , 1);
+        PanelAnimator.Play("ButtonClicked");
+       
+    }
+
+    public void CenterButtonClicked()
+    {
+        PanelAnimator.SetInteger("ButtonNumber", 2);
+        PanelAnimator.Play("ButtonClicked");
+      
+    }
+
+    public void RightButtonClicked()
+    {
+        PanelAnimator.SetInteger("ButtonNumber", 3);
+        PanelAnimator.Play("ButtonClicked");
+      
+    }
  
 }
