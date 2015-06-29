@@ -223,8 +223,6 @@ public class InputHandler : MonoBehaviour
         LeftFuzzy.CurrentLane = left;
         RightFuzzy.CurrentLane = right;
 
-        LeftFuzzy.Sleeping = false;
-        RightFuzzy.Sleeping = false;
     }
     //--------------------------------------------------------------------------------
     public void TapToStart(GameObject b)

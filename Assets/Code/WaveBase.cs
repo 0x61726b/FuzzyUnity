@@ -150,6 +150,14 @@ public class WaveBase
 
     }
     //--------------------------------------------------------------------------------
+    public void UpdateSpeed()
+    {
+        for (int i = 0; i < Lanes.Count; i++)
+        {
+            Lanes[i].UpdateSpeed();
+        }
+    }
+    //--------------------------------------------------------------------------------
     public List<int> InitializeListEmpty(List<int> l)
     {
         for (int i = 0; i < LANE_COUNT; i++)

@@ -85,6 +85,14 @@ public class Lane
         return DefaultBlock;
     }
     //--------------------------------------------------------------------------------
+    public void UpdateSpeed()
+    {
+        for (int i = 0; i < Blocks.Count; i++)
+        {
+            Blocks[i].XSpeed = Wave.Speed;
+        }
+    }
+    //--------------------------------------------------------------------------------
     public virtual void Initialize()
     {
         for (int i = 0; i < WaveBase.LANE_COUNT; i++)

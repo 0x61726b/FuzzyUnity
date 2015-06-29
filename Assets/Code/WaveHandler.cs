@@ -68,6 +68,10 @@ public class WaveHandler : MonoBehaviour
     private int m_iBackToBackWaveCount = 0;
     private int m_iCumulativeSleepDur = 0;
     //--------------------------------------------------------------------------------
+    private Vector3 m_vSpawnSpeed;
+    //--------------------------------------------------------------------------------
+    public FloorScript m_FS;
+    //--------------------------------------------------------------------------------
     public enum GameStages
     {
         Easiest,
@@ -102,6 +106,21 @@ public class WaveHandler : MonoBehaviour
         spawningWaveType = WaveBase.WaveType.Normal;
 
         m_AssociatedGameObjects = new List<GameObject>();
+
+        m_vSpawnSpeed = new Vector3(-5.5f, 0, 0);
+    }
+    //--------------------------------------------------------------------------------
+    public void IncrementSpeed()
+    {
+        m_vSpawnSpeed = new Vector3(-7, 0, 0);
+        for (int i = 0; i < m_Waves.Count; i++)
+        {
+            m_Waves[i].Speed = m_vSpawnSpeed;
+            m_Waves[i].UpdateSpeed();
+        }
+        m_FS.scrollSpeed = 0.78f;
+
+        Debug.Log("ok iyi");
     }
     //--------------------------------------------------------------------------------
     public void SetWaves()
@@ -134,7 +153,7 @@ public class WaveHandler : MonoBehaviour
 
 
                     tWaveSpawn = 0;
-                    
+
                 }
             }
 
@@ -151,11 +170,14 @@ public class WaveHandler : MonoBehaviour
         }
         if (tTotalTime <= 2 * Split && tTotalTime > Split)
         {
+
             m_CurrentGameStage = GameStages.Easier;
         }
         if (tTotalTime <= 3 * Split && tTotalTime > 2 * Split)
         {
+            IncrementSpeed();
             m_CurrentGameStage = GameStages.Easy;
+
         }
         if (tTotalTime <= 4 * Split && tTotalTime > 3 * Split)
         {
@@ -285,7 +307,7 @@ public class WaveHandler : MonoBehaviour
                 wb = new TripleWave();
                 break;
         }
-        wb.Initialize();
+
         return wb;
     }
     //--------------------------------------------------------------------------------
@@ -295,7 +317,8 @@ public class WaveHandler : MonoBehaviour
         Vector3 LanePos = wave.SpawnPosition;
         wave.WaveID = m_iWaveCount;
         List<Lane> lanes = wave.Lanes;
-
+        wave.Speed = m_vSpawnSpeed;
+        wave.Initialize();
         Vector3 LaneSpawnPos = wave.SpawnPosition;
         for (int i = 0; i < lanes.Count; i++)
         {
@@ -319,7 +342,7 @@ public class WaveHandler : MonoBehaviour
                 Physics.IgnoreLayerCollision(g.layer, g.layer);
 
             }
-            LaneSpawnPos.x += 6;
+            LaneSpawnPos.x += 8;
         }
         m_Waves.Add(wave);
         m_iWaveCount++;
