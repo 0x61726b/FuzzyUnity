@@ -175,12 +175,13 @@ public class WaveHandler : MonoBehaviour
         }
         if (tTotalTime <= 3 * Split && tTotalTime > 2 * Split)
         {
-            IncrementSpeed();
+            
             m_CurrentGameStage = GameStages.Easy;
 
         }
         if (tTotalTime <= 4 * Split && tTotalTime > 3 * Split)
         {
+            IncrementSpeed();
             m_CurrentGameStage = GameStages.ICanDoThis;
         }
         if (tTotalTime <= 5 * Split && tTotalTime > 4 * Split)
@@ -403,5 +404,7 @@ public class WaveHandler : MonoBehaviour
         m_vWaveOffset = Vector3.zero;
         bWait = false;
         spawningWaveType = WaveBase.WaveType.Normal;
+        m_vSpawnSpeed = new Vector3(-5.5f, 0, 0);
+        m_FS.scrollSpeed = 0.609f;
     }
 }
