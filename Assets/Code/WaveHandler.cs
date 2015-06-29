@@ -45,7 +45,7 @@ public class WaveHandler : MonoBehaviour
     private float tTotalTime = 0.0f;
     //--------------------------------------------------------------------------------
     private float SPAWN_FREQUENCY_COEFFICIENT = 0.5f;
-    private float SPAWN_FREQUENCY = 2.5f;
+    private float SPAWN_FREQUENCY = 3f;
     private bool bCheckCollision = false;
     private List<GameObject> m_PreloadedAssets;
     private List<GameObject> m_AssociatedGameObjects;

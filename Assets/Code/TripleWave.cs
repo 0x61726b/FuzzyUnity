@@ -65,7 +65,7 @@ public class TripleWave : WaveBase
         l3.SetDefaultBlock(lElement);
         l3.Wave = this;
 
-        Speed = new Vector3(-7, 0.0f, 0.0f);
+        Speed = new Vector3(-5.5f, 0.0f, 0.0f);
         SpawnPosition = new Vector3(15.16f, 3, -2);
 
         Name = "Triple Wave";

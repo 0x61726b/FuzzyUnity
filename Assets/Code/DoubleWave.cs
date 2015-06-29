@@ -50,7 +50,7 @@ public class DoubleWave : WaveBase
         lElement.Prefab = "oneMesh";
         l.SetDefaultBlock(lElement);
 
-        Speed = new Vector3(-7, 0.0f, 0.0f);
+        Speed = new Vector3(-5.5f, 0.0f, 0.0f);
         SpawnPosition = new Vector3(15.16f, 2.86f, -2);
         l.Wave = this;
 

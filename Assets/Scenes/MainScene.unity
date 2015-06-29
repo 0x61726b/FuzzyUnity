@@ -340,10 +340,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 419530019}
   m_RootOrder: 0
-  m_AnchorMin: {x: .231553927, y: .5}
-  m_AnchorMax: {x: .843875051, y: .63489753}
-  m_AnchoredPosition: {x: .75, y: -.5}
-  m_SizeDelta: {x: 1.5, y: 0}
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 12.75, y: 30.5}
+  m_SizeDelta: {x: 197.5, y: 62}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &93857932
 MonoBehaviour:
@@ -360,9 +360,9 @@ MonoBehaviour:
   m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1579ac2d2a5145f4b91e7945709dcd54, type: 3}
-    m_FontSize: 14
+    m_FontSize: 35
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 300
     m_Alignment: 4
@@ -959,10 +959,10 @@ RectTransform:
   - {fileID: 93857931}
   m_Father: {fileID: 1707559152}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: .806000054}
-  m_AnchoredPosition: {x: -.136005402, y: 1.30899811}
-  m_SizeDelta: {x: 0, y: 1.37999725}
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: -.136001587, y: -53.6910095}
+  m_SizeDelta: {x: 320, y: 459.380005}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &419530020
 MonoBehaviour:
@@ -1827,7 +1827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac44808b6552cd44ab647d540b92bc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: .779999971
+  scrollSpeed: .609000027
   rend: {fileID: 0}
 --- !u!33 &946688951
 MeshFilter:
