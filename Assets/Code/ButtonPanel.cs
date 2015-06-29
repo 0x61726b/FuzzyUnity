@@ -53,7 +53,7 @@ public class ButtonPanel : MonoBehaviour
     public void Tapped()
     {
         gameObject.SetActive(true);
-        animator.Play("ButtonChangeAnim");
+   
     }
     //--------------------------------------------------------------------------------
 }
