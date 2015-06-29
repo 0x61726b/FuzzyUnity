@@ -56,9 +56,16 @@ public class WaveHandler : MonoBehaviour
     //--------------------------------------------------------------------------------
     private List<WaveBase> m_BakedWaves;
     private bool bWait = false;
+    //--------------------------------------------------------------------------------
     private Dictionary<int, WaveBase.WaveType> m_SpawnTable;
+    //-------------------------------------------------------------------------------
     private Vector3 m_vWaveOffset = Vector3.zero;
+    //-------------------------------------------------------------------------------
     private WaveBase.WaveType spawningWaveType;
+    //-------------------------------------------------------------------------------
+    private WaveBase.WaveType prevWaveType;
+    //--------------------------------------------------------------------------------
+    private int m_iBackToBackWaveCount = 0;
     //--------------------------------------------------------------------------------
     public enum GameStages
     {
@@ -89,7 +96,7 @@ public class WaveHandler : MonoBehaviour
         m_BakedWaves.Add(GetWave(WaveBase.WaveType.OaA));
         m_BakedWaves.Add(GetWave(WaveBase.WaveType.Oa2A));
 
-        m_CurrentGameStage = GameStages.Easiest;
+        m_CurrentGameStage = GameStages.Harder;
         m_SpawnTable = new Dictionary<int, WaveBase.WaveType>();
         spawningWaveType = WaveBase.WaveType.Normal;
 
@@ -120,10 +127,30 @@ public class WaveHandler : MonoBehaviour
 
                     spawningWaveType = RandomWave();
 
+                    if (prevWaveType == spawningWaveType)
+                    {
+                        m_iBackToBackWaveCount++;
+                    }
+                    else
+                    {
+                        m_iBackToBackWaveCount = 0;
+                    }
+                    if (prevWaveType == WaveBase.WaveType.Oa2A)
+                    {
+                        if (spawningWaveType == WaveBase.WaveType.OaA)
+                        {
+                            m_iBackToBackWaveCount = 2;
+                        }
+                    }
                     SpawnWave(GetWave(spawningWaveType));
+                    prevWaveType = spawningWaveType;
+
+
                     tWaveSpawn = 0.0f;
                 }
             }
+
+
         }
     }
     //--------------------------------------------------------------------------------
@@ -282,6 +309,8 @@ public class WaveHandler : MonoBehaviour
         List<Lane> lanes = wave.Lanes;
 
 
+        m_vWaveOffset = new Vector3(m_iBackToBackWaveCount*10, 0, 0);
+
         Vector3 LaneSpawnPos = wave.SpawnPosition + m_vWaveOffset;
         for (int i = 0; i < lanes.Count; i++)
         {
@@ -366,5 +395,4 @@ public class WaveHandler : MonoBehaviour
         bWait = false;
         spawningWaveType = WaveBase.WaveType.Normal;
     }
-    //--------------------------------------------------------------------------------
 }

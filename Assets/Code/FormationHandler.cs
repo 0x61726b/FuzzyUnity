@@ -56,9 +56,11 @@ public class FormationHandler : MonoBehaviour
     //--------------------------------------------------------------------------------
     public GameLogic m_GameLogic;
     //--------------------------------------------------------------------------------
+    public WaveHandler m_WaveHandler;
+    //--------------------------------------------------------------------------------
     public void Start()
     {
-        
+
     }
     //--------------------------------------------------------------------------------
     public void Update()
@@ -78,51 +80,59 @@ public class FormationHandler : MonoBehaviour
     {
         string name = g.name;
         int waveIndex = name.IndexOf('#');
-        string id = name.Substring(waveIndex+1);
+        string id = name.Substring(waveIndex + 1);
         int waveID = System.Int32.Parse(id);
 
         WaveBase wave = m_Waves.Find(x => x.WaveID == waveID);
-        if (wave.Type == WaveBase.WaveType.OaA && iLanePassed < 2)
+        int nextWave = waveID + 1;
+        switch (wave.Type)
         {
-            iLanePassed++;
+            case WaveBase.WaveType.Normal:
+                Solve(waveID + 1);
+                m_GameLogic.IncrementScore(1);
+                break;
+            case WaveBase.WaveType.OaA:
+                if (iLanePassed < 2)
+                {
+                    iLanePassed++;
+                }
+                if(iLanePassed == 2)
+                {
+                    Solve(waveID + 1);
+                    iLanePassed = 0;
+                    m_GameLogic.IncrementScore(4);
+                }
+                break;
+            case WaveBase.WaveType.Oa2A:
+                if (iLanePassed < 3)
+                {
+                    iLanePassed++;
+                }
+                if(iLanePassed == 3)
+                {
+                    Solve(waveID + 1);
+                    iLanePassed = 0;
+                    m_GameLogic.IncrementScore(9);
+                }
+                break;
         }
-        if (iLanePassed == 2)
-        {
-            Solve(waveID + 1);
-            iLanePassed = 0;
-            m_GameLogic.IncrementScore(4);
-        }
-
-        if (wave.Type == WaveBase.WaveType.Oa2A && iLanePassed3 < 3)
-        {
-            iLanePassed3++;
-        }
-        if (iLanePassed3 == 3)
-        {
-            Solve(waveID + 1);
-            iLanePassed3 = 0;
-            m_GameLogic.IncrementScore(12);
-        }
-        if (wave.Type == WaveBase.WaveType.Normal)
-        {
-            Solve(waveID + 1);
-            m_GameLogic.IncrementScore(1);
-        }
-        
         bCheckCollision = true;
-        
+
     }
     //--------------------------------------------------------------------------------
     public void Solve(int waveID)
     {
         WaveBase Wave = m_Waves.Find(x => x.WaveID == waveID);
         List<List<int>> Solutions = new List<List<int>>();
-        for (int i = 0; i < Wave.Lanes.Count; i++)
+        if (Wave != null)
         {
-            Lane lane = Wave.Lanes[i];
-            Solutions.Add(SolveForLane(lane));
+            for (int i = 0; i < Wave.Lanes.Count; i++)
+            {
+                Lane lane = Wave.Lanes[i];
+                Solutions.Add(SolveForLane(lane));
+            }
+            gL.UpdateButtons(Solutions);
         }
-        gL.UpdateButtons(Solutions);
     }
     //--------------------------------------------------------------------------------
     public void UpdateFirstSpawn()

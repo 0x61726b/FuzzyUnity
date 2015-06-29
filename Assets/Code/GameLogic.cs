@@ -90,8 +90,6 @@ public class GameLogic : MonoBehaviour
     //-------------------------------------------------------------------------------
     public void Restart()
     {
-
-
         if(!(GameLogic.State == GameState.OnGoing))
         {
             
@@ -108,8 +106,6 @@ public class GameLogic : MonoBehaviour
 
         m_iScore = 0;
         MC.UpdateScoreboard(m_iScore);
-
-        
     }
     //-------------------------------------------------------------------------------
     public void Update()
@@ -142,4 +138,6 @@ public class GameLogic : MonoBehaviour
         m_iScore += s;
         MC.UpdateScoreboard(m_iScore);
     }
+    //-------------------------------------------------------------------------------
+
 }
