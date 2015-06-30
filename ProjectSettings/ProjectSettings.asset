@@ -120,8 +120,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/Users/ceyhu_000/Desktop/FuzzyNew/FuzzyUnity/user.keystore
+  AndroidKeyaliasName: form8
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   androidEnableBanner: 0
