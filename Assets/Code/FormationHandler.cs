@@ -96,7 +96,7 @@ public class FormationHandler : MonoBehaviour
                 {
                     iLanePassed++;
                 }
-                if(iLanePassed == 2)
+                if (iLanePassed == 2)
                 {
                     Solve(waveID + 1);
                     iLanePassed = 0;
@@ -108,7 +108,7 @@ public class FormationHandler : MonoBehaviour
                 {
                     iLanePassed++;
                 }
-                if(iLanePassed == 3)
+                if (iLanePassed == 3)
                 {
                     Solve(waveID + 1);
                     iLanePassed = 0;
@@ -124,15 +124,14 @@ public class FormationHandler : MonoBehaviour
     {
         WaveBase Wave = m_Waves.Find(x => x.WaveID == waveID);
         List<List<int>> Solutions = new List<List<int>>();
-        if (Wave != null)
+
+        for (int i = 0; i < Wave.Lanes.Count; i++)
         {
-            for (int i = 0; i < Wave.Lanes.Count; i++)
-            {
-                Lane lane = Wave.Lanes[i];
-                Solutions.Add(SolveForLane(lane));
-            }
-            gL.UpdateButtons(Solutions);
+            Lane lane = Wave.Lanes[i];
+            Solutions.Add(SolveForLane(lane));
         }
+        gL.UpdateButtons(Solutions);
+
     }
     //--------------------------------------------------------------------------------
     public void UpdateFirstSpawn()

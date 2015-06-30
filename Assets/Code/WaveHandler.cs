@@ -119,8 +119,6 @@ public class WaveHandler : MonoBehaviour
             m_Waves[i].UpdateSpeed();
         }
         m_FS.scrollSpeed = 0.78f;
-
-        Debug.Log("ok iyi");
     }
     //--------------------------------------------------------------------------------
     public void SetWaves()
@@ -148,11 +146,23 @@ public class WaveHandler : MonoBehaviour
                     spawningWaveType = RandomWave();
                     WaveBase wb = GetWave(spawningWaveType);
 
+                    if (spawningWaveType == WaveBase.WaveType.Oa2A)
+                    {
+                        tWaveSpawn = -2;
+                    }
+                    if (spawningWaveType == WaveBase.WaveType.OaA)
+                    {
+                        tWaveSpawn = -0.8f;
+                    }
+                    if (spawningWaveType == WaveBase.WaveType.Normal)
+                    {
+                        tWaveSpawn = 0;
+                    }
                     SpawnWave(wb);
                     prevWaveType = spawningWaveType;
 
 
-                    tWaveSpawn = 0;
+                    
 
                 }
             }
@@ -290,7 +300,10 @@ public class WaveHandler : MonoBehaviour
                 Indices.Add(m_SpawnTable[i]);
             }
         }
-        return Indices[Rnd];
+
+        WaveBase.WaveType type = Indices[Rnd];
+
+        return type;
     }
     //--------------------------------------------------------------------------------
     WaveBase GetWave(WaveBase.WaveType type)
@@ -369,7 +382,9 @@ public class WaveHandler : MonoBehaviour
     public void SpawnFirstWave()
     {
         NormalWave wave = new NormalWave();
-        wave.Initialize();
+
+        spawningWaveType = WaveBase.WaveType.Normal;
+        prevWaveType = spawningWaveType;
         SpawnWave(wave);
 
         SetWaves();
