@@ -38,55 +38,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 //--------------------------------------------------------------------------------
-public class Fuzzy : MonoBehaviour,ISleepable
+public class Fuzzy : MonoBehaviour
 {
     //--------------------------------------------------------------------------------
     public int CurrentLane;
     //--------------------------------------------------------------------------------
     private Vector2 m_vSpring;
     //--------------------------------------------------------------------------------
-    private bool m_bSleeping;
-    //--------------------------------------------------------------------------------
-    private float m_fSleepTimer = 0.0f;
-    //--------------------------------------------------------------------------------
-    private float m_fSleepThreshold = 0.4f;
-    //--------------------------------------------------------------------------------
     public MenuController menuController;
     //--------------------------------------------------------------------------------
     public GameObject ScorePanel;
     private Animator m_SPAnimator;
-    //--------------------------------------------------------------------------------
-    public bool Sleeping
-    {
-        get { return m_bSleeping; }
-        set { m_bSleeping = value; }
-    }
-    //--------------------------------------------------------------------------------
     public void Start()
     {
         m_vSpring = new Vector2(transform.position.z, 0);
-        m_bSleeping = true;
 
         m_SPAnimator = ScorePanel.GetComponent<Animator>();
     }
     //--------------------------------------------------------------------------------
     public void Update()
     {
-        if (!m_bSleeping)
-        {
-            if (GameLogic.State == GameLogic.GameState.OnGoing)
-                LaneSwitch();
-        }
-        if (!m_bSleeping)
-        {
-            m_fSleepTimer += Time.deltaTime;
 
-            if (m_fSleepTimer >= m_fSleepThreshold)
-            {
-                m_bSleeping = true;
-                m_fSleepTimer = 0.0f;
-            }
-        }
+        if (GameLogic.State == GameLogic.GameState.OnGoing)
+            LaneSwitch();
+
+
     }
     //--------------------------------------------------------------------------------
     public void LaneSwitch()
@@ -120,16 +96,5 @@ public class Fuzzy : MonoBehaviour,ISleepable
         //m_SPAnimator.SetBool("gameEnded", true);
 
     }
-    //--------------------------------------------------------------------------------
-    public bool IsSleeping()
-    {
-        return m_bSleeping;
-    }
-    //--------------------------------------------------------------------------------
-    public void SetSleepTimer()
-    {
-        throw new System.NotImplementedException();
-    }
-    //--------------------------------------------------------------------------------
 }
 //--------------------------------------------------------------------------------

@@ -3141,7 +3141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gL: {fileID: 1842720167}
   m_GameLogic: {fileID: 1842720169}
-  m_WaveHandler: {fileID: 0}
+  m_WaveHandler: {fileID: 1842720170}
 --- !u!114 &1842720169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3169,6 +3169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gL: {fileID: 1842720168}
+  m_FS: {fileID: 946688950}
 --- !u!4 &1842720171
 Transform:
   m_ObjectHideFlags: 0

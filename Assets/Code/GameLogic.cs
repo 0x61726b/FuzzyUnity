@@ -125,11 +125,11 @@ public class GameLogic : MonoBehaviour
         }
         if (m_bShowAds)
         {
-            if( Advertisement.isReady() )
-            {
-                Advertisement.Show();
-                m_bShowAds = false;
-            }
+            //if( Advertisement.isReady() )
+            //{
+            //    Advertisement.Show();
+            //    m_bShowAds = false;
+            //}
         }
     }
     //-------------------------------------------------------------------------------
