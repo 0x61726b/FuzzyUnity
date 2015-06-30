@@ -110,15 +110,15 @@ public class WaveHandler : MonoBehaviour
         m_vSpawnSpeed = new Vector3(-5.5f, 0, 0);
     }
     //--------------------------------------------------------------------------------
-    public void IncrementSpeed()
+    public void IncrementSpeed(float laneSpeed, float floorSpeed)
     {
-        m_vSpawnSpeed = new Vector3(-7, 0, 0);
+        m_vSpawnSpeed = new Vector3(laneSpeed, 0, 0);
         for (int i = 0; i < m_Waves.Count; i++)
         {
             m_Waves[i].Speed = m_vSpawnSpeed;
             m_Waves[i].UpdateSpeed();
         }
-        m_FS.scrollSpeed = 0.78f;
+        m_FS.scrollSpeed = floorSpeed;
     }
     //--------------------------------------------------------------------------------
     public void SetWaves()
@@ -191,7 +191,7 @@ public class WaveHandler : MonoBehaviour
         }
         if (tTotalTime <= 4 * Split && tTotalTime > 3 * Split)
         {
-            IncrementSpeed();
+            IncrementSpeed(-7f, 0.78f);
             m_CurrentGameStage = GameStages.ICanDoThis;
         }
         if (tTotalTime <= 5 * Split && tTotalTime > 4 * Split)
@@ -204,6 +204,7 @@ public class WaveHandler : MonoBehaviour
         }
         if (tTotalTime <= 7 * Split && tTotalTime > 6 * Split)
         {
+            IncrementSpeed(-9f, 1f);
             m_CurrentGameStage = GameStages.Harder;
         }
         if (tTotalTime <= 8 * Split && tTotalTime > 7 * Split)
@@ -216,6 +217,7 @@ public class WaveHandler : MonoBehaviour
         }
         if (tTotalTime <= 10 * Split && tTotalTime > 9 * Split)
         {
+             IncrementSpeed(-11f, 1.23f);
             m_CurrentGameStage = GameStages.Hardest;
         }
         if (tTotalTime > Split * 10)

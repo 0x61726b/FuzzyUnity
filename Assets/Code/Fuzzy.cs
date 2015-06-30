@@ -49,6 +49,7 @@ public class Fuzzy : MonoBehaviour
     //--------------------------------------------------------------------------------
     public GameObject ScorePanel;
     private Animator m_SPAnimator;
+    public GameLogic GL;
     public void Start()
     {
         m_vSpring = new Vector2(transform.position.z, 0);
@@ -93,7 +94,11 @@ public class Fuzzy : MonoBehaviour
         GameLogic.State = GameLogic.GameState.Ended;
 
         m_SPAnimator.Play("ScorePanelAnim");
-        //m_SPAnimator.SetBool("gameEnded", true);
+
+        Social.ReportScore(PlayerPrefs.GetInt("BestScore"), "CgkIzs-alcMYEAIQAQ", (bool success) =>
+        {
+            // handle success or failure
+        });
 
     }
 }

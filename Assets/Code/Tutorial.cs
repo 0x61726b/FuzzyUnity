@@ -8,15 +8,15 @@ public class Tutorial : MonoBehaviour {
 	void Start () {
         anim = GetComponent<Animator>();
 
-        //if (PlayerPrefs.GetInt("FirstTime") == 1)
-        //{
-        //    this.gameObject.SetActive(false);
-        //    buttonPanel.SetActive(false);
-        //}
-        //else
-        //{
-        //    PlayerPrefs.SetInt("FirstTime", 1);
-        //}
+        if (PlayerPrefs.GetInt("FirstTime") == 1)
+        {
+            this.gameObject.SetActive(false);
+            buttonPanel.SetActive(false);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("FirstTime", 1);
+        }
         
 	}
 	

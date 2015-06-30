@@ -86,6 +86,7 @@ public class MenuController : MonoBehaviour
         {
             PlayerPrefs.SetInt("BestScore", m_iScore);
             BestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
+            
         }
         //if (!dataSent && GameLogic.State == GameLogic.GameState.Ended)
         //{

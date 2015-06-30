@@ -71,7 +71,7 @@ public class GameLogic : MonoBehaviour
     private int AD_COUNT_PER_DEATH = 5;
     private bool m_bAdCounter = false;
     //-------------------------------------------------------------------------------
-    private int m_iScore;
+    public int m_iScore;
     //-------------------------------------------------------------------------------
     public void Start()
     {
@@ -96,9 +96,10 @@ public class GameLogic : MonoBehaviour
             //ScorePanel.SetActive(false);
             //m_SPAnimator.SetBool("gameEnded", false);
             m_SPAnimator.Play("ScorePanelOutAnim");
-            m_TPAnimator.Play("TopPanelEnterAnim");
+           
             ButtonPanel.SetActive(false);
         }
+        m_TPAnimator.Play("TopPanelEnterAnim");
         GameLogic.State = GameLogic.GameState.NotStarted;
         m_WaveHandler.Restart();
         m_InputHandler.Restart();
