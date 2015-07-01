@@ -37,143 +37,150 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 //--------------------------------------------------------------------------------
-public class WaveBase
+public class FormationHandler1 : MonoBehaviour
 {
     //--------------------------------------------------------------------------------
-    public const int LANE_COUNT = 5;
+    private bool bCheckCollision = false;
     //--------------------------------------------------------------------------------
-    public enum WaveType
+    private int iLanePassed = 0;
+    private int iLanePassed3 = 0;
+    //--------------------------------------------------------------------------------
+    private List<WaveBase> m_Waves;
+    public List<WaveBase> Waves
     {
-        Normal,
-        OaA,
-        Oa2A
+        get { return m_Waves; }
+        set { m_Waves = value; }
     }
     //--------------------------------------------------------------------------------
-    private WaveType m_Type;
+    public InputHandler1 gL;
     //--------------------------------------------------------------------------------
-    public WaveType Type
+    public GameLogic m_GameLogic;
+    //--------------------------------------------------------------------------------
+    public WaveHandler1 m_WaveHandler;
+    //--------------------------------------------------------------------------------
+    public void Start()
     {
-        get { return m_Type; }
-        set { m_Type = value; }
-    }
-    //--------------------------------------------------------------------------------
-    private int m_iWaveID;
-    //--------------------------------------------------------------------------------
-    public int WaveID
-    {
-        get { return m_iWaveID; }
-        set { m_iWaveID = value; }
-    }
-    //--------------------------------------------------------------------------------
-    private Vector3 m_vSpeed;
-    //--------------------------------------------------------------------------------
-    public Vector3 Speed
-    {
-        get { return m_vSpeed; }
-        set { m_vSpeed = value; }
-    }
-    //--------------------------------------------------------------------------------
-    private List<Lane> m_cLanes;
-    //--------------------------------------------------------------------------------
-    private List<GameObject> m_Prefabs;
-    //--------------------------------------------------------------------------------
-    public List<GameObject> Prefabs
-    {
-        get { return m_Prefabs; }
-        set { m_Prefabs = value; }
-    }
-    //--------------------------------------------------------------------------------
-    private List<int> m_DesiredPrefabIndices;
-    //--------------------------------------------------------------------------------
-    public List<int> DesiredPrefabIndices
-    {
-        get { return m_DesiredPrefabIndices; }
-        set { m_DesiredPrefabIndices = value; }
-    }
-    //--------------------------------------------------------------------------------
-    private Vector3 m_vSpawnPos;
-    //--------------------------------------------------------------------------------
-    public Vector3 SpawnPosition
-    {
-        get { return m_vSpawnPos; }
-        set { m_vSpawnPos = value; }
-    }
-    //--------------------------------------------------------------------------------
-    public List<Lane> Lanes
-    {
-        get { return m_cLanes; }
-        set { m_cLanes = value; }
-    }
-    //--------------------------------------------------------------------------------
-    private string m_sName;
-    //--------------------------------------------------------------------------------
-    public string Name
-    {
-        get { return m_sName; }
-        set { m_sName = value; }
-    }
-    //---------------------------------------------------------------------------------
-    private bool m_bSleeping;
-
-    public bool Sleeping
-    {
-        get { return m_bSleeping; }
-        set { m_bSleeping = value; }
-    }
-    private int m_iSleepLen;
-
-    public int SleepDuration
-    {
-        get { return m_iSleepLen; }
-        set { m_iSleepLen = value; }
-    }
-
-    //--------------------------------------------------------------------------------
-    public WaveBase()
-    {
-        m_vSpawnPos = Vector3.zero;
-        m_vSpeed = Vector3.zero;
-        Lanes = new List<Lane>();
-        m_cLanes = new List<Lane>();
-        m_Type = WaveType.Normal;
-        m_Prefabs = new List<GameObject>();
-        m_sName = "Wave Unknown";
-        SpawnPosition = new Vector3(35.16f, 2, -2);
-
-        for (int i = 0; i < LANE_COUNT; i++)
-            m_Prefabs.Add(null);
-
-        m_DesiredPrefabIndices = new List<int>();
-        m_DesiredPrefabIndices = InitializeListEmpty(m_DesiredPrefabIndices);
-
-        m_bSleeping = false;
 
     }
     //--------------------------------------------------------------------------------
-    public void UpdateSpeed()
+    public void Update()
     {
-        for (int i = 0; i < Lanes.Count; i++)
+        bCheckCollision = false;
+    }
+    //--------------------------------------------------------------------------------
+    public void OnWaveCollision(Collider c)
+    {
+        if (!bCheckCollision)
         {
-            Lanes[i].UpdateSpeed();
+            FindWave(c.transform.parent.parent.gameObject);
         }
     }
     //--------------------------------------------------------------------------------
-    public List<int> InitializeListEmpty(List<int> l)
+    public void FindWave(GameObject g)
     {
-        for (int i = 0; i < LANE_COUNT; i++)
-            l.Add(0);
-        return l;
-    }
-    //--------------------------------------------------------------------------------
-    public virtual void Initialize()
-    {
+        string name = g.name;
+        int waveIndex = name.IndexOf('#');
+        string id = name.Substring(waveIndex + 1);
+        int waveID = System.Int32.Parse(id);
+
+        WaveBase wave = m_Waves.Find(x => x.WaveID == waveID);
+        int nextWave = waveID + 1;
+        switch (wave.Type)
+        {
+            case WaveBase.WaveType.Normal:
+                Solve(waveID + 1);
+                m_GameLogic.IncrementScore(1);
+                break;
+            case WaveBase.WaveType.OaA:
+                if (iLanePassed < 2)
+                {
+                    iLanePassed++;
+                }
+                if (iLanePassed == 2)
+                {
+                    Solve(waveID + 1);
+                    iLanePassed = 0;
+                    m_GameLogic.IncrementScore(4);
+                }
+                break;
+            case WaveBase.WaveType.Oa2A:
+                if (iLanePassed < 3)
+                {
+                    iLanePassed++;
+                }
+                if (iLanePassed == 3)
+                {
+                    Solve(waveID + 1);
+                    iLanePassed = 0;
+                    m_GameLogic.IncrementScore(9);
+                }
+                break;
+        }
+        bCheckCollision = true;
 
     }
     //--------------------------------------------------------------------------------
-    public virtual void Update()
+    public void Solve(int waveID)
     {
+        WaveBase Wave = m_Waves.Find(x => x.WaveID == waveID);
+        List<List<int>> Solutions = new List<List<int>>();
 
+        for (int i = 0; i < Wave.Lanes.Count; i++)
+        {
+            Lane lane = Wave.Lanes[i];
+            Solutions.Add(SolveForLane(lane));
+        }
+        gL.UpdateButtons(Solutions);
+
+    }
+    //--------------------------------------------------------------------------------
+    public void UpdateFirstSpawn()
+    {
+        Solve(0);
+    }
+    //--------------------------------------------------------------------------------
+    public List<int> SolveForLane(Lane lane)
+    {
+        List<List<int>> CorectSolutions = new List<List<int>>();
+        List<int> laneList = lane.Binary;
+
+        for (int j = 0; j < 3; j++)
+        {
+            List<int> possibleFormation = new List<int>();
+            for (int i = 0; i < 5; i++)
+            {
+                possibleFormation.Add(0);
+            }
+            int c = 0;
+            for (int i = 0; i < laneList.Count; i++)
+            {
+
+                if (laneList[i] == 1)
+                {
+                    possibleFormation[i] = 0;
+                    continue;
+                }
+                if (laneList[i] == 0)
+                {
+                    //POSSIBLE CANDIDATE
+                    if (c < 2)
+                    {
+                        possibleFormation[i] = 1;
+                        c++;
+                    }
+                }
+            }
+            CorectSolutions.Add(possibleFormation);
+        }
+        int ChooseSolution = Random.Range(1, CorectSolutions.Count);
+
+        List<int> CorrectSolution = CorectSolutions[ChooseSolution];
+        return CorrectSolution;
+    }
+    //--------------------------------------------------------------------------------
+    public void Restart()
+    {
+        m_Waves.Clear(); iLanePassed = 0; iLanePassed3 = 0; bCheckCollision = false;
     }
     //--------------------------------------------------------------------------------
 }
-//--------------------------------------------------------------------------------

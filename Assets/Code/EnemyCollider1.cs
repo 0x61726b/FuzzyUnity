@@ -36,62 +36,34 @@
 using UnityEngine;
 using System.Collections;
 //--------------------------------------------------------------------------------
-public class NormalWave : WaveBase
+public class EnemyCollider1 : MonoBehaviour
 {
-    private float m_iSleepCounter = 0;
-
-
     //--------------------------------------------------------------------------------
-    public NormalWave()
+    
+    //--------------------------------------------------------------------------------
+    private bool entered;
+    //--------------------------------------------------------------------------------
+    public FormationHandler1 fh;
+    //--------------------------------------------------------------------------------
+    public void Start()
     {
-        int laneObjCount = Random.Range(2, 4);
-        //Normal Wave = 1 lane of blocks
-        Lane l = new Lane();
-        l.Binary = Lane.GenerateRandomLane(laneObjCount);
-
-        Block lElement = new Block();
-        lElement.Prefab = "oneMesh";
-        l.SetDefaultBlock(lElement);
-        //MaterialColor = new Color(0.06f, 0.06f, 0.35f);
-
-        Speed = new Vector3(-5.5f, 0.0f, 0.0f);
-        SpawnPosition = new Vector3(35.16f, 2.86f, -2);
-        l.Wave = this;
-
-        Name = "Normal Wave";
-        SleepDuration = 0;
-        Lanes.Add(l);
-
-        Type = WaveType.Normal;
-        
+        entered = false;
     }
     //--------------------------------------------------------------------------------
-    public override void Initialize()
+    public void Update()
     {
-        for (int i = 0; i < Lanes.Count; i++)
-            Lanes[i].Initialize();
+
     }
     //--------------------------------------------------------------------------------
-    public override void Update()
+    public void OnTriggerEnter(Collider c)
     {
-        if (!Sleeping)
-        {
-            for (int j = 0; j < Lanes.Count; j++)
-            {
-                Lane l = Lanes[j];
-
-                l.Update();
-            }
-        }
-        else
-        {
-            m_iSleepCounter += Time.deltaTime;
-            if (m_iSleepCounter >= SleepDuration)
-            {
-                Sleeping = false;
-                m_iSleepCounter = 0;
-            }
-        }
+        fh.OnWaveCollision(c);
+    }
+    //--------------------------------------------------------------------------------
+    public void OnTriggerExit(Collider c)
+    {
+        entered = false;
     }
     //--------------------------------------------------------------------------------
 }
+//--------------------------------------------------------------------------------

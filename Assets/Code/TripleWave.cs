@@ -66,7 +66,7 @@ public class TripleWave : WaveBase
         l3.Wave = this;
 
         Speed = new Vector3(-5.5f, 0.0f, 0.0f);
-        SpawnPosition = new Vector3(15.16f, 2.86f, -2);
+        SpawnPosition = new Vector3(35.16f, 2.86f, -2);
 
         Name = "Triple Wave";
         Type = WaveType.Oa2A;

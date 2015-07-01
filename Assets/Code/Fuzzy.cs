@@ -37,6 +37,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+
 //--------------------------------------------------------------------------------
 public class Fuzzy : MonoBehaviour
 {
@@ -91,15 +92,18 @@ public class Fuzzy : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void OnCollisionEnter(Collision c)
     {
+        int bestScore = PlayerPrefs.GetInt("BestScore");
         GameLogic.State = GameLogic.GameState.Ended;
 
         m_SPAnimator.Play("ScorePanelAnim");
 
-        Social.ReportScore(PlayerPrefs.GetInt("BestScore"), "CgkIzs-alcMYEAIQAQ", (bool success) =>
+        Social.ReportScore(bestScore, "CgkIzs-alcMYEAIQAQ", (bool success) =>
         {
             // handle success or failure
         });
 
+        
+        
     }
 }
 //--------------------------------------------------------------------------------

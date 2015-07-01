@@ -51,7 +51,7 @@ public class DoubleWave : WaveBase
         l.SetDefaultBlock(lElement);
 
         Speed = new Vector3(-5.5f, 0.0f, 0.0f);
-        SpawnPosition = new Vector3(15.16f, 2.86f, -2);
+        SpawnPosition = new Vector3(35.16f, 2.86f, -2);
         l.Wave = this;
 
         laneObjCount = Random.Range(2, 4);
