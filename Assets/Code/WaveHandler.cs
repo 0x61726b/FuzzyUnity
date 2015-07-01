@@ -204,7 +204,7 @@ public class WaveHandler : MonoBehaviour
         }
         if (tTotalTime <= 7 * Split && tTotalTime > 6 * Split)
         {
-            IncrementSpeed(-9f, 1f);
+            IncrementSpeed(-8f, 0.9f);
             m_CurrentGameStage = GameStages.Harder;
         }
         if (tTotalTime <= 8 * Split && tTotalTime > 7 * Split)

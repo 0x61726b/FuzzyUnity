@@ -94,34 +94,34 @@ public class MenuController : MonoBehaviour
             }
 
             //------------------------------------
-            if(m_iScore > 9 && m_iScore < 25){
+            if(m_iScore > 9){
                 Social.ReportProgress("CgkIzs-alcMYEAIQAg", 100.0f, (bool success) =>
                 {
                     // handle success or failure
                 });
             }
-            if (m_iScore > 24 && m_iScore < 75)
+            if (m_iScore > 24)
             {
                 Social.ReportProgress("CgkIzs-alcMYEAIQAw", 100.0f, (bool success) =>
                 {
                     // handle success or failure
                 });
             }
-            if (m_iScore > 74 && m_iScore < 150)
+            if (m_iScore > 74)
             {
                 Social.ReportProgress("CgkIzs-alcMYEAIQBA", 100.0f, (bool success) =>
                 {
                     // handle success or failure
                 });
             }
-            if (m_iScore > 149 && m_iScore < 250)
+            if (m_iScore > 149)
             {
                 Social.ReportProgress("CgkIzs-alcMYEAIQBQ", 100.0f, (bool success) =>
                 {
                     // handle success or failure
                 });
             }
-            if (m_iScore > 249 && m_iScore < 1000)
+            if (m_iScore > 249)
             {
                 Social.ReportProgress("CgkIzs-alcMYEAIQBg", 100.0f, (bool success) =>
                 {

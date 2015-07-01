@@ -71,7 +71,7 @@ public class Fuzzy : MonoBehaviour
     {
         Vector3 NewLanePos = new Vector3(-9, 2, (CurrentLane - 1) * (-1.5f));
 
-        m_vSpring = Spring(m_vSpring.x, m_vSpring.y, NewLanePos.z, 0.6f, 9, Time.deltaTime);
+        m_vSpring = Spring(m_vSpring.x, m_vSpring.y, NewLanePos.z, 0.6f, 15, Time.deltaTime);
 
         transform.position = new Vector3(transform.position.x, transform.position.y, m_vSpring.x);
     }
