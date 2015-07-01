@@ -205,6 +205,7 @@ public class WaveHandler : MonoBehaviour
         if (tTotalTime <= 7 * Split && tTotalTime > 6 * Split)
         {
             IncrementSpeed(-8f, 0.9f);
+           
             m_CurrentGameStage = GameStages.Harder;
         }
         if (tTotalTime <= 8 * Split && tTotalTime > 7 * Split)
@@ -217,11 +218,12 @@ public class WaveHandler : MonoBehaviour
         }
         if (tTotalTime <= 10 * Split && tTotalTime > 9 * Split)
         {
-             IncrementSpeed(-11f, 1.23f);
+           
             m_CurrentGameStage = GameStages.Hardest;
         }
         if (tTotalTime > Split * 10)
         {
+            IncrementSpeed(-9f, 1.02f);
             m_CurrentGameStage = GameStages.GiveUpAlready;
         }
         m_SpawnTable.Clear();

@@ -52,7 +52,13 @@ public class MenuController : MonoBehaviour
     public Text ScoreText;
     public Text BestScoreText;
     public Text CurrentScoreText;
-    
+
+    public Button muteButton;
+    public Sprite mute1;
+    public Sprite mute2;
+
+    AudioSource audio;
+    bool muted;
     //--------------------------------------------------------------------------------
     public GameLogic m_GameLogic;
     //--------------------------------------------------------------------------------
@@ -61,7 +67,8 @@ public class MenuController : MonoBehaviour
     int gamesPlayed;
     public void Start()
     {
-
+        muted = false;
+        audio = GetComponent<AudioSource>();
         achievementsProcessed = false;
 
         m_iScore = 0;
@@ -75,7 +82,8 @@ public class MenuController : MonoBehaviour
     void Update()
     {
         if(GameLogic.State == GameLogic.GameState.Ended && !achievementsProcessed){
-            
+            audio.Play();
+
             gamesPlayed = PlayerPrefs.GetInt("GamesPlayed" , 0);
             gamesPlayed += 1;
             PlayerPrefs.SetInt("GamesPlayed",gamesPlayed);
@@ -210,6 +218,15 @@ public class MenuController : MonoBehaviour
 
         //}
 
+    }
+
+    public void ToogleMute()
+    {
+        audio.volume = muted ? 0 : 100;
+        muteButton.image.sprite = muted ? mute1 : mute2;
+        muted = !muted;
+
+        
     }
     //--------------------------------------------------------------------------------
 }

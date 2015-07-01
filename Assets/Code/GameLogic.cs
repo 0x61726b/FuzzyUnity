@@ -68,7 +68,7 @@ public class GameLogic : MonoBehaviour
     //-------------------------------------------------------------------------------
     private bool m_bShowAds = false;
     private int m_iAdCounter = 0;
-    private int AD_COUNT_PER_DEATH = 5;
+    private int AD_COUNT_PER_DEATH = 6;
     private bool m_bAdCounter = false;
     //-------------------------------------------------------------------------------
     public int m_iScore;
@@ -126,11 +126,11 @@ public class GameLogic : MonoBehaviour
         }
         if (m_bShowAds)
         {
-            //if( Advertisement.isReady() )
-            //{
-            //    Advertisement.Show();
-            //    m_bShowAds = false;
-            //}
+            if (Advertisement.isReady())
+            {
+                Advertisement.Show();
+                m_bShowAds = false;
+            }
         }
     }
     //-------------------------------------------------------------------------------

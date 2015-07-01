@@ -39,7 +39,10 @@ using System.Collections;
 public class EnemyCollider : MonoBehaviour
 {
     //--------------------------------------------------------------------------------
-    
+    public AudioClip audio1;
+    public AudioClip audio2;
+    public AudioClip audio3;
+    AudioSource audio;
     //--------------------------------------------------------------------------------
     private bool entered;
     //--------------------------------------------------------------------------------
@@ -47,6 +50,8 @@ public class EnemyCollider : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void Start()
     {
+       audio = GetComponent<AudioSource>();
+
         entered = false;
     }
     //--------------------------------------------------------------------------------
@@ -57,6 +62,9 @@ public class EnemyCollider : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void OnTriggerEnter(Collider c)
     {
+        audio.clip = audio2;
+        audio.Play();
+        
         fh.OnWaveCollision(c);
     }
     //--------------------------------------------------------------------------------

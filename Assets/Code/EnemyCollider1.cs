@@ -39,7 +39,7 @@ using System.Collections;
 public class EnemyCollider1 : MonoBehaviour
 {
     //--------------------------------------------------------------------------------
-    
+   
     //--------------------------------------------------------------------------------
     private bool entered;
     //--------------------------------------------------------------------------------
@@ -48,6 +48,7 @@ public class EnemyCollider1 : MonoBehaviour
     public void Start()
     {
         entered = false;
+        
     }
     //--------------------------------------------------------------------------------
     public void Update()
@@ -58,6 +59,7 @@ public class EnemyCollider1 : MonoBehaviour
     public void OnTriggerEnter(Collider c)
     {
         fh.OnWaveCollision(c);
+
     }
     //--------------------------------------------------------------------------------
     public void OnTriggerExit(Collider c)
