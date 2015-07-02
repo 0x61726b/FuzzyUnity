@@ -54,15 +54,16 @@ public class EnemyCollider : MonoBehaviour
 
     public void Start()
     {
-        if (PlayerPrefs.GetInt("Mute", 0) == 1)
-        {
-            MuteToggle();
-        }
         timer = 0;
         audio = GetComponent<AudioSource>();
         muted = false;
         entered = false;
         soundPlayed = false;
+
+        if (PlayerPrefs.GetInt("Mute", 0) == 1)
+        {
+            MuteToggle();
+        }
     }
     //--------------------------------------------------------------------------------
     public void Update()
