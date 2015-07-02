@@ -43,6 +43,7 @@ using GooglePlayGames;
 //--------------------------------------------------------------------------------
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine.SocialPlatforms;
 #endif
 //--------------------------------------------------------------------------------
 public class MenuController : MonoBehaviour
@@ -63,7 +64,6 @@ public class MenuController : MonoBehaviour
     //--------------------------------------------------------------------------------
     public GameLogic m_GameLogic;
     public AchievementHandler m_AchvHandler;
-    private string m_sUserKey;
     //--------------------------------------------------------------------------------
     bool achievementsProcessed;
     int gamesPlayed;
@@ -78,27 +78,48 @@ public class MenuController : MonoBehaviour
         audio = GetComponent<AudioSource>();
         achievementsProcessed = false;
 
-        if(PlayerPrefs.GetInt("Mute",0) == 1){
+        if (PlayerPrefs.GetInt("Mute", 0) == 1)
+        {
             ToogleMute();
         }
 
         m_iScore = 0;
-        m_sUserKey = Social.localUser.id;
-        
-        BestScoreText.text = PlayerPrefs.GetInt("BestScore" + m_sUserKey , 0).ToString();
-        gamesPlayed = PlayerPrefs.GetInt("GamesPlayed" + m_sUserKey,0);
+
+
+        gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
+
+
+        Social.LoadScores("CgkIzs-alcMYEAIQAQ", hue =>
+            {
+                foreach (var x in hue)
+                {
+                    if (x.userID == Social.localUser.id)
+                    {
+                        long score = x.value;
+                        int localScore = PlayerPrefs.GetInt("BestScore", 0);
+
+                        if (score > localScore)
+                        {
+                            PlayerPrefs.SetInt("BestScore", (int)score);
+                        }
+                        
+
+                    }
+                }
+            });
+        BestScoreText.text = PlayerPrefs.GetInt("BestScore", 0).ToString();
     }
     //--------------------------------------------------------------------------------
     void Update()
     {
-        
+
         if (GameLogic.State == GameLogic.GameState.Ended && !outOfLoop)
         {
             audio.Play();
 
-            gamesPlayed = PlayerPrefs.GetInt("GamesPlayed"+m_sUserKey, 0);
+            gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
             gamesPlayed += 1;
-            PlayerPrefs.SetInt("GamesPlayed"+m_sUserKey, gamesPlayed);
+            PlayerPrefs.SetInt("GamesPlayed", gamesPlayed);
 
             Analytics.CustomEvent("GamesPlayed", new Dictionary<string, object>
                 {
@@ -106,6 +127,21 @@ public class MenuController : MonoBehaviour
                 });
             outOfLoop = true;
             HandleAchievements();
+
+            int wth = PlayerPrefs.GetInt("WTH", 0);
+
+
+            //-------------------------------------
+            if (wth == 0)
+            {
+                Social.ReportProgress("CgkIzs-alcMYEAIQDQ", 100.0f, (bool success) =>
+                {
+                    if (success)
+                    {
+                        PlayerPrefs.SetInt("WTH", 1);
+                    }
+                });
+            }
         }
 
     }
@@ -123,8 +159,8 @@ public class MenuController : MonoBehaviour
         ScoreText.text = CurrentScoreText.text;
         if (m_iScore > System.Convert.ToInt32(BestScoreText.text))
         {
-            PlayerPrefs.SetInt("BestScore"+m_sUserKey, m_iScore);
-            BestScoreText.text = PlayerPrefs.GetInt("BestScore"+m_sUserKey).ToString();
+            PlayerPrefs.SetInt("BestScore", m_iScore);
+            BestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
 
         }
 
@@ -181,37 +217,23 @@ public class MenuController : MonoBehaviour
         {
             m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Leecher"));
         }
-
-        int wth = PlayerPrefs.GetInt("WTH"+m_sUserKey, 0);
-
-
-        //-------------------------------------
-        if (wth == 0)
-        {
-            Social.ReportProgress("CgkIzs-alcMYEAIQDQ", 100.0f, (bool success) =>
-            {
-                if (success)
-                {
-                    PlayerPrefs.SetInt("WTH"+m_sUserKey, 1);
-                }
-            });
-        }
     }
     public void ToogleMute()
     {
 
         audio.volume = muted ? 100 : 0;
         muteButton.image.sprite = muted ? mute1 : mute2;
-        if(!muted){
-             PlayerPrefs.SetInt("Mute", 1);
+        if (!muted)
+        {
+            PlayerPrefs.SetInt("Mute", 1);
         }
         else
         {
-             PlayerPrefs.SetInt("Mute", 0);
+            PlayerPrefs.SetInt("Mute", 0);
         }
-       
+
         muted = !muted;
-        
+
 
 
     }

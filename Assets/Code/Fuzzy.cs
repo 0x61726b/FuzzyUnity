@@ -97,11 +97,6 @@ public class Fuzzy : MonoBehaviour
         GameLogic.State = GameLogic.GameState.Ended;
 
         m_SPAnimator.Play("ScorePanelAnim");
-
-        Social.ReportScore(bestScore, "CgkIzs-alcMYEAIQAQ", (bool success) =>
-        {
-            // handle success or failure
-        });
     }
 }
 //--------------------------------------------------------------------------------

@@ -39,6 +39,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GoogleMobileAds.Api;
 using UnityEngine.UI;
+using UnityEngine.SocialPlatforms;
 //-------------------------------------------------------------------------------
 public class GameLogic : MonoBehaviour
 {
@@ -96,9 +97,6 @@ public class GameLogic : MonoBehaviour
     {
         if (!tapToStart.isActiveAndEnabled)
         {
-
-
-
             if (!(GameLogic.State == GameState.OnGoing))
             {
 
@@ -130,6 +128,11 @@ public class GameLogic : MonoBehaviour
             m_iAdCounter++;
             m_bAdCounter = true;
             PlayerPrefs.SetInt("AdCounter", m_iAdCounter);
+
+            Social.ReportScore(PlayerPrefs.GetInt("BestScore", 0), "CgkIzs-alcMYEAIQAQ", (bool success) =>
+            {
+                // handle success or failure
+            });
         }
         if (m_iAdCounter % AD_COUNT_PER_DEATH == 0 && m_iAdCounter != 0)
         {
