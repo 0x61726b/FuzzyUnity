@@ -37,6 +37,7 @@ using UnityEngine.Advertisements;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using GoogleMobileAds.Api;
 //-------------------------------------------------------------------------------
 public class GameLogic : MonoBehaviour
 {
@@ -68,7 +69,7 @@ public class GameLogic : MonoBehaviour
     //-------------------------------------------------------------------------------
     private bool m_bShowAds = false;
     private int m_iAdCounter = 0;
-    private int AD_COUNT_PER_DEATH = 6;
+    private int AD_COUNT_PER_DEATH = 4;
     private bool m_bAdCounter = false;
     //-------------------------------------------------------------------------------
     public int m_iScore;
@@ -86,6 +87,7 @@ public class GameLogic : MonoBehaviour
         Advertisement.Initialize("49224");
 
         m_SPAnimator = ScorePanel.GetComponent<Animator>();
+        m_iAdCounter = PlayerPrefs.GetInt("AdCounter", 0);
     }
     //-------------------------------------------------------------------------------
     public void Restart()
@@ -107,6 +109,8 @@ public class GameLogic : MonoBehaviour
 
         m_iScore = 0;
         MC.UpdateScoreboard(m_iScore);
+
+       
     }
     //-------------------------------------------------------------------------------
     public void Update()
@@ -118,14 +122,25 @@ public class GameLogic : MonoBehaviour
         {
             m_iAdCounter++;
             m_bAdCounter = true;
+            PlayerPrefs.SetInt("AdCounter", m_iAdCounter);
         }
         if (m_iAdCounter % AD_COUNT_PER_DEATH == 0 && m_iAdCounter != 0)
         {
             m_bShowAds = true;
             m_iAdCounter = 0;
+            PlayerPrefs.SetInt("AdCounter", m_iAdCounter);
         }
         if (m_bShowAds)
         {
+            //InterstitialAd ins = new InterstitialAd("ca-app-pub-7907761596585940/5317772971");
+            //AdRequest request = new AdRequest.Builder().Build();
+            //// Load the interstitial with the request.
+            //ins.LoadAd(request);
+            //if (ins.IsLoaded())
+            //{
+            //    ins.Show();
+            //    m_bShowAds = false;
+            //}
             if (Advertisement.isReady())
             {
                 Advertisement.Show();

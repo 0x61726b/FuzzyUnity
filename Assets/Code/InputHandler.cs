@@ -239,6 +239,7 @@ public class InputHandler : MonoBehaviour
     public void Restart()
     {
         TapToStartButton.SetActive(true);
+        SetFuzzyLanes(3, 5);
     }
     //--------------------------------------------------------------------------------
 
