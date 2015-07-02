@@ -92,7 +92,7 @@ public class Fuzzy : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void OnCollisionEnter(Collision c)
     {
-        int bestScore = PlayerPrefs.GetInt("BestScore");
+        int bestScore = PlayerPrefs.GetInt("BestScore"+Social.localUser.id);
         GameLogic.State = GameLogic.GameState.Ended;
 
         m_SPAnimator.Play("ScorePanelAnim");
@@ -101,9 +101,6 @@ public class Fuzzy : MonoBehaviour
         {
             // handle success or failure
         });
-
-        
-        
     }
 }
 //--------------------------------------------------------------------------------

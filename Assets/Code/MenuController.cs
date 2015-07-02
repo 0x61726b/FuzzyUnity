@@ -59,9 +59,11 @@ public class MenuController : MonoBehaviour
 
     AudioSource audio;
     bool muted;
+    private bool outOfLoop = false;
     //--------------------------------------------------------------------------------
     public GameLogic m_GameLogic;
-    //--------------------------------------------------------------------------------
+    public AchievementHandler m_AchvHandler;
+    private string m_sUserKey;
     //--------------------------------------------------------------------------------
     bool achievementsProcessed;
     int gamesPlayed;
@@ -72,126 +74,42 @@ public class MenuController : MonoBehaviour
         achievementsProcessed = false;
 
         m_iScore = 0;
-        if (PlayerPrefs.GetInt("BestScore").ToString() != null)
+        m_sUserKey = Social.localUser.id;
+        
+        if (PlayerPrefs.GetInt("BestScore"+m_sUserKey).ToString() != null)
         {
             BestScoreText.text = "0";
         }
-        BestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
+        
+        BestScoreText.text = PlayerPrefs.GetInt("BestScore"+m_sUserKey).ToString();
+
+        gamesPlayed = PlayerPrefs.GetInt("GamesPlayed" + m_sUserKey,0);
     }
     //--------------------------------------------------------------------------------
     void Update()
     {
-        if(GameLogic.State == GameLogic.GameState.Ended && !achievementsProcessed){
+        if (GameLogic.State == GameLogic.GameState.Ended && !outOfLoop)
+        {
             audio.Play();
 
-            gamesPlayed = PlayerPrefs.GetInt("GamesPlayed" , 0);
+            gamesPlayed = PlayerPrefs.GetInt("GamesPlayed"+m_sUserKey, 0);
             gamesPlayed += 1;
-            PlayerPrefs.SetInt("GamesPlayed",gamesPlayed);
-            int wth = PlayerPrefs.GetInt("WTH",0);
+            PlayerPrefs.SetInt("GamesPlayed"+m_sUserKey, gamesPlayed);
 
-
-            //-------------------------------------
-            if(wth == 0){
-                Social.ReportProgress("CgkIzs-alcMYEAIQDQ", 100.0f, (bool success) =>
+            Analytics.CustomEvent("GamesPlayed", new Dictionary<string, object>
                 {
-                    if (success)
-                    {
-                        PlayerPrefs.SetInt("WTH",1);
-                    }
+                    { "GamesPlayed",gamesPlayed },
                 });
-            }
-
-            //------------------------------------
-            if(m_iScore > 9){
-                Social.ReportProgress("CgkIzs-alcMYEAIQAg", 100.0f, (bool success) =>
-                {
-                    // handle success or failure
-                });
-            }
-            if (m_iScore > 24)
-            {
-                Social.ReportProgress("CgkIzs-alcMYEAIQAw", 100.0f, (bool success) =>
-                {
-                    // handle success or failure
-                });
-            }
-            if (m_iScore > 74)
-            {
-                Social.ReportProgress("CgkIzs-alcMYEAIQBA", 100.0f, (bool success) =>
-                {
-                    // handle success or failure
-                });
-            }
-            if (m_iScore > 149)
-            {
-                Social.ReportProgress("CgkIzs-alcMYEAIQBQ", 100.0f, (bool success) =>
-                {
-                    // handle success or failure
-                });
-            }
-            if (m_iScore > 249)
-            {
-                Social.ReportProgress("CgkIzs-alcMYEAIQBg", 100.0f, (bool success) =>
-                {
-                    // handle success or failure
-                });
-            }
-             if (m_iScore > 999)
-            {
-                Social.ReportProgress("CgkIzs-alcMYEAIQBw", 100.0f, (bool success) =>
-                {
-                    // handle success or failure
-                });
-            }
-            
-            //---------------------------------------
-            if(gamesPlayed > 4 && gamesPlayed < 20){
-                Social.ReportProgress("CgkIzs-alcMYEAIQCA", 100.0f, (bool success) =>
-                {
-                    // handle success or failure
-                });
-            }
-            if (gamesPlayed > 19 && gamesPlayed < 50)
-            {
-                Social.ReportProgress("CgkIzs-alcMYEAIQCQ", 100.0f, (bool success) =>
-                {
-                    // handle success or failure
-                });
-            }
-            if (gamesPlayed > 49 && gamesPlayed < 100)
-            {
-                Social.ReportProgress("CgkIzs-alcMYEAIQCg", 100.0f, (bool success) =>
-                {
-                    // handle success or failure
-                });
-            }
-            if (gamesPlayed > 99 && gamesPlayed < 250)
-            {
-                Social.ReportProgress("CgkIzs-alcMYEAIQCw", 100.0f, (bool success) =>
-                {
-                    // handle success or failure
-                });
-            }
-            if (gamesPlayed > 249)
-            {
-                Social.ReportProgress("CgkIzs-alcMYEAIQDA", 100.0f, (bool success) =>
-                {
-                    // handle success or failure
-                });
-            }
-            achievementsProcessed = true;
-
-
-            
-           
+            outOfLoop = true;
+            HandleAchievements();
         }
 
     }
     //--------------------------------------------------------------------------------
     public void RestartLevel()
     {
-        achievementsProcessed = false;
         m_GameLogic.Restart();
+        outOfLoop = false;
     }
     //--------------------------------------------------------------------------------
     public void UpdateScoreboard(int iScore)
@@ -201,32 +119,87 @@ public class MenuController : MonoBehaviour
         ScoreText.text = CurrentScoreText.text;
         if (m_iScore > System.Convert.ToInt32(BestScoreText.text))
         {
-            PlayerPrefs.SetInt("BestScore", m_iScore);
-            BestScoreText.text = PlayerPrefs.GetInt("BestScore").ToString();
-            
+            PlayerPrefs.SetInt("BestScore"+m_sUserKey, m_iScore);
+            BestScoreText.text = PlayerPrefs.GetInt("BestScore"+m_sUserKey).ToString();
+
         }
-        //if (!dataSent && GameLogic.State == GameLogic.GameState.Ended)
-        //{
-        //    Analytics.CustomEvent("GameOver", new Dictionary<string, object>
-        //     {
-        //      { "Score", score },
-        //      { "Best Score", PlayerPrefs.GetInt("BestScore") },
-       
-        //      });
-        //    //if (Advertisement.isReady()) { Advertisement.Show(); }
-        //    dataSent = true;
 
-        //}
-
+        HandleAchievements();
     }
+    public void HandleAchievements()
+    {
+        //------------------------------------
+        if (m_iScore > 9 && m_iScore <= 24)
+        {
+            m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Oh! I got this - Highscore 10"));
+        }
+        if (m_iScore > 24 && m_iScore <= 74)
+        {
+            m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Getting the hang of it"));
+        }
+        if (m_iScore > 74 && m_iScore <= 149)
+        {
+            m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Ambitious"));
+        }
+        if (m_iScore > 149 && m_iScore <= 249)
+        {
+            m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Tier 0"));
+        }
+        if (m_iScore > 249 && m_iScore <= 999)
+        {
+            m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Superior Kind"));
+        }
+        if (m_iScore > 999)
+        {
+            m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Freak"));
+        }
 
+        //---------------------------------------
+
+        //---------------------------------------
+        if (gamesPlayed > 4 && gamesPlayed < 20)
+        {
+            m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Newcomer"));
+        }
+        if (gamesPlayed > 19 && gamesPlayed < 50)
+        {
+            m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Rookie"));
+        }
+        if (gamesPlayed > 49 && gamesPlayed < 100)
+        {
+            m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Regular"));
+        }
+        if (gamesPlayed > 99 && gamesPlayed < 250)
+        {
+            m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Citizen"));
+        }
+        if (gamesPlayed > 249)
+        {
+            m_AchvHandler.Process(m_AchvHandler.Achievements.Find(x => x.Name == "Leecher"));
+        }
+
+        int wth = PlayerPrefs.GetInt("WTH"+m_sUserKey, 0);
+
+
+        //-------------------------------------
+        if (wth == 0)
+        {
+            Social.ReportProgress("CgkIzs-alcMYEAIQDQ", 100.0f, (bool success) =>
+            {
+                if (success)
+                {
+                    PlayerPrefs.SetInt("WTH"+m_sUserKey, 1);
+                }
+            });
+        }
+    }
     public void ToogleMute()
     {
         audio.volume = muted ? 0 : 100;
         muteButton.image.sprite = muted ? mute1 : mute2;
         muted = !muted;
 
-        
+
     }
     //--------------------------------------------------------------------------------
 }

@@ -914,6 +914,7 @@ MonoBehaviour:
   mute1: {fileID: 21300000, guid: ff09fc12028d5504283a9baf38747df0, type: 3}
   mute2: {fileID: 21300000, guid: e5b814f0361853e4092ef50eef738d70, type: 3}
   m_GameLogic: {fileID: 1842720169}
+  m_AchvHandler: {fileID: 1842720173}
 --- !u!4 &224794459
 Transform:
   m_ObjectHideFlags: 0
@@ -3491,6 +3492,7 @@ GameObject:
   - 114: {fileID: 1842720168}
   - 114: {fileID: 1842720169}
   - 114: {fileID: 1842720172}
+  - 114: {fileID: 1842720173}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: Untagged
@@ -3582,6 +3584,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57ff40a86cee6664b88dfe310b8360ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1842720173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1842720166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c654520070474d4892961bd58f1c162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1846303078
