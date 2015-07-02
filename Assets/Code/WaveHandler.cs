@@ -84,7 +84,8 @@ public class WaveHandler : MonoBehaviour
         Hard,
         ThisIsImpossible,
         Hardest,
-        GiveUpAlready
+        GiveUpAlready,
+        LastSegment
     }
     //--------------------------------------------------------------------------------
     private GameStages m_CurrentGameStage;
@@ -226,6 +227,11 @@ public class WaveHandler : MonoBehaviour
             IncrementSpeed(-9f, 1.02f);
             m_CurrentGameStage = GameStages.GiveUpAlready;
         }
+        if (tTotalTime > Split * 13)
+        {
+            IncrementSpeed(-10f, 1.14f);
+            m_CurrentGameStage = GameStages.LastSegment;
+        }
         m_SpawnTable.Clear();
         switch (m_CurrentGameStage)
         {
@@ -283,6 +289,11 @@ public class WaveHandler : MonoBehaviour
                 m_SpawnTable.Add(10, WaveBase.WaveType.Normal);
                 m_SpawnTable.Add(50, WaveBase.WaveType.OaA);
                 m_SpawnTable.Add(40, WaveBase.WaveType.Oa2A);
+                break;
+            case GameStages.LastSegment:
+                m_SpawnTable.Add(10, WaveBase.WaveType.Normal);
+                m_SpawnTable.Add(46, WaveBase.WaveType.OaA);
+                m_SpawnTable.Add(44, WaveBase.WaveType.Oa2A);
                 break;
             default:
                 break;

@@ -64,7 +64,7 @@ public class EnemyCollider : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void Update()
     {
-        Debug.Log(timer);
+        
         if (entered)
         {
             timer += Time.deltaTime;
