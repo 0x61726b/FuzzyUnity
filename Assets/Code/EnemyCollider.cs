@@ -54,7 +54,10 @@ public class EnemyCollider : MonoBehaviour
 
     public void Start()
     {
-
+        if (PlayerPrefs.GetInt("Mute", 0) == 1)
+        {
+            MuteToggle();
+        }
         timer = 0;
         audio = GetComponent<AudioSource>();
         muted = false;
@@ -88,7 +91,7 @@ public class EnemyCollider : MonoBehaviour
         {
             audio.clip = audio1;
         }
-        else if (timer < 1.3f)
+        else if (timer < 1.45f)
         {
             audio.clip = audio2;
         }

@@ -8,11 +8,7 @@ public class GooglePlayHandler : MonoBehaviour {
 
 	
 	void Start () {
-        PlayGamesPlatform.Activate();
-        Social.localUser.Authenticate((bool success) =>
-        {
 
-        });
 	}
 	
 	// Update is called once per frame

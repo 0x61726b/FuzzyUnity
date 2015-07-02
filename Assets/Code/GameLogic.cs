@@ -38,6 +38,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using GoogleMobileAds.Api;
+using UnityEngine.UI;
 //-------------------------------------------------------------------------------
 public class GameLogic : MonoBehaviour
 {
@@ -66,6 +67,7 @@ public class GameLogic : MonoBehaviour
     private Animator m_SPAnimator;
     public GameObject ButtonPanel;
     public Animator m_TPAnimator;
+    public Button tapToStart;
     //-------------------------------------------------------------------------------
     private bool m_bShowAds = false;
     private int m_iAdCounter = 0;
@@ -92,32 +94,37 @@ public class GameLogic : MonoBehaviour
     //-------------------------------------------------------------------------------
     public void Restart()
     {
-        if(!(GameLogic.State == GameState.OnGoing))
+        if (!tapToStart.isActiveAndEnabled)
         {
-            
-            //ScorePanel.SetActive(false);
-            //m_SPAnimator.SetBool("gameEnded", false);
-            m_SPAnimator.Play("ScorePanelOutAnim");
-           
-            ButtonPanel.SetActive(false);
+
+
+
+            if (!(GameLogic.State == GameState.OnGoing))
+            {
+
+                //ScorePanel.SetActive(false);
+                //m_SPAnimator.SetBool("gameEnded", false);
+                m_SPAnimator.Play("ScorePanelOutAnim");
+
+                ButtonPanel.SetActive(false);
+            }
+            m_TPAnimator.Play("TopPanelEnterAnim");
+            GameLogic.State = GameLogic.GameState.NotStarted;
+            m_WaveHandler.Restart();
+            m_InputHandler.Restart();
+            m_FormationHandler.Restart();
+
+            m_iScore = 0;
+            MC.UpdateScoreboard(m_iScore);
         }
-        m_TPAnimator.Play("TopPanelEnterAnim");
-        GameLogic.State = GameLogic.GameState.NotStarted;
-        m_WaveHandler.Restart();
-        m_InputHandler.Restart();
-        m_FormationHandler.Restart();
 
-        m_iScore = 0;
-        MC.UpdateScoreboard(m_iScore);
-
-       
     }
     //-------------------------------------------------------------------------------
     public void Update()
     {
         if (State == GameState.OnGoing)
             m_bAdCounter = false;
-        
+
         if (State == GameLogic.GameState.Ended && !m_bAdCounter)
         {
             m_iAdCounter++;

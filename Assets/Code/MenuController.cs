@@ -69,9 +69,18 @@ public class MenuController : MonoBehaviour
     int gamesPlayed;
     public void Start()
     {
+        PlayGamesPlatform.Activate();
+        Social.localUser.Authenticate((bool success) =>
+        {
+
+        });
         muted = false;
         audio = GetComponent<AudioSource>();
         achievementsProcessed = false;
+
+        if(PlayerPrefs.GetInt("Mute",0) == 1){
+            ToogleMute();
+        }
 
         m_iScore = 0;
         m_sUserKey = Social.localUser.id;
@@ -82,6 +91,7 @@ public class MenuController : MonoBehaviour
     //--------------------------------------------------------------------------------
     void Update()
     {
+        
         if (GameLogic.State == GameLogic.GameState.Ended && !outOfLoop)
         {
             audio.Play();
@@ -189,9 +199,19 @@ public class MenuController : MonoBehaviour
     }
     public void ToogleMute()
     {
+
         audio.volume = muted ? 100 : 0;
         muteButton.image.sprite = muted ? mute1 : mute2;
+        if(!muted){
+             PlayerPrefs.SetInt("Mute", 1);
+        }
+        else
+        {
+             PlayerPrefs.SetInt("Mute", 0);
+        }
+       
         muted = !muted;
+        
 
 
     }
