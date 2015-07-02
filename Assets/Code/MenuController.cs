@@ -76,13 +76,7 @@ public class MenuController : MonoBehaviour
         m_iScore = 0;
         m_sUserKey = Social.localUser.id;
         
-        if (PlayerPrefs.GetInt("BestScore"+m_sUserKey).ToString() != null)
-        {
-            BestScoreText.text = "0";
-        }
-        
-        BestScoreText.text = PlayerPrefs.GetInt("BestScore"+m_sUserKey).ToString();
-
+        BestScoreText.text = PlayerPrefs.GetInt("BestScore" + m_sUserKey , 0).ToString();
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed" + m_sUserKey,0);
     }
     //--------------------------------------------------------------------------------
@@ -195,7 +189,7 @@ public class MenuController : MonoBehaviour
     }
     public void ToogleMute()
     {
-        audio.volume = muted ? 0 : 100;
+        audio.volume = muted ? 100 : 0;
         muteButton.image.sprite = muted ? mute1 : mute2;
         muted = !muted;
 

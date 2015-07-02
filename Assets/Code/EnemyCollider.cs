@@ -45,33 +45,77 @@ public class EnemyCollider : MonoBehaviour
     AudioSource audio;
     //--------------------------------------------------------------------------------
     private bool entered;
+    private bool muted;
+    private bool soundPlayed;
     //--------------------------------------------------------------------------------
     public FormationHandler fh;
     //--------------------------------------------------------------------------------
+    private float timer;
+
     public void Start()
     {
-       audio = GetComponent<AudioSource>();
 
+        timer = 0;
+        audio = GetComponent<AudioSource>();
+        muted = false;
         entered = false;
+        soundPlayed = false;
     }
     //--------------------------------------------------------------------------------
     public void Update()
     {
+        Debug.Log(timer);
+        if (entered)
+        {
+            timer += Time.deltaTime;
+            if (timer > 2f)
+            {
+                entered = false;
+                timer = 0f;
+            }
+
+        }
 
     }
     //--------------------------------------------------------------------------------
     public void OnTriggerEnter(Collider c)
     {
-        audio.clip = audio2;
-        audio.Play();
-        
+        soundPlayed = true;
+        entered = true;
+
+
+        if (timer < 0.2f)
+        {
+            audio.clip = audio1;
+        }
+        else if (timer < 1.3f)
+        {
+            audio.clip = audio2;
+        }
+        else if (timer < 2f)
+        {
+            audio.clip = audio3;
+        }
+
+        if (soundPlayed)
+        {
+            audio.Play();
+
+        }
+
         fh.OnWaveCollision(c);
     }
     //--------------------------------------------------------------------------------
     public void OnTriggerExit(Collider c)
     {
-        entered = false;
+        soundPlayed = false;
     }
     //--------------------------------------------------------------------------------
+
+    public void MuteToggle()
+    {
+        audio.volume = muted ? 100 : 0;
+        muted = !muted;
+    }
 }
 //--------------------------------------------------------------------------------
