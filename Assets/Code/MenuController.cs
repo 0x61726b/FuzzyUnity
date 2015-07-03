@@ -33,7 +33,7 @@
 // /   /  \\  \  /   /     /   /        ( \_|:  \ |.  \    /:  | /   /  \\  \\        /   
 //(___/    \___)|___/     |___/          \_______)|___|\__/|___|(___/    \___)\"_____/    
 //--------------------------------------------------------------------------------
-using UnityEngine.Advertisements;
+
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
