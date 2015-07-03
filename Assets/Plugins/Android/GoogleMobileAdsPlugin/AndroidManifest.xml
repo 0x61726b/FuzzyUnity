@@ -21,7 +21,8 @@ required for displaying ads.
         android:value="@integer/google_play_services_version" />
     <!-- Google Mobile Ads Activity -->
     <activity android:name="com.google.android.gms.ads.AdActivity"
-        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+              android:theme="@android:style/Theme.Translucent"/>
     <!-- InAppPurchase Activity -->
     <activity android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"
         android:theme="@style/Theme.IAPTheme"/>

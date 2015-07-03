@@ -33,13 +33,13 @@
 // /   /  \\  \  /   /     /   /        ( \_|:  \ |.  \    /:  | /   /  \\  \\        /   
 //(___/    \___)|___/     |___/          \_______)|___|\__/|___|(___/    \___)\"_____/    
 //--------------------------------------------------------------------------------
-using UnityEngine.Advertisements;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using GoogleMobileAds.Api;
 using UnityEngine.UI;
 using UnityEngine.SocialPlatforms;
+using System;
 //-------------------------------------------------------------------------------
 public class GameLogic : MonoBehaviour
 {
@@ -76,6 +76,7 @@ public class GameLogic : MonoBehaviour
     private bool m_bAdCounter = false;
     //-------------------------------------------------------------------------------
     public int m_iScore;
+    private InterstitialAd _ins;
     //-------------------------------------------------------------------------------
     public void Start()
     {
@@ -87,10 +88,10 @@ public class GameLogic : MonoBehaviour
 
         m_InputHandler = GetComponent<InputHandler>();
 
-        Advertisement.Initialize("49224");
-
         m_SPAnimator = ScorePanel.GetComponent<Animator>();
         m_iAdCounter = PlayerPrefs.GetInt("AdCounter", 0);
+
+        RequestAd();
     }
     //-------------------------------------------------------------------------------
     public void Restart()
@@ -142,21 +143,45 @@ public class GameLogic : MonoBehaviour
         }
         if (m_bShowAds)
         {
-            //InterstitialAd ins = new InterstitialAd("ca-app-pub-7907761596585940/5317772971");
-            //AdRequest request = new AdRequest.Builder().Build();
-            //// Load the interstitial with the request.
-            //ins.LoadAd(request);
-            //if (ins.IsLoaded())
-            //{
-            //    ins.Show();
-            //    m_bShowAds = false;
-            //}
-            if (Advertisement.isReady())
+            if (_ins.IsLoaded())
             {
-                Advertisement.Show();
+                _ins.Show();
                 m_bShowAds = false;
+
+
             }
         }
+    }
+    //-------------------------------------------------------------------------------
+    public void RequestAd()
+    {
+#if UNITY_EDITOR
+        string adUnitId = "unused";
+#elif UNITY_ANDROID
+            string adUnitId = "ca-app-pub-7907761596585940/5317772971";
+#elif UNITY_IPHONE
+            string adUnitId = "INSERT_IOS_INTERSTITIAL_AD_UNIT_ID_HERE";
+#else
+            string adUnitId = "unexpected_platform";
+#endif
+
+        _ins = new InterstitialAd(adUnitId);
+        AdRequest request = new AdRequest.Builder()
+            //.AddTestDevice(AdRequest.TestDeviceSimulator)
+            //.AddTestDevice("09EBEFB119E7CF791F951ABACAE47671")
+            .AddKeyword("game")
+            .Build();
+
+
+
+        _ins.AdLoaded += HandleInterstitialLoaded;
+        _ins.AdFailedToLoad += HandleInterstitialFailedToLoad;
+        _ins.AdOpened += HandleInterstitialOpened;
+        _ins.AdClosing += HandleInterstitialClosing;
+        _ins.AdClosed += HandleInterstitialClosed;
+        _ins.AdLeftApplication += HandleInterstitialLeftApplication;
+        // Load the interstitial with the request.
+        _ins.LoadAd(request);
     }
     //-------------------------------------------------------------------------------
     public void IncrementScore(int s)
@@ -165,5 +190,42 @@ public class GameLogic : MonoBehaviour
         MC.UpdateScoreboard(m_iScore);
     }
     //-------------------------------------------------------------------------------
+    #region Interstitial callback handlers
 
+    public void HandleInterstitialLoaded(object sender, EventArgs args)
+    {
+        print("HandleInterstitialLoaded event received.");
+
+    }
+
+    public void HandleInterstitialFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        print("HandleInterstitialFailedToLoad event received with message: " + args.Message);
+    }
+
+    public void HandleInterstitialOpened(object sender, EventArgs args)
+    {
+        print("HandleInterstitialOpened event received");
+
+    }
+
+    void HandleInterstitialClosing(object sender, EventArgs args)
+    {
+        print("HandleInterstitialClosing event received");
+    }
+
+    public void HandleInterstitialClosed(object sender, EventArgs args)
+    {
+        print("HandleInterstitialClosed event received");
+        _ins.Destroy();
+        RequestAd();
+    }
+
+    public void HandleInterstitialLeftApplication(object sender, EventArgs args)
+    {
+        print("HandleInterstitialLeftApplication event received");
+        _ins.Destroy();
+    }
+
+    #endregion
 }
