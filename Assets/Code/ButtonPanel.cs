@@ -35,10 +35,15 @@
 //--------------------------------------------------------------------------------
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 //--------------------------------------------------------------------------------
 public class ButtonPanel : MonoBehaviour
 {
     private Animator animator;
+
+    public Image panel1;
+    public Image panel2;
+    public Image panel3;
     //--------------------------------------------------------------------------------
     public void Start()
     {
@@ -56,5 +61,11 @@ public class ButtonPanel : MonoBehaviour
    
     }
     //--------------------------------------------------------------------------------
+    public void ResetPanels()
+    {
+        panel1.color = new Color(1f,1f,1f,0f);
+        panel2.color = new Color(1f, 1f, 1f, 0f);
+        panel3.color = new Color(1f, 1f, 1f, 0f);
+    }
 }
 //--------------------------------------------------------------------------------

@@ -63,6 +63,7 @@ public class InputHandler : MonoBehaviour
     private List<Button> NotPickedButtons;
     //--------------------------------------------------------------------------------
     private List<Sprite> m_Sprites;
+    public AudioSource audio;
     //--------------------------------------------------------------------------------
     public FormationHandler fH;
     public WaveHandler gL;
@@ -71,6 +72,7 @@ public class InputHandler : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void Start()
     {
+
         NotPickedButtons = new List<Button>();
 
         Sprite[] sprites = Resources.LoadAll<Sprite>("Textures");
@@ -84,6 +86,8 @@ public class InputHandler : MonoBehaviour
         LeftButtonSc = LeftButton.GetComponent<LaneSprite>();
         CenterButtonSc = CenterButton.GetComponent<LaneSprite>();
         RightButtonSc = RightButton.GetComponent<LaneSprite>();
+
+        //audio = GetComponent<AudioSource>();
     }
     //--------------------------------------------------------------------------------
     void Update()
@@ -247,21 +251,21 @@ public class InputHandler : MonoBehaviour
     {
         PanelAnimator.SetInteger("ButtonNumber" , 1);
         PanelAnimator.Play("ButtonClicked");
-       
+        audio.Play();
     }
 
     public void CenterButtonClicked()
     {
         PanelAnimator.SetInteger("ButtonNumber", 2);
         PanelAnimator.Play("ButtonClicked");
-      
+        audio.Play();
     }
 
     public void RightButtonClicked()
     {
         PanelAnimator.SetInteger("ButtonNumber", 3);
         PanelAnimator.Play("ButtonClicked");
-      
+        audio.Play();
     }
  
 }

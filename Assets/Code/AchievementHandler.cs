@@ -53,7 +53,7 @@ public class AchievementHandler : MonoBehaviour
         };
         F8Achievement played20 = new F8Achievement
         {
-            Name = "Rookie ",
+            Name = "Rookie",
             Code = "CgkIzs-alcMYEAIQCQ"
         };
         F8Achievement played50 = new F8Achievement

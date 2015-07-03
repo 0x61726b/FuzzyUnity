@@ -84,15 +84,14 @@ public class EnemyCollider : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void OnTriggerEnter(Collider c)
     {
-        soundPlayed = true;
+    
         entered = true;
-
 
         if (timer < 0.2f)
         {
             audio.clip = audio1;
         }
-        else if (timer < 1.45f)
+        else if (timer < 1.6f)
         {
             audio.clip = audio2;
         }
@@ -101,9 +100,11 @@ public class EnemyCollider : MonoBehaviour
             audio.clip = audio3;
         }
 
-        if (soundPlayed)
+        if (!soundPlayed)
         {
+            Debug.Log("played");
             audio.Play();
+            soundPlayed = true;
 
         }
 
