@@ -18,11 +18,34 @@ public class GooglePlayHandler : MonoBehaviour {
 
     public void ShowLeaderboard()
     {
-        PlayGamesPlatform.Instance.ShowLeaderboardUI("CgkIzs-alcMYEAIQAQ");
+        if(!Social.localUser.authenticated){
+             Social.localUser.Authenticate((bool success) =>
+        {
+
+        });
+             PlayGamesPlatform.Instance.ShowLeaderboardUI("CgkIzs-alcMYEAIQAQ");
+        }
+        else
+        {
+            PlayGamesPlatform.Instance.ShowLeaderboardUI("CgkIzs-alcMYEAIQAQ");
+        }
+       
     }
 
     public void ShowAchievements()
     {
-        Social.ShowAchievementsUI();
+        if (!Social.localUser.authenticated)
+        {
+            Social.localUser.Authenticate((bool success) =>
+            {
+
+            });
+            Social.ShowAchievementsUI();
+        }
+        else
+        {
+            Social.ShowAchievementsUI();
+        }
+       
     }
 }

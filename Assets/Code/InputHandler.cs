@@ -64,6 +64,7 @@ public class InputHandler : MonoBehaviour
     //--------------------------------------------------------------------------------
     private List<Sprite> m_Sprites;
     public AudioSource audio;
+    private bool muted;
     //--------------------------------------------------------------------------------
     public FormationHandler fH;
     public WaveHandler gL;
@@ -72,7 +73,11 @@ public class InputHandler : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void Start()
     {
-
+        muted = false;
+        if (PlayerPrefs.GetInt("Mute", 0) == 1)
+        {
+            InputToogleMute();
+        }
         NotPickedButtons = new List<Button>();
 
         Sprite[] sprites = Resources.LoadAll<Sprite>("Textures");
@@ -266,6 +271,16 @@ public class InputHandler : MonoBehaviour
         PanelAnimator.SetInteger("ButtonNumber", 3);
         PanelAnimator.Play("ButtonClicked");
         audio.Play();
+    }
+
+    public void InputToogleMute()
+    {
+
+        audio.volume = muted ? 0.7f : 0;
+        muted = !muted;
+
+
+
     }
  
 }

@@ -72,7 +72,7 @@ public class GameLogic : MonoBehaviour
     //-------------------------------------------------------------------------------
     private bool m_bShowAds = false;
     private int m_iAdCounter = 0;
-    private int AD_COUNT_PER_DEATH = 4;
+    private int AD_COUNT_PER_DEATH = 3;
     private bool m_bAdCounter = false;
     //-------------------------------------------------------------------------------
     public int m_iScore;
@@ -107,6 +107,7 @@ public class GameLogic : MonoBehaviour
 
                 ButtonPanel.SetActive(false);
             }
+            ButtonPanel.SetActive(false);
             m_TPAnimator.Play("TopPanelEnterAnim");
             GameLogic.State = GameLogic.GameState.NotStarted;
             m_WaveHandler.Restart();
@@ -130,9 +131,23 @@ public class GameLogic : MonoBehaviour
             m_bAdCounter = true;
             PlayerPrefs.SetInt("AdCounter", m_iAdCounter);
 
-            Social.ReportScore(PlayerPrefs.GetInt("BestScore", 0), "CgkIzs-alcMYEAIQAQ", (bool success) =>
+            int postingScore = m_iScore;
+
+            if(PlayerPrefs.GetInt("PostingError",0) > postingScore){
+                postingScore = PlayerPrefs.GetInt("PostingError", 0);
+                if(PlayerPrefs.GetInt("BestScore") < postingScore){
+                    PlayerPrefs.SetInt("BestScore", postingScore);
+                }
+            }
+
+            Social.ReportScore(postingScore, "CgkIzs-alcMYEAIQAQ", (bool success) =>
             {
-                // handle success or failure
+                if(success){
+                    PlayerPrefs.SetInt("PostingError", 0);
+                }
+                else{
+                    PlayerPrefs.SetInt("PostingError",postingScore);
+                }
             });
         }
         if (m_iAdCounter % AD_COUNT_PER_DEATH == 0 && m_iAdCounter != 0)

@@ -102,7 +102,7 @@ public class MenuController : MonoBehaviour
                         {
                             PlayerPrefs.SetInt("BestScore", (int)score);
                         }
-                        
+
 
                     }
                 }
@@ -238,4 +238,13 @@ public class MenuController : MonoBehaviour
 
     }
     //--------------------------------------------------------------------------------
+
+    public void Rate()
+    {
+#if UNITY_ANDROID
+        Application.OpenURL("market://details?id=842663372750");
+#elif UNITY_IPHONE
+        Application.OpenURL("itms-apps://itunes.apple.com/app/idYOUR_ID");
+#endif
+    }
 }

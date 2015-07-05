@@ -51,10 +51,14 @@ public class EnemyCollider : MonoBehaviour
     public FormationHandler fh;
     //--------------------------------------------------------------------------------
     private float timer;
+    private int counter;
+    private bool incremented;
 
     public void Start()
     {
         timer = 0;
+        counter = 0;
+        incremented = false;
         audio = GetComponent<AudioSource>();
         muted = false;
         entered = false;
@@ -68,14 +72,15 @@ public class EnemyCollider : MonoBehaviour
     //--------------------------------------------------------------------------------
     public void Update()
     {
-        
+     
         if (entered)
         {
             timer += Time.deltaTime;
-            if (timer > 2f)
+            if (timer > 2.5f)
             {
                 entered = false;
                 timer = 0f;
+                counter = 0;
             }
 
         }
@@ -86,27 +91,46 @@ public class EnemyCollider : MonoBehaviour
     {
     
         entered = true;
+       
+            if (counter == 0)
+            {
+                if(!soundPlayed){
+                    audio.clip = audio1;
+                }
+               
+                counter = incremented ? counter : ++counter;
+                incremented = true;
+                
+            }
+            else if (counter == 1)
+            {
+                if (!soundPlayed)
+                {
+                    audio.clip = audio2;
+                }
+                counter = incremented ? counter : ++counter;
+                incremented = true;
+            }
+            else if (counter == 2)
+            {
+                if (!soundPlayed)
+                {
+                    audio.clip = audio3;
+                }
+                counter = incremented ? counter : ++counter;
+                incremented = true;
+            }
 
-        if (timer < 0.2f)
-        {
-            audio.clip = audio1;
-        }
-        else if (timer < 1.6f)
-        {
-            audio.clip = audio2;
-        }
-        else if (timer < 2f)
-        {
-            audio.clip = audio3;
-        }
-
-        if (!soundPlayed)
-        {
-            Debug.Log("played");
-            audio.Play();
-            soundPlayed = true;
-
-        }
+            if (!soundPlayed)
+            {
+               
+                audio.Play();
+              
+                soundPlayed = true;
+                
+            }
+        
+       
 
         fh.OnWaveCollision(c);
     }
@@ -114,6 +138,7 @@ public class EnemyCollider : MonoBehaviour
     public void OnTriggerExit(Collider c)
     {
         soundPlayed = false;
+        incremented = false;
     }
     //--------------------------------------------------------------------------------
 
