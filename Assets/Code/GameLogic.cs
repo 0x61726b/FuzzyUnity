@@ -36,7 +36,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using GoogleMobileAds.Api;
+//using GoogleMobileAds.Api;
 using UnityEngine.UI;
 using UnityEngine.SocialPlatforms;
 using System;
@@ -76,7 +76,7 @@ public class GameLogic : MonoBehaviour
     private bool m_bAdCounter = false;
     //-------------------------------------------------------------------------------
     public int m_iScore;
-    private InterstitialAd _ins;
+    //private InterstitialAd _ins;
     //-------------------------------------------------------------------------------
     public void Start()
     {
@@ -158,13 +158,13 @@ public class GameLogic : MonoBehaviour
         }
         if (m_bShowAds)
         {
-            if (_ins.IsLoaded())
-            {
-                _ins.Show();
-                m_bShowAds = false;
+            //if (_ins.IsLoaded())
+            //{
+            //    _ins.Show();
+            //    m_bShowAds = false;
 
 
-            }
+            //}
         }
     }
     //-------------------------------------------------------------------------------
@@ -180,23 +180,23 @@ public class GameLogic : MonoBehaviour
             string adUnitId = "unexpected_platform";
 #endif
 
-        _ins = new InterstitialAd(adUnitId);
-        AdRequest request = new AdRequest.Builder()
-            //.AddTestDevice(AdRequest.TestDeviceSimulator)
-            //.AddTestDevice("09EBEFB119E7CF791F951ABACAE47671")
-            .AddKeyword("game")
-            .Build();
+        //_ins = new InterstitialAd(adUnitId);
+        //AdRequest request = new AdRequest.Builder()
+        //    //.AddTestDevice(AdRequest.TestDeviceSimulator)
+        //    //.AddTestDevice("09EBEFB119E7CF791F951ABACAE47671")
+        //    .AddKeyword("game")
+        //    .Build();
 
 
 
-        _ins.AdLoaded += HandleInterstitialLoaded;
-        _ins.AdFailedToLoad += HandleInterstitialFailedToLoad;
-        _ins.AdOpened += HandleInterstitialOpened;
-        _ins.AdClosing += HandleInterstitialClosing;
-        _ins.AdClosed += HandleInterstitialClosed;
-        _ins.AdLeftApplication += HandleInterstitialLeftApplication;
-        // Load the interstitial with the request.
-        _ins.LoadAd(request);
+        //_ins.AdLoaded += HandleInterstitialLoaded;
+        //_ins.AdFailedToLoad += HandleInterstitialFailedToLoad;
+        //_ins.AdOpened += HandleInterstitialOpened;
+        //_ins.AdClosing += HandleInterstitialClosing;
+        //_ins.AdClosed += HandleInterstitialClosed;
+        //_ins.AdLeftApplication += HandleInterstitialLeftApplication;
+        //// Load the interstitial with the request.
+        //_ins.LoadAd(request);
     }
     //-------------------------------------------------------------------------------
     public void IncrementScore(int s)
@@ -213,9 +213,9 @@ public class GameLogic : MonoBehaviour
 
     }
 
-    public void HandleInterstitialFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    public void HandleInterstitialFailedToLoad(object sender, EventArgs args)
     {
-        print("HandleInterstitialFailedToLoad event received with message: " + args.Message);
+        print("HandleInterstitialFailedToLoad event received with message: ");
     }
 
     public void HandleInterstitialOpened(object sender, EventArgs args)
@@ -232,14 +232,14 @@ public class GameLogic : MonoBehaviour
     public void HandleInterstitialClosed(object sender, EventArgs args)
     {
         print("HandleInterstitialClosed event received");
-        _ins.Destroy();
+        //_ins.Destroy();
         RequestAd();
     }
 
     public void HandleInterstitialLeftApplication(object sender, EventArgs args)
     {
         print("HandleInterstitialLeftApplication event received");
-        _ins.Destroy();
+        //_ins.Destroy();
     }
 
     #endregion

@@ -96,22 +96,22 @@ public class AchievementHandler : MonoBehaviour
         m_vAchievements.Add(dieFirstTime);
         m_vAchievements.Add(womboCombo);
 
-        Social.LoadAchievements(achv =>
-            {
-                if(achv.Length > 0)
-                {
-                    foreach(IAchievement achievement in achv)
-                    {
-                        for( int k=0; k < m_vAchievements.Count;k++)
-                        {
-                            if(m_vAchievements[k].Code == achievement.id)
-                            {
-                                m_vAchievements[k].Achieved = achievement.completed;
-                            }
-                        }
-                    }
-                }
-            });
+        //Social.LoadAchievements(achv =>
+        //    {
+        //        if(achv.Length > 0)
+        //        {
+        //            foreach(IAchievement achievement in achv)
+        //            {
+        //                for( int k=0; k < m_vAchievements.Count;k++)
+        //                {
+        //                    if(m_vAchievements[k].Code == achievement.id)
+        //                    {
+        //                        m_vAchievements[k].Achieved = achievement.completed;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    });
 	}
 	public void Update ()
     {
@@ -121,10 +121,10 @@ public class AchievementHandler : MonoBehaviour
     {
         if(!achv.Achieved)
         {
-            Social.ReportProgress(achv.Code, achv.Progress, (bool success) =>
-            {
+            //Social.ReportProgress(achv.Code, achv.Progress, (bool success) =>
+            //{
                 
-            });
+            //});
         }
         
     }

@@ -1,0 +1,25 @@
+# Localization File
+#
+# Lang        : ENGLISH
+# Format      : KEY ## VALUE
+# Placeholder : []
+#
+# e.g. :
+#   loading_hint_1 ## Counting dwarfs... []... []... 7...
+
+notif_title ## Play Protein
+notif_1d_1 ## Can you beat level [] in [] moves?
+notif_1d_2 ## Can you beat level [] in [] moves?
+notif_7d ## Can you beat level [] in [] moves?
+notif_life_full ## Your life is full! Come back and play.
+notif_ios_action ## Play!
+
+buy_life_success ## Enjoy full set of lives.
+buy_life_failed ## Unable to connect store.
+
+all_levels_completed ## Congratulations! You have completed all levels. More challenging levels are coming soon.
+
+level_name ## LEVEL []
+
+moves_left ## Moves Left: []
+moves ## Moves: []

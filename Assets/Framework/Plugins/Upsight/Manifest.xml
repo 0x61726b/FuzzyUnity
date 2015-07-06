@@ -1,0 +1,40 @@
+<!-- ACTIVITIES -->
+		<activity android:name="com.playhaven.android.view.FullScreen" android:configChanges="orientation|keyboardHidden|screenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:windowSoftInputMode="adjustResize">
+		    <intent-filter>
+		        <action android:name="android.intent.action.VIEW"/>
+		        <category android:name="android.intent.category.DEFAULT"/>
+		    </intent-filter>
+		    <intent-filter>
+		        <action android:name="android.intent.action.VIEW"/>
+		        <category android:name="android.intent.category.DEFAULT"/>
+		        <data android:host="localhost" android:pathPattern="/full" android:scheme="playhaven"/>
+		    </intent-filter>
+		</activity>
+		<receiver android:name="com.playhaven.android.push.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+			<intent-filter>
+				<action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+				<action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+				<category android:name="CURRENT_PACKAGE_NAME"/>
+			</intent-filter>
+		</receiver>
+	    <receiver android:name="com.playhaven.android.push.PushReceiver">
+	       <intent-filter>
+	           <action android:name="android.intent.action.VIEW"/>
+	           <category android:name="com.playhaven.android"/>
+	       </intent-filter>
+	   	</receiver>
+
+
+<!-- META-DATA -->
+    <meta-data android:name="com.upsight.unity.UpsightPlugin" android:value="UnityPlayerActivityProxy"/>
+
+
+<!-- PERMISSIONS -->
+	<permission android:name="CURRENT_PACKAGE_NAME.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+	<uses-permission android:name="CURRENT_PACKAGE_NAME.permission.C2D_MESSAGE"/>
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>	
+	<uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
