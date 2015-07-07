@@ -18,6 +18,7 @@ public class UpsightPluginTest : MonoBehaviour
     public const string LEFT_IN_GAME_FLAG = "game_wasInGame";
     public bool inGame = false;
     public long gameStart;
+    public static string APPLICATION_VERSION = "xD";
 
     void Awake()
     {
@@ -26,10 +27,11 @@ public class UpsightPluginTest : MonoBehaviour
 			{Service.Settings, new SettingsProvider()},
 			{Service.Audio, new AudioProvider()},
 			{Service.Localization, new LocalizationProvider()},
-			{Service.Notification, new NotificationProvider()},
-			{Service.Life, new LifeProvider()},
-			{Service.UAnalytics, new UpsightAnalytics()},
-			{Service.LevelProgress, new ProgressProvider()}
+            //{Service.Achievement, new AchievementProvider()},
+            //{Service.Notification, new NotificationProvider()},
+            //{Service.Life, new LifeProvider()},
+			{Service.UAnalytics, new UpsightAnalytics()}
+            //{Service.LevelProgress, new ProgressProvider()}
 			#if !UNITY_EDITOR && UNITY_IPHONE
 				,{Service.Store, new IosStoreAdapter()}
 				,{Service.Analytics, new AnalyticsProxy(new List<Analytics>() {
@@ -51,7 +53,8 @@ public class UpsightPluginTest : MonoBehaviour
 		});
         ServiceLocator.GetUpsight().LateInit();
         ServiceLocator.GetAnalytics().LateInit();
-
+        
+        
         
     }
 #if !UNITY_EDITOR && UNITY_ANDROID
@@ -70,7 +73,21 @@ public class UpsightPluginTest : MonoBehaviour
 		}
 	}
 #endif
-
+    public void TapToStartEvent()
+    {
+        ServiceLocator.GetUpsight().TrackEvent("player", "game", "casual", "start", "", null);
+    }
+    public void GameOverEvent(int bracket,int score,int duration,string diff)
+    {
+        ServiceLocator.GetUpsight().TrackEvent("player", "game", "casual", "finish", score.ToString(), new Dictionary<string, string>
+            {
+               { "Passed_Brackets",bracket.ToString() },
+               { "Duration",duration.ToString() },
+               { "Difficulty",diff },
+            });
+        Debug.Log("Score: " + score.ToString() +
+            " " + "Passed_Brackets: " + bracket.ToString() + " " + "Duration: " + duration.ToString() + " Diffucluty: " + diff);
+    }
     void Start()
     {
         if (ServiceLocator.GetDB().GetBool(LEFT_IN_GAME_FLAG, false))

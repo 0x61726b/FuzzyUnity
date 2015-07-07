@@ -91,9 +91,9 @@ namespace Assets.Scripts.Framework.Services {
 			return GetService<Life>( Service.Life );
 		}
 		
-		public static Achievement GetAchievement() {
-			return GetService<Achievement>( Service.Achievement );
-		}
+        //public static Achievement GetAchievement() {
+        //    return GetService<Achievement>( Service.Achievement );
+        //}
 		
 		public static LevelProgress GetLevelProgress() {
 			return GetService<LevelProgress>( Service.LevelProgress );

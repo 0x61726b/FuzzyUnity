@@ -8,10 +8,10 @@ namespace com.gramgames.analytics {
         private const string SESSION_NUMBER_KEY = "upsightSessionNumber";
         private const string ANALYTICS_UQ_ID_KEY = "upsightUniqueId";
         private const string LAST_SESSION_ENDTIME = "upsightLastSessionEndTime";
-        private static readonly string APPLICATION_VERSION = Game.APPLICATION_VERSION.ToString();
-        public long GoldBalance;
-        public long Level;
-        public long LifeBalance;
+        private static readonly string APPLICATION_VERSION = "xD";
+        //public long GoldBalance;
+        //public long Level;
+        //public long LifeBalance;
         public ulong SessionId;
         public long SessionNumber;
         public long SessionStart;
@@ -29,8 +29,8 @@ namespace com.gramgames.analytics {
             SessionId = GenerateUniqueId();
             SessionStart = Util.GetTime();
 			// TODO: bura // GoldBalance = ServiceLocator.GetFinance().GetBalance();
-			LifeBalance = ServiceLocator.GetLife().GetCurrentLives();
-			Level = ServiceLocator.GetLevelProgress().GetCurrentLevel();
+            //LifeBalance = ServiceLocator.GetLife().GetCurrentLives();
+            //Level = ServiceLocator.GetLevelProgress().GetCurrentLevel();
 
             RegisterListeners();
         }
@@ -49,10 +49,10 @@ namespace com.gramgames.analytics {
             Dictionary<string, string> summary = new Dictionary<string, string> {{"UserUniqueId", UserUniqueId}, {"SessionNumber", SessionNumber.ToString()}, {"SessionId", SessionId.ToString()}};
             long duration = Util.GetTime() - SessionStart;
             summary.Add( "SessionTime", duration.ToString() );
-            summary.Add( "GoldBalance", GoldBalance.ToString() );
-            summary.Add( "LifeBalance", LifeBalance.ToString() );
-            summary.Add( "CurrentLevel", Level.ToString() );
-            summary.Add( "ApplicationVersion", APPLICATION_VERSION );
+            //summary.Add( "GoldBalance", GoldBalance.ToString() );
+            //summary.Add( "LifeBalance", LifeBalance.ToString() );
+            //summary.Add( "CurrentLevel", Level.ToString() );
+            summary.Add("ApplicationVersion", UpsightPluginTest.APPLICATION_VERSION);
             return summary;
         }
 
@@ -69,27 +69,27 @@ namespace com.gramgames.analytics {
 
         private void RegisterListeners() {
 			// TODO: bura // ServiceLocator.GetFinance().AddBalanceUpdateListener( OnBalanceUpdated );
-			ServiceLocator.GetLife().AddLifeListener( OnLifeUpdated );
-			ServiceLocator.GetLevelProgress().AddLevelListener( OnLevelUpdated );
+            //ServiceLocator.GetLife().AddLifeListener( OnLifeUpdated );
+            //ServiceLocator.GetLevelProgress().AddLevelListener( OnLevelUpdated );
         }
 
         private void RemoveListeners() {
 			// TODO: bura // ServiceLocator.GetFinance().RemoveBalanceUpdateListener( OnBalanceUpdated );
-			ServiceLocator.GetLife().RemoveLifeListener( OnLifeUpdated );
-			ServiceLocator.GetLevelProgress().RemoveLevelListener( OnLevelUpdated );
+            //ServiceLocator.GetLife().RemoveLifeListener( OnLifeUpdated );
+            //ServiceLocator.GetLevelProgress().RemoveLevelListener( OnLevelUpdated );
         }
 
-        private void OnLevelUpdated( int level ) {
-            Level = level;
-        }
+        //private void OnLevelUpdated( int level ) {
+        //    Level = level;
+        //}
 
-        private void OnBalanceUpdated( int balance ) {
-            GoldBalance = balance;
-        }
+        //private void OnBalanceUpdated( int balance ) {
+        //    GoldBalance = balance;
+        //}
 
-        private void OnLifeUpdated( int life ) {
-            LifeBalance = life;
-        }
+        //private void OnLifeUpdated( int life ) {
+        //    LifeBalance = life;
+        //}
 
         private static ulong GenerateUniqueId() {
             return new Random64( new Random() ).Next();

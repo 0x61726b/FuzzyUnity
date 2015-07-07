@@ -40,7 +40,7 @@ using UnityEngine.UI;
 public class ButtonPanel : MonoBehaviour
 {
     private Animator animator;
-
+    public GameObject ScoreText;
     public Image panel1;
     public Image panel2;
     public Image panel3;
@@ -58,6 +58,7 @@ public class ButtonPanel : MonoBehaviour
     public void Tapped()
     {
         gameObject.SetActive(true);
+        ScoreText.SetActive(true);
    
     }
     //--------------------------------------------------------------------------------

@@ -89,7 +89,7 @@ public class FormationHandler : MonoBehaviour
         {
             case WaveBase.WaveType.Normal:
                 Solve(waveID + 1);
-                m_GameLogic.IncrementScore(1);
+                m_GameLogic.IncrementScore(1,1);
                 break;
             case WaveBase.WaveType.OaA:
                 if (iLanePassed < 2)
@@ -100,7 +100,7 @@ public class FormationHandler : MonoBehaviour
                 {
                     Solve(waveID + 1);
                     iLanePassed = 0;
-                    m_GameLogic.IncrementScore(4);
+                    m_GameLogic.IncrementScore(4,2);
                 }
                 break;
             case WaveBase.WaveType.Oa2A:
@@ -112,7 +112,7 @@ public class FormationHandler : MonoBehaviour
                 {
                     Solve(waveID + 1);
                     iLanePassed = 0;
-                    m_GameLogic.IncrementScore(9);
+                    m_GameLogic.IncrementScore(9,3);
                 }
                 break;
         }

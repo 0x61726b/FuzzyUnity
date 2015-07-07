@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace com.gramgames.analytics {
 class AdjustAndroidAdapter : Analytics {
-	private const string ADJUST_APP_TOKEN = "3alfwa3ft9nx";
-	private const string REVENUE_EVENT_TOKEN = "9ey5f3";
+    private const string ADJUST_APP_TOKEN = "ptsr3pexssax";
     private AdjustAndroid Adjust;
     private static Dictionary<AnalyticEvent, string> tokenMap = new Dictionary<AnalyticEvent, string>() {
         { AnalyticEvent.PURCHASE, "" }
@@ -30,7 +29,7 @@ class AdjustAndroidAdapter : Analytics {
     }
 
     public void TrackRevenue(double amount) {
-        Adjust.trackRevenue(amount * 100, REVENUE_EVENT_TOKEN);
+        //Adjust.trackRevenue(amount * 100, REVENUE_EVENT_TOKEN);
     }
 
     public void TrackCustomEvent(AnalyticEvent analyticEvent, string customTag, Dictionary<string, string> parameters = null) {

@@ -39,7 +39,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
 using System.Collections.Generic;
-//using GooglePlayGames;
+using GooglePlayGames;
 //--------------------------------------------------------------------------------
 #if UNITY_EDITOR
 using UnityEditor;
@@ -69,7 +69,7 @@ public class MenuController : MonoBehaviour
     int gamesPlayed;
     public void Start()
     {
-        //PlayGamesPlatform.Activate();
+        PlayGamesPlatform.Activate();
         Social.localUser.Authenticate((bool success) =>
         {
 
@@ -89,25 +89,27 @@ public class MenuController : MonoBehaviour
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
 
 
-        //Social.LoadScores("CgkIzs-alcMYEAIQAQ", hue =>
-        //    {
-        //        foreach (var x in hue)
-        //        {
-        //            if (x.userID == Social.localUser.id)
-        //            {
-        //                long score = x.value;
-        //                int localScore = PlayerPrefs.GetInt("BestScore", 0);
+        Social.LoadScores("CgkIzs-alcMYEAIQAQ", hue =>
+            {
+                foreach (var x in hue)
+                {
+                    if (x.userID == Social.localUser.id)
+                    {
+                        long score = x.value;
+                        int localScore = PlayerPrefs.GetInt("BestScore", 0);
 
-        //                if (score > localScore)
-        //                {
-        //                    PlayerPrefs.SetInt("BestScore", (int)score);
-        //                }
+                        if (score > localScore)
+                        {
+                            PlayerPrefs.SetInt("BestScore", (int)score);
+                        }
 
 
-        //            }
-        //        }
-        //    });
+                    }
+                }
+            });
         BestScoreText.text = PlayerPrefs.GetInt("BestScore", 0).ToString();
+
+        print(gamesPlayed.ToString());
     }
     //--------------------------------------------------------------------------------
     void Update()

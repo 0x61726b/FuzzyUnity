@@ -64,7 +64,7 @@ namespace com.gramgames.analytics {
 			Dictionary<string, string> sessionData;
 			if ( session != null ) {
 				sessionData = session.GetSummary();
-				customEvent.Add("l", session.Level.ToString() );
+                //customEvent.Add("l", session.Level.ToString() );
 			} else {
 				sessionData = new Dictionary<string, string>();
 			}
@@ -83,7 +83,7 @@ namespace com.gramgames.analytics {
 		
 		void sendDeviceInfo() {
 			Dictionary<string, string> optionalParams = new Dictionary<string, string>();
-			optionalParams.Add("v_maj", Game.APPLICATION_VERSION.ToString() );
+            optionalParams.Add("v_maj", UpsightPluginTest.APPLICATION_VERSION.ToString());
 			#if !UNITY_EDITOR
 			KontagentBinding.sendDeviceInformation(optionalParams);
 			#endif

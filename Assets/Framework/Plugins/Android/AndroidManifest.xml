@@ -11,14 +11,14 @@
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
       <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
     </activity>
-    <!-- Google Play Game Services start -->
+    <!-- Google Play Game Services start --><!--
     <activity android:configChanges="orientation|layoutDirection|keyboard|keyboardHidden|screenLayout|uiMode|screenSize" android:name="com.prime31.GoogleIABProxyActivity" />
     <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="\ 637256183647" />
     <meta-data android:name="com.google.android.gms.appstate.APP_ID" android:value="\ 637256183647" />
     <meta-data android:name="com.prime31.PlayGameServicesPlugin.DisableDrive" android:value=""/>
     <meta-data android:name="com.prime31.PlayGameServicesPlugin" android:value="UnityPlayerActivityProxy" />
     <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-    <!-- Google Play Game Services end -->
+    --><!-- Google Play Game Services end -->
     <!-- ELAN start -->
     <service android:enabled="true" android:name="com.CFM.ELAN.ELANAlarmCreator" />
     <receiver android:name="com.CFM.ELAN.TimedAlarm" />

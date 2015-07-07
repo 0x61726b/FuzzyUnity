@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SocialPlatforms;
+using Assets.Scripts.Framework.Services;
 
 public class AchievementHandler : MonoBehaviour
 {
@@ -121,10 +122,11 @@ public class AchievementHandler : MonoBehaviour
     {
         if(!achv.Achieved)
         {
-            //Social.ReportProgress(achv.Code, achv.Progress, (bool success) =>
-            //{
-                
-            //});
+            Social.ReportProgress(achv.Code, achv.Progress, (bool success) =>
+            {
+
+            });
+            
         }
         
     }

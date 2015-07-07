@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a686dee594f04fa42aa3240f6a5c8119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScoreText: {fileID: 592282342}
   panel1: {fileID: 1942908927}
   panel2: {fileID: 1665023111}
   panel3: {fileID: 151724943}
@@ -1471,6 +1472,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1842720175}
+        m_MethodName: TapToStartEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &419530021
@@ -2014,7 +2026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &592282343
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2030,7 +2042,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 19.5, y: -6.30000019}
-  m_SizeDelta: {x: 63.2999992, y: 50.7999992}
+  m_SizeDelta: {x: 197.600006, y: 50.7999992}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &592282344
 MonoBehaviour:
@@ -3650,9 +3662,12 @@ MonoBehaviour:
   MC: {fileID: 224794458}
   ScorePanel: {fileID: 1886750743}
   ButtonPanel: {fileID: 64730863}
+  ScoreText: {fileID: 592282342}
   m_TPAnimator: {fileID: 1239622649}
   tapToStart: {fileID: 419530020}
+  _upsight: {fileID: 1842720175}
   m_iScore: 0
+  m_iBracket: 0
 --- !u!114 &1842720170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3666,6 +3681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gL: {fileID: 1842720168}
   m_FS: {fileID: 946688950}
+  m_CurrentGameStage: 0
 --- !u!4 &1842720171
 Transform:
   m_ObjectHideFlags: 0

@@ -67,6 +67,7 @@ public class GameLogic : MonoBehaviour
     public GameObject ScorePanel;
     private Animator m_SPAnimator;
     public GameObject ButtonPanel;
+    public GameObject ScoreText;
     public Animator m_TPAnimator;
     public Button tapToStart;
     //-------------------------------------------------------------------------------
@@ -74,8 +75,11 @@ public class GameLogic : MonoBehaviour
     private int m_iAdCounter = 0;
     private int AD_COUNT_PER_DEATH = 3;
     private bool m_bAdCounter = false;
+    public UpsightPluginTest _upsight;
     //-------------------------------------------------------------------------------
-    public int m_iScore;
+    public int m_iScore = 0;
+    public int m_iBracket = 0;
+    private float tGameDuration = 0;
     //private InterstitialAd _ins;
     //-------------------------------------------------------------------------------
     public void Start()
@@ -106,8 +110,10 @@ public class GameLogic : MonoBehaviour
                 m_SPAnimator.Play("ScorePanelOutAnim");
 
                 ButtonPanel.SetActive(false);
+                ScoreText.SetActive(false);
             }
             ButtonPanel.SetActive(false);
+            ScoreText.SetActive(false);
             m_TPAnimator.Play("TopPanelEnterAnim");
             GameLogic.State = GameLogic.GameState.NotStarted;
             m_WaveHandler.Restart();
@@ -115,6 +121,7 @@ public class GameLogic : MonoBehaviour
             m_FormationHandler.Restart();
 
             m_iScore = 0;
+            m_iBracket = 0;
             MC.UpdateScoreboard(m_iScore);
         }
 
@@ -123,10 +130,14 @@ public class GameLogic : MonoBehaviour
     public void Update()
     {
         if (State == GameState.OnGoing)
+        {
             m_bAdCounter = false;
+            tGameDuration += Time.deltaTime;
+        }
 
         if (State == GameLogic.GameState.Ended && !m_bAdCounter)
         {
+            
             m_iAdCounter++;
             m_bAdCounter = true;
             PlayerPrefs.SetInt("AdCounter", m_iAdCounter);
@@ -149,6 +160,8 @@ public class GameLogic : MonoBehaviour
                     PlayerPrefs.SetInt("PostingError",postingScore);
                 }
             });
+            _upsight.GameOverEvent(m_iBracket, m_iScore, (int)tGameDuration,m_WaveHandler.m_CurrentGameStage.ToString());
+            tGameDuration = 0;
         }
         if (m_iAdCounter % AD_COUNT_PER_DEATH == 0 && m_iAdCounter != 0)
         {
@@ -199,10 +212,11 @@ public class GameLogic : MonoBehaviour
         //_ins.LoadAd(request);
     }
     //-------------------------------------------------------------------------------
-    public void IncrementScore(int s)
+    public void IncrementScore(int s,int b)
     {
         m_iScore += s;
         MC.UpdateScoreboard(m_iScore);
+        m_iBracket += b;
     }
     //-------------------------------------------------------------------------------
     #region Interstitial callback handlers
