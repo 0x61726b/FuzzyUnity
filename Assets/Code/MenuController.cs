@@ -43,6 +43,7 @@ using System.Collections.Generic;
 //--------------------------------------------------------------------------------
 #if UNITY_EDITOR
 using UnityEditor;
+using GooglePlayGames;
 #elif UNITY_IOS
 using UnityEngine.SocialPlatforms;
 #elif UNITY_ANDROID
@@ -73,7 +74,7 @@ public class MenuController : MonoBehaviour
     int gamesPlayed;
     public void Start()
     {
-#if UNITY_ANDROID
+#if UNITY_ANDROID 
         PlayGamesPlatform.Activate(); 
 #endif
         Social.localUser.Authenticate((bool success) =>
