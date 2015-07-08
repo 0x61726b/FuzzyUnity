@@ -39,12 +39,16 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
 using System.Collections.Generic;
-using GooglePlayGames;
+
 //--------------------------------------------------------------------------------
 #if UNITY_EDITOR
 using UnityEditor;
+#elif UNITY_IOS
 using UnityEngine.SocialPlatforms;
+#elif UNITY_ANDROID
+using GooglePlayGames;
 #endif
+
 //--------------------------------------------------------------------------------
 public class MenuController : MonoBehaviour
 {
@@ -69,7 +73,9 @@ public class MenuController : MonoBehaviour
     int gamesPlayed;
     public void Start()
     {
-        PlayGamesPlatform.Activate();
+#if UNITY_ANDROID
+        PlayGamesPlatform.Activate(); 
+#endif
         Social.localUser.Authenticate((bool success) =>
         {
 
@@ -89,24 +95,7 @@ public class MenuController : MonoBehaviour
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
 
 
-        Social.LoadScores("CgkIzs-alcMYEAIQAQ", hue =>
-            {
-                foreach (var x in hue)
-                {
-                    if (x.userID == Social.localUser.id)
-                    {
-                        long score = x.value;
-                        int localScore = PlayerPrefs.GetInt("BestScore", 0);
-
-                        if (score > localScore)
-                        {
-                            PlayerPrefs.SetInt("BestScore", (int)score);
-                        }
-
-
-                    }
-                }
-            });
+       
         BestScoreText.text = PlayerPrefs.GetInt("BestScore", 0).ToString();
 
         print(gamesPlayed.ToString());
@@ -123,10 +112,6 @@ public class MenuController : MonoBehaviour
             gamesPlayed += 1;
             PlayerPrefs.SetInt("GamesPlayed", gamesPlayed);
 
-            Analytics.CustomEvent("GamesPlayed", new Dictionary<string, object>
-                {
-                    { "GamesPlayed",gamesPlayed },
-                });
             outOfLoop = true;
             HandleAchievements();
 
@@ -246,7 +231,7 @@ public class MenuController : MonoBehaviour
     public void Rate()
     {
 #if UNITY_ANDROID
-        Application.OpenURL("market://details?id=842663372750");
+        Application.OpenURL("market://details?id=com.gramgames.Form8");
 #elif UNITY_IPHONE
         Application.OpenURL("itms-apps://itunes.apple.com/app/idYOUR_ID");
 #endif
