@@ -136,13 +136,15 @@ public class MenuController : MonoBehaviour
             //-------------------------------------
             if (wth == 0)
             {
+#if UNITY_ANDROID
                 Social.ReportProgress("CgkIzs-alcMYEAIQDQ", 100.0f, (bool success) =>
-                {
-                    if (success)
-                    {
-                        PlayerPrefs.SetInt("WTH", 1);
-                    }
-                });
+                       {
+                           if (success)
+                           {
+                               PlayerPrefs.SetInt("WTH", 1);
+                           }
+                       }); 
+#endif
             }
         }
 

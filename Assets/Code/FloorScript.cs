@@ -40,11 +40,13 @@ public class FloorScript : MonoBehaviour
 {
     //--------------------------------------------------------------------------------
     public float scrollSpeed = 0.78F;
+
     //--------------------------------------------------------------------------------
     public Renderer rend;
     //--------------------------------------------------------------------------------
     public void Start()
     {
+      
         rend = GetComponent<Renderer>();
     }
     //--------------------------------------------------------------------------------
@@ -52,6 +54,7 @@ public class FloorScript : MonoBehaviour
     {
         if(GameLogic.State == GameLogic.GameState.OnGoing)
         {
+
             float offset = Time.time * scrollSpeed;
             rend.material.SetTextureOffset("_MainTex", new Vector2(-offset, 0.04f));
         }

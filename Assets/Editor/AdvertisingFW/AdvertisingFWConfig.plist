@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppLovinSdkKey</key>
+	<string>lLrMnTcSCRJOsNhPFTNi4UKeTvtkxs7gBz2zWePi5i6x5pLKLk2PCM3gFxOBnWtzTvw-TKhd2pZ7bvSydUMqsP</string>
+	<key>requiredFrameworks</key>
+	<array>
+		<string>StoreKit.framework</string>
+		<string>Security.framework</string>
+		<string>AdSupport.framework</string>
+		<string>CoreTelephony.framework</string>
+		<string>CoreGraphics.framework</string>
+		<string>CoreData.framework</string>
+		<string>AudioToolbox.framework</string>
+		<string>MessageUI.framework</string>
+		<string>QuartzCore.framework</string>
+		<string>EventKit.framework</string>
+		<string>EventKitUI.framework</string>
+	</array>
+	<key>weakLinkFrameworks</key>
+	<array>
+		<string>AdSupport.framework</string>
+	</array>
+	<key>linkerFlags</key>
+	<array>
+		<string>-all_load</string>
+		<string>-ObjC</string>
+	</array>
+	<key>neverShowCompletedMessage</key>
+	<false/>
+</dict>
+</plist>

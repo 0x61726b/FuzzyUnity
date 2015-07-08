@@ -122,10 +122,12 @@ public class AchievementHandler : MonoBehaviour
     {
         if(!achv.Achieved)
         {
+#if UNITY_ANDROID
             Social.ReportProgress(achv.Code, achv.Progress, (bool success) =>
-            {
+               {
 
-            });
+               }); 
+#endif
             
         }
         

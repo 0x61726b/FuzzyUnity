@@ -1,4 +1,6 @@
-﻿using GooglePlayGames;
+﻿#if UNITY_ANDROID
+using GooglePlayGames; 
+#endif
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -18,8 +20,11 @@ public class GooglePlayHandler : MonoBehaviour {
 
     public void ShowLeaderboard()
     {
+
+#if UNITY_ANDROID
         if (!Social.localUser.authenticated)
         {
+
             Social.localUser.Authenticate((bool success) =>
        {
 
@@ -29,12 +34,13 @@ public class GooglePlayHandler : MonoBehaviour {
         else
         {
             PlayGamesPlatform.Instance.ShowLeaderboardUI("CgkIzs-alcMYEAIQAQ");
-        }
-       
+        }  
+#endif
     }
 
     public void ShowAchievements()
     {
+#if UNITY_ANDROID
         if (!Social.localUser.authenticated)
         {
             Social.localUser.Authenticate((bool success) =>
@@ -46,7 +52,8 @@ public class GooglePlayHandler : MonoBehaviour {
         else
         {
             Social.ShowAchievementsUI();
-        }
+        } 
+#endif
        
     }
 }
