@@ -95,8 +95,10 @@ public class Lane
     //--------------------------------------------------------------------------------
     public virtual void Initialize()
     {
-        for (int i = 0; i < WaveBase.LANE_COUNT; i++)
+        for (int i = 0; i < Binary.Count; i++)
         {
+            List<int> laneCode = Binary;
+
             if (Binary[i] == 1)
             {
                 Block b = new Block();
@@ -104,21 +106,61 @@ public class Lane
                 b.Name = "Block at #" + i.ToString();
                 b.XSpeed = Wave.Speed;
                 string prefab = "";
-                //Check if there's assigned elem for this
-                LaneElement elem = this.GetLaneElement(i, LaneElement.ElementType.Block);
-                if (elem.Index == i)
+                int nande = CheckLane(Binary, i);
+
+                if (nande == 2)
                 {
-                    prefab = elem.Prefab;
+                    prefab = "ThreeBlock";
+
+
+                    b.Prefab = prefab;
+
+                    Blocks.Add(b);
+                    break;
                 }
-                else if (elem.Index == -1)
+                if (nande == 1)
                 {
-                    prefab = this.DefaultBlock.Prefab;
+                    prefab = "TwoBlock";
+
+                    i += 2;
                 }
+                if (nande == 0)
+                {
+                    prefab = "oneMesh";
+                }
+
+
                 b.Prefab = prefab;
 
                 Blocks.Add(b);
             }
         }
+
+    }
+    //--------------------------------------------------------------------------------
+    private int CheckLane(List<int> laneCode, int startIndex)
+    {
+        int onetwothree = 0;
+        for (int i = startIndex; i < laneCode.Count; i++)
+        {
+            if (laneCode[i] == 1)
+            {
+                int index = i;
+
+                if (index != 4 && laneCode[index + 1] == 0)
+                    break;
+
+                while (index != 4 && laneCode[index + 1] == 1)
+                {
+                    onetwothree++;
+                    index++;
+                }
+                i += onetwothree;
+
+                
+            }
+        }
+        return onetwothree;
     }
     //--------------------------------------------------------------------------------
     public void Update()

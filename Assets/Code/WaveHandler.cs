@@ -194,7 +194,7 @@ public class WaveHandler : MonoBehaviour
         if (tTotalTime <= 4 * Split && tTotalTime > 3 * Split)
         {
  
-            IncrementSpeed(-7f, 0.78f);     
+            IncrementSpeed(-7f, 0.17f);     
             m_CurrentGameStage = GameStages.ICanDoThis;
         }
         if (tTotalTime <= 5 * Split && tTotalTime > 4 * Split)
@@ -207,7 +207,7 @@ public class WaveHandler : MonoBehaviour
         }
         if (tTotalTime <= 7 * Split && tTotalTime > 6 * Split)
         {
-            IncrementSpeed(-8f, 0.9f);     
+            IncrementSpeed(-8f, 0.195f);     
             m_CurrentGameStage = GameStages.Harder;
         }
         if (tTotalTime <= 8 * Split && tTotalTime > 7 * Split)
@@ -224,17 +224,17 @@ public class WaveHandler : MonoBehaviour
         }
         if (tTotalTime > Split * 10)
         {
-            IncrementSpeed(-9f, 1.02f);      
+            IncrementSpeed(-9f, 0.22f);      
             m_CurrentGameStage = GameStages.GiveUpAlready;
         }
         if (tTotalTime > Split * 13)
         {
-            IncrementSpeed(-10f, 1.14f);
+            IncrementSpeed(-10f, 0.245f);
             m_CurrentGameStage = GameStages.LastSegment;
         }
         if (tTotalTime > Split * 16)
         {
-            IncrementSpeed(-11f, 1.26f);
+            IncrementSpeed(-11f, 0.27f);
             m_CurrentGameStage = GameStages.Upmost;
         }
         
@@ -369,18 +369,34 @@ public class WaveHandler : MonoBehaviour
             GameObject laneObj = new GameObject("Lane " + i.ToString());
             laneObj.transform.parent = parent.transform;
 
+            bool IsChecked = false; 
+
             for (int j = 0; j < lane.Blocks.Count; j++)
             {
-                GameObject prefab = m_PreloadedAssets.Find(x => x.name == lane.Blocks[j].Prefab);
-                Vector3 BasePosition = LaneSpawnPos;
-                BasePosition.z = lane.Blocks[j].Index * (-1.5f);
+               
+                GameObject prefab;
+          
 
+                Vector3 BasePosition = LaneSpawnPos;
+                if (lane.Blocks[j].Prefab == "ThreeBlock")
+                {
+                    BasePosition.z = lane.Blocks[j].Index * (-1.5f) - 1.5f;
+                }
+                else if (lane.Blocks[j].Prefab == "TwoBlock")
+                {
+                    BasePosition.z = lane.Blocks[j].Index * (-1.5f) - 0.75f;
+                }
+                else
+                {
+                    BasePosition.z = lane.Blocks[j].Index * (-1.5f);
+                }
+
+                prefab = m_PreloadedAssets.Find(x => x.name == lane.Blocks[j].Prefab);
                 GameObject g = (GameObject)Instantiate(prefab, BasePosition, Quaternion.identity);
                 g.name = "Block at #" + lane.Blocks[j].Index.ToString();
                 lane.Blocks[j].Transform = g.transform;
                 g.transform.parent = laneObj.transform;
                 Physics.IgnoreLayerCollision(g.layer, g.layer);
-
             }
             LaneSpawnPos.x += 8;
         }

@@ -135,10 +135,13 @@ PlayerSettings:
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
-    - m_Icon: {fileID: 2800000, guid: 29cd304c9cc41b84ba07fa35841b3ecc, type: 3}
+    - m_Icon: {fileID: 2800000, guid: f05da5589a21a824586828cb99fb8c02, type: 3}
       m_Size: 128
   m_BuildTargetBatching: []
-  m_BuildTargetGraphicsAPIs: []
+  m_BuildTargetGraphicsAPIs:
+  - m_BuildTarget: AndroidPlayer
+    m_APIs: 08000000
+    m_Automatic: 0
   webPlayerTemplate: APPLICATION:Default
   m_TemplateCustomTags: {}
   actionOnDotNetUnhandledException: 1
@@ -257,7 +260,9 @@ PlayerSettings:
   psmSplashimage: {fileID: 0}
   virtualRealitySupported: 0
   spritePackerPolicy: 
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    4: 
+    7: 
   metroPackageName: Kek
   metroPackageLogo: 
   metroPackageLogo140: 

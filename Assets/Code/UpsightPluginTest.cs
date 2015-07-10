@@ -28,7 +28,7 @@ public class UpsightPluginTest : MonoBehaviour
 			{Service.Audio, new AudioProvider()},
 			{Service.Localization, new LocalizationProvider()},
             //{Service.Achievement, new AchievementProvider()},
-            //{Service.Notification, new NotificationProvider()},
+            {Service.Notification, new NotificationProvider()},
             //{Service.Life, new LifeProvider()},
 			{Service.UAnalytics, new UpsightAnalytics()}
             //{Service.LevelProgress, new ProgressProvider()}
@@ -93,7 +93,6 @@ public class UpsightPluginTest : MonoBehaviour
         if (ServiceLocator.GetDB().GetBool(LEFT_IN_GAME_FLAG, false))
         {
             ServiceLocator.GetDB().Remove(LEFT_IN_GAME_FLAG);
-            ServiceLocator.GetLife().SpendLife();
         }
     }
 
@@ -105,6 +104,7 @@ public class UpsightPluginTest : MonoBehaviour
     private void OnApplicationQuit()
     {
         ServiceLocator.Destroy();
+        print("?");
     }
 	
 	
