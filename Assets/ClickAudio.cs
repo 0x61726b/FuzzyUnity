@@ -8,6 +8,10 @@ public class ClickAudio : MonoBehaviour {
 	void Start () {
         muted = false;
         audio = GetComponent<AudioSource>();
+        if (PlayerPrefs.GetInt("Mute", 0) == 1)
+        {
+            MuteToggle();
+        }
 	}
 	
 	// Update is called once per frame
