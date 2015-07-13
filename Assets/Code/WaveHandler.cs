@@ -462,6 +462,6 @@ public class WaveHandler : MonoBehaviour
         bWait = false;
         spawningWaveType = WaveBase.WaveType.Normal;
         m_vSpawnSpeed = new Vector3(-5.5f, 0, 0);
-        m_FS.scrollSpeed = 0.609f;
+        m_FS.scrollSpeed = 0.135f;
     }
 }
